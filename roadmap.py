@@ -97,21 +97,21 @@ class RoadMap():
 
 
   def calculateIntersections(self,road):
-    #roads are vertical or horizontal, i.e. have direction North/South or East/West
-    direction = 0
+    #roads are vertical or horizontal, i.e. have direction North/South or East/West, we want the opposite direction
+    intersectingRoadDirection = 0
     if road.direction == Direction.North:
-      direction = Direction.North
+     intersectingRoadDirection  = Direction.East
     if road.direction == Direction.East:
-      direction = Direction.East
+      intersectingRoadDirection = Direction.North
 
-    intersectingRoads = [road for road in self.roads if road.direction == direction]
+    intersectingRoads = [road for road in self.roads if road.direction == intersectingRoadDirection]
 
     edges = []
         
     if road.direction == Direction.North:
-      edges = [Coord(road.fixedCoord, intersectingRoad.fixedCoord) for intersectingRoad in intersectingRoads]
+      edges = [(intersectingRoad, Coord(road.fixedCoord, intersectingRoad.fixedCoord)) for intersectingRoad in intersectingRoads]
     if road.direction == Direction.East:
-      edges = [Coord(intersectingRoad.fixedCoord, road.fixedCoord) for intersectingRoad in intersectingRoads]
+      edges = [(interstectingRoad, Coord(intersectingRoad.fixedCoord, road.fixedCoord)) for intersectingRoad in intersectingRoads]
 
     return edges 
 
@@ -119,11 +119,20 @@ class RoadMap():
     #keep track of streets
     self.roads.append(road)
 
-    intersectingRoads = self.calculateIntersections(road)
+    edges = self.calculateIntersections(road)
 
     #street name should be unique
-    self.graph[road.id] = intersectingRoads
+    self.graph[road.id] = edges 
 
+    for edge in edges:
+      print edge[0].id
+      r = edge[0].id
+      print r
+      if r not in self.graph:
+        print("new list for element %s" % edge[0].id)
+        self.graph[edge[0].id] = []
+      print("appending %s to %s" % (road.id, edge[0].id))
+      self.graph[r] = self.graph[r].append((road, edge[1]))
 
 #-----------------Helper Classes-------------------#
 
@@ -154,6 +163,7 @@ def loadCity(file):
       #add it to road
       road.addRoadSection(newRoadSection)
     roadMap.addStreet(road)
+  print roadMap.graph
 
 def xmlToDirection(value):
   if (value == 1):
@@ -173,5 +183,6 @@ def xmlToBool(value):
 
 if __name__ == '__main__':
   loadCity("city1.xml")
+  loadCity("city2.xml")
 
 
