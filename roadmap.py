@@ -16,7 +16,7 @@ class Coord:
   def __init__(self,x,y):
     self.x = x
     self.y = y
-  def equal(self,other):
+  def __eq__(self,other):
     if(self.x == other.x and self.y == other.y):
       return True
     else:
@@ -102,7 +102,7 @@ class Road(object):
 
 class RoadMap():
   def __init__(self):
-    self.graph = {} #graph of roads and intersections
+    self.graph = {} #graph where nodes are roads and edges are intersections; Road: (Road, Coord)
     self.roads = [] #list of roads
 
 
@@ -126,7 +126,7 @@ class RoadMap():
     return edges 
 
   def addStreet(self,road):
-    #keep track of streets
+    #keep track of street   s
     self.roads.append(road)
 
     edges = self.calculateIntersections(road)
@@ -141,11 +141,13 @@ class RoadMap():
       self.graph[ID].append((road, edge[1]))
 
   def printGraph(self):
+    string = ""
     for road, intersectingRoads in self.graph.iteritems():
       r = [x for x in self.roads if x.id == road]
-      print r[0]
+      string += str(r[0]) + "\n"
       for edge in intersectingRoads:
-        print("\t" + str(edge[0]) + " intersects at " + str(edge[1]))
+        string += "\t" + str(edge[0]) + " intersects at " + str(edge[1]) + "\n"
+    return string
 
   def getRoadFromCoord(self, coord):
     vertRoads = [road for road in self.roads if road.direction == Direction.North]
@@ -154,13 +156,13 @@ class RoadMap():
     r2 = ([road for road in horRoads if road.fixedCoord == coord.y])
     roads = []
     if r1 != []:
-      roads.append(r1)
+      roads.extend(r1)
     if r2 != []:
-      roads.append(r2)
+      roads.extend(r2)
     if roads == []:
       return None
     else:
-      return roads
+      return roads[0] #return first row (always vertical road if > 1 road?)
 
 #-----------------Helper Classes-------------------#
 
@@ -191,10 +193,6 @@ def loadCity(file):
       #add it to road
       road.addRoadSection(newRoadSection)
     roadMap.addStreet(road)
-
-  print("\nCity Loaded. Road intersections are: ")
-  roadMap.printGraph()
-  print("")
 
   return roadMap
 
