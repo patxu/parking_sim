@@ -88,7 +88,7 @@ class Road(object):
     self.roadSections.append(roadSection)
 
   def __str__(self):
-    return "ROAD ID: " + str(self.id) + " Direction: " + str(xmlToDirection(self.direction)) + " FixedCoord: " + str(self.fixedCoord)
+    return "ROAD ID: " + str(self.id) + " Direction: " + str(directionToCardinalDirection(self.direction)) + " FixedCoord: " + str(self.fixedCoord)
 
 
 #-----------------Road Map Class-------------------#
@@ -188,6 +188,16 @@ def xmlToDirection(value):
     return Direction.South
   else:
     return Direction.West
+
+def directionToCardinalDirection(value):
+  if (value == 1):
+    return "North"
+  elif(value == 2):
+    return "East"
+  elif(value == 3):
+    return "South"
+  else:
+    return "West"
 
 def xmlToBool(value):
   if (value == 'Y'):
