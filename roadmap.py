@@ -149,9 +149,6 @@ class RoadMap():
       for edge in intersectingRoads:
         print("\t" + str(edge[0]) + " intersects at " + str(edge[1]))
 
-  def __str__(self):
-      return "Graph: " + self.graph + "\nRoads: " + self.road
-
 #-----------------Helper Classes-------------------#
 
 def loadCity(file):
