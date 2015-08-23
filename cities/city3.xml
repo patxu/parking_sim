@@ -288,7 +288,7 @@
 		</roadSection>
 	</road>
 	<road name="4">
-		<direction>1</direction>
+		<direction>2</direction>
 		<min>0</min>
 		<max>9</max>
 		<fixedCoord>0</fixedCoord>
