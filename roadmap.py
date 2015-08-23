@@ -20,8 +20,12 @@ class Coord:
       return False
   def increaseX(self,value):
     self.x += value
+  def decreaseX(self,value):
+    self.x -= value
   def increaseY(self,value):
     self.y += value
+  def decreaseY(self,value):
+    self.y -= value
   def __str__(self):
     return str(self.x)+','+str(self.y)
 
