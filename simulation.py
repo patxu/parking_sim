@@ -24,9 +24,11 @@ class Car(object):
 		else:
 			print("invalid direction")
 
+	def getNextMove(self):
+		return True
+
 	def run(self):
-		while True:
-			
+		while self.getNextMove() is not None:
 			print ('Car %d driving at time %d at coord %d, %d' % (self.carID,self.env.now,self.coordinates.x,self.coordinates.y))
 			trip_duration = 1
 			self.move(self.direction)
@@ -38,11 +40,9 @@ env = simpy.Environment()
 #create coordinate of car
 carCoord = Coord(0,0)
 carCoord2 = Coord(2,0)
-roadMap = loadCity("cities/city2.xml")
-print roadMap.graph[1][1]
+roadMap = loadCity("cities/city1.xml")
+print roadMap.graph
 
 car = Car(env,True,1,roadMap,carCoord,1,Direction.North)
-
-car2 = Car(env,True,2,roadMap,carCoord2,2,Direction.North)
 
 env.run(until=15)
