@@ -87,6 +87,9 @@ class Road(object):
   def addRoadSection(self,roadSection):
     self.roadSections.append(roadSection)
 
+  def __str__(self):
+    return "ROAD ID: " + str(self.id) + " Direction: " + str(xmlToDirection(self.direction)) + " FixedCoord: " + str(self.fixedCoord)
+
 
 #-----------------Road Map Class-------------------#
 
@@ -111,7 +114,7 @@ class RoadMap():
     if road.direction == Direction.North:
       edges = [(intersectingRoad, Coord(road.fixedCoord, intersectingRoad.fixedCoord)) for intersectingRoad in intersectingRoads]
     if road.direction == Direction.East:
-      edges = [(interstectingRoad, Coord(intersectingRoad.fixedCoord, road.fixedCoord)) for intersectingRoad in intersectingRoads]
+      edges = [(intersectingRoad, Coord(intersectingRoad.fixedCoord, road.fixedCoord)) for intersectingRoad in intersectingRoads]
 
     return edges 
 
@@ -125,14 +128,24 @@ class RoadMap():
     self.graph[road.id] = edges 
 
     for edge in edges:
-      print edge[0].id
       r = edge[0].id
-      print r
       if r not in self.graph:
         print("new list for element %s" % edge[0].id)
         self.graph[edge[0].id] = []
-      print("appending %s to %s" % (road.id, edge[0].id))
-      self.graph[r] = self.graph[r].append((road, edge[1]))
+      print("appending road %s to road %s intersection list" % (road.id, edge[0].id))
+      self.graph[r] += (road, edge[1])
+
+  def printGraph(self):
+    # print self.graph[3][0][1]
+    print("")
+    for road, intersectingRoads in self.graph.iteritems():
+      r = [x for x in self.roads if x.id == road]
+      print(r[0])
+      for edge in intersectingRoads:
+        print("\t" + str(edge))# + " " + edge[1].x + ", " + edge[1].y)
+
+  def __str__(self):
+      return "Graph: " + self.graph + "\nRoads: " + self.road
 
 #-----------------Helper Classes-------------------#
 
@@ -163,7 +176,8 @@ def loadCity(file):
       #add it to road
       road.addRoadSection(newRoadSection)
     roadMap.addStreet(road)
-  print roadMap.graph
+
+  roadMap.printGraph()
 
 def xmlToDirection(value):
   if (value == 1):
@@ -183,5 +197,4 @@ def xmlToBool(value):
 
 if __name__ == '__main__':
   loadCity("cities/city3.xml")
-
 
