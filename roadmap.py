@@ -102,8 +102,8 @@ class Road(object):
 
 class RoadMap():
   def __init__(self):
-    self.graph = {} #graph of streets and intersections
-    self.roads = [] #set of streets
+    self.graph = {} #graph of roads and intersections
+    self.roads = [] #list of roads
 
 
   def calculateIntersections(self,road):
@@ -141,13 +141,26 @@ class RoadMap():
       self.graph[ID].append((road, edge[1]))
 
   def printGraph(self):
-    # print self.graph[3][0][1]
-    print("")
     for road, intersectingRoads in self.graph.iteritems():
       r = [x for x in self.roads if x.id == road]
-      print(r[0])
+      print r[0]
       for edge in intersectingRoads:
         print("\t" + str(edge[0]) + " intersects at " + str(edge[1]))
+
+  def getRoadFromCoord(self, coord):
+    vertRoads = [road for road in self.roads if road.direction == Direction.North]
+    r1 = [road for road in vertRoads if road.fixedCoord == coord.x]
+    horRoads = [road for road in self.roads if road.direction == Direction.East]
+    r2 = ([road for road in horRoads if road.fixedCoord == coord.y])
+    roads = []
+    if r1 != []:
+      roads.append(r1)
+    if r2 != []:
+      roads.append(r2)
+    if roads == []:
+      return None
+    else:
+      return roads
 
 #-----------------Helper Classes-------------------#
 
@@ -179,7 +192,10 @@ def loadCity(file):
       road.addRoadSection(newRoadSection)
     roadMap.addStreet(road)
 
+  print("\nCity Loaded. Road intersections are: ")
   roadMap.printGraph()
+  print("")
+
   return roadMap
 
 def xmlToDirection(value):
