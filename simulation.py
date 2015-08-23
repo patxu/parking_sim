@@ -32,7 +32,7 @@ env = simpy.Environment()
 #create coordinate of car
 carCoord = Coord(1,1)
 
-#car = Car(env,True,1,street,carCoord)
+
 roadMap = loadCity("cities/city1.xml")
 
 while env.now < 9:
