@@ -1,5 +1,5 @@
 <data>
-	<road name="foo">
+	<road name="1">
 		<direction>1</direction>
 		<min>0</min>
 		<max>3</max>

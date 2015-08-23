@@ -77,12 +77,13 @@ class RoadSection(object):
 #-----------------Road Class-------------------#
 
 class Road(object):
-  def __init__(self,direction,min,max,fixedCoord):
+  def __init__(self,id,direction,min,max,fixedCoord):
     self.direction = direction
     self.min = min
     self.max = max
     self.fixedCoord = fixedCoord
     self.roadSections = []
+    self.id = id
   def addRoadSection(self,roadSection):
     self.roadSections.append(roadSection)
 
@@ -94,16 +95,8 @@ class RoadMap():
     self.graph = {} #graph of streets and intersections
     self.roads = [] #set of streets
 
-  def addStreet(road):
-    #keep track of streets
-    roads.add(road)
 
-    intersectingRoads = calculateIntersections(road)
-
-    #street name should be unique
-    self.graph[road.name] = intersections
-
-  def calculateIntersections(road):
+  def calculateIntersections(self,road):
     #roads are vertical or horizontal, i.e. have direction North/South or East/West
     direction = 0
     if road.direction == Direction.North:
@@ -122,17 +115,29 @@ class RoadMap():
 
     return edges 
 
+  def addStreet(self,road):
+    #keep track of streets
+    self.roads.append(road)
+
+    intersectingRoads = self.calculateIntersections(road)
+
+    #street name should be unique
+    self.graph[road.id] = intersectingRoads
+
+
 #-----------------Helper Classes-------------------#
 
 def loadCity(file):
-  tree = ET.parse('city1.xml')
+  roadMap = RoadMap()
+  tree = ET.parse(file)
   root = tree.getroot()
   for road in root.findall('road'):
     min = int(road.find('min').text)
     max = int(road.find('max').text)
     fixedCoord = int(road.find('fixedCoord').text)
-    direction = convertToDirection(int(road.find('direction').text))
-    road = Road(direction,min,max,fixedCoord)
+    direction = xmlToDirection(int(road.find('direction').text))
+    roadID = int(road.attrib["name"])
+    road = Road(roadID,direction,min,max,fixedCoord)
 
     
     #Get the road sections
@@ -143,12 +148,14 @@ def loadCity(file):
       parkingSpotRight = ParkingSpot(xmlToBool(roadSection.find('parkingRight').text))
       crossable = xmlToBool(roadSection.find('crossable')) 
       intersection = xmlToBool(roadSection.find('intersection').text) 
-      direction = convertToDirection(roadSection.find('direction').text)   
+      direction = xmlToDirection(roadSection.find('direction').text)   
+      #create new road section
       newRoadSection = RoadSection(Coord(coordX,coordY),parkingSpotRight,parkingSpotLeft,crossable,intersection,direction)
-      print(newRoadSection)
+      #add it to road
       road.addRoadSection(newRoadSection)
+    roadMap.addStreet(road)
 
-def convertToDirection(value):
+def xmlToDirection(value):
   if (value == 1):
     return Direction.North
   elif(value == 2):
