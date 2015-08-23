@@ -182,6 +182,7 @@ def loadCity(file):
     roadMap.addStreet(road)
 
   roadMap.printGraph()
+  return roadMap
 
 def xmlToDirection(value):
   if (value == 1):
