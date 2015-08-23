@@ -7,10 +7,10 @@
 		<roadSection>
 			<coordX>0</coordX>
 			<coordY>0</coordY>
-			<parkingRight>Y</parkingRight>
-			<parkingLeft>Y</parkingLeft>
+			<parkingRight>N</parkingRight>
+			<parkingLeft>N</parkingLeft>
 			<crossable>Y</crossable>
-			<intersection>N</intersection>
+			<intersection>Y</intersection>
 			<direction>1</direction>
 		</roadSection>
 		<roadSection>
