@@ -1,0 +1,37 @@
+<data>
+	<road name="foo">
+		<direction>North</direction>
+		<min>0</min>
+		<max>3</max>
+		<fixedCoord>0</fixedCoord>
+		<roadSection>
+			<coordX>0</coordX>
+			<coordY>0</coordY>
+			<parkingRight>Y</parkingRight>
+			<parkingLeft>Y</parkingLeft>
+			<intersection>N</intersection>
+		</roadSection>
+		<roadSection>
+			<coordX>0</coordX>
+			<coordY>1</coordY>
+			<parkingRight>Y</parkingRight>
+			<parkingLeft>Y</parkingLeft>
+			<intersection>N</intersection>
+		</roadSection>
+		<roadSection>
+			<coordX>0</coordX>
+			<coordY>2</coordY>
+			<parkingRight>N</parkingRight>
+			<parkingLeft>N</parkingLeft>
+			<intersection>Y</intersection>
+		</roadSection>
+		<roadSection>
+			<coordX>0</coordX>
+			<coordY>3</coordY>
+			<parkingRight>Y</parkingRight>
+			<parkingLeft>Y</parkingLeft>
+			<intersection>N</intersection>
+		</roadSection>
+	</road>
+
+</data>
