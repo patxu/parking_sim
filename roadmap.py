@@ -182,7 +182,6 @@ def xmlToBool(value):
     return False
 
 if __name__ == '__main__':
-  loadCity("city1.xml")
-  loadCity("city2.xml")
+  loadCity("cities/city3.xml")
 
 
