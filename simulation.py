@@ -1,21 +1,5 @@
 import simpy
-
-BLOCK_LENGTH = 10
-
-class Coord:
-	def __init__(self,x,y):
-		self.x = x
-		self.y = y
-	def equal(self,other):
-		if(self.x == other.x and self.y == other.y):
-			return True
-		else:
-			return False
-	def increaseX(self,value):
-		self.x += value
-	def increaseY(self,value):
-		self.y += value
-
+from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 
 class Car(object):
 	def __init__(self,env,wantsToPark,carID,cityMap,coordinates,currentStreetId):
@@ -43,37 +27,13 @@ class Car(object):
 			self.coordinates.increaseY(1)
 			yield env.timeout(1)
 
-
-class ParkingSpot(object):
-	def __init__(self,env,coord,available):
-		self.env = env
-		self.coord = coord
-		self.available = available
-	
-	def request(self):
-		self.available = True
-
-	def release(self):
-		self.available = False
-
-	def available(self):
-		return self.available
-
 env = simpy.Environment()
 
 #create coordinate of car
 carCoord = Coord(1,1)
 
-#create coordinate,resource of parking space
-coord = Coord(1,3)
-parkingSpot = ParkingSpot(env,coord,True)
-
-#add to list of parkin spaces
-street = [[None for x in range(BLOCK_LENGTH)] for x in range(BLOCK_LENGTH)] 
-street[parkingSpot.coord.x][parkingSpot.coord.y] = parkingSpot
-
-car = Car(env,True,1,street,carCoord)
-
+#car = Car(env,True,1,street,carCoord)
+roadMap = loadCity("cities/city1.xml")
 
 while env.now < 9:
 	env.step()
