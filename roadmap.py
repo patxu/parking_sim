@@ -1,5 +1,8 @@
 import xml.etree.ElementTree as ET
 
+#DEBUGGING (must have ipdb and iPython set up)
+# import ipdb; ipdb.set_trace()
+
 #-----------------Direction Enum-------------------#
 
 def enum(**enums):
@@ -92,7 +95,7 @@ class Road(object):
     self.roadSections.append(roadSection)
 
   def __str__(self):
-    return "ROAD ID: " + str(self.id) + " Direction: " + str(directionToCardinalDirection(self.direction)) + " FixedCoord: " + str(self.fixedCoord)
+    return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
 
 
 #-----------------Road Map Class-------------------#
@@ -132,12 +135,10 @@ class RoadMap():
     self.graph[road.id] = edges 
 
     for edge in edges:
-      r = edge[0].id
-      if r not in self.graph:
-        print("new list for element %s" % edge[0].id)
-        self.graph[edge[0].id] = []
-      print("appending road %s to road %s intersection list" % (road.id, edge[0].id))
-      self.graph[r] += (road, edge[1])
+      ID = edge[0].id
+      # if ID not in self.graph:
+      #   self.graph[ID] = []
+      self.graph[ID].append((road, edge[1]))
 
   def printGraph(self):
     # print self.graph[3][0][1]
@@ -146,7 +147,7 @@ class RoadMap():
       r = [x for x in self.roads if x.id == road]
       print(r[0])
       for edge in intersectingRoads:
-        print("\t" + str(edge))# + " " + edge[1].x + ", " + edge[1].y)
+        print("\t" + str(edge[0]) + " intersects at " + str(edge[1]))
 
   def __str__(self):
       return "Graph: " + self.graph + "\nRoads: " + self.road
