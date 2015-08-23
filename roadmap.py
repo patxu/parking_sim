@@ -140,8 +140,8 @@ class RoadMap():
       #   self.graph[ID] = []
       self.graph[ID].append((road, edge[1]))
 
-  def printGraph(self):
-    string = ""
+  def __str__(self):
+    string = "Roads and Road Intersections:\n"
     for road, intersectingRoads in self.graph.iteritems():
       r = [x for x in self.roads if x.id == road]
       string += str(r[0]) + "\n"
