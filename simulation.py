@@ -7,7 +7,7 @@ import roadmap
 # import ipdb; ipdb.set_trace()
 
 class Car(object):
-	def __init__(self,env,wantsToPark,carID,cityMap,coordinates,currentStreetId,direction):
+	def __init__(self,env,wantsToPark,carID,cityMap,coordinates = None,currentStreetId = None,direction = None):
 		self.env = env
 		self.action = env.process(self.run())
 		self.wantsToPark = wantsToPark
@@ -16,10 +16,10 @@ class Car(object):
 		self.coordinates = coordinates
 		self.currentStreetId = currentStreetId
 		self.direction = direction
-	
+
 	def move(self,direction):
 		validDirections = self.getValidDirections()
-		if len(validDirections) > 1: #unless we have to, don't u-turn
+		if len(validDirections) > 1: #don't u-turn unless we have to
 			oppositeDirection = (self.direction + 2) % 4
 			if oppositeDirection == 0:
 				oppositeDirection = 4
@@ -93,19 +93,16 @@ class Car(object):
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + " Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")"
 			
-
 if __name__ == "__main__":
 	env = simpy.Environment()
 
-	#create coordinate of car
-	carCoord = Coord(0,0)
-	carCoord2 = Coord(2,0)
-	# roadMap = loadCity("cities/city1.xml")
-	roadMap = loadCity("cities/city3.xml")
+	roadMap = loadCity("cities/city1.xml")
+	# roadMap = loadCity("cities/city3.xml")
 	print roadMap
 
-	car = Car(env,True,1,roadMap,carCoord,1,Direction.North)
-	car.randomlyPlaceCarOnRoads()
-	print car
+	for i in range(1):
+		car = Car(env,True,i,roadMap)
+		car.randomlyPlaceCarOnRoads()
+		print car
 
 	env.run(until=15)
