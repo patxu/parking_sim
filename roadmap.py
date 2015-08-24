@@ -56,18 +56,18 @@ class ParkingSpot(object):
 #-----------------Road Section Class-------------------#
 
 class RoadSection(object):
-  def __init__(self,coordinates,parkingRight,parkingLeft,crossable,interstection,direction):
+  def __init__(self,coordinates,parkingRight,parkingLeft,crossable,intersection,direction):
     self.coordinates = coordinates
     self.parkingRight = parkingRight
     self.parkingLeft = parkingLeft
     self.crossable = crossable
-    self.interstection = interstection
+    self.intersection = intersection
     self.direction = direction
 
   #orientation of north and east as "postitive" - south->north and west->east
   def getParkingSpots(self, carDirection):
     availableSpots = []
-    if (self.interstection == True): #cannot park at intersections
+    if (self.intersection == True): #cannot park at intersections
       return availableSpots
     elif(self.crossable == True): #can park on either side
       if (self.parkingRight.available()):
@@ -91,7 +91,7 @@ class RoadSection(object):
           return [self.parkingLeft]
 
   def isIntersection(self):
-    return self.interstection
+    return self.intersection
 
   def __str__(self):
     return "Road Section " +str(self.coordinates) + " (Parking right " + str(self.parkingRight)+", Parking left " + str(self.parkingLeft) + ")"
