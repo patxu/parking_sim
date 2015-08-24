@@ -21,16 +21,21 @@ class Coord:
       return True
     else:
       return False
+
   def increaseX(self,value):
     self.x += value
+
   def decreaseX(self,value):
     self.x -= value
+
   def increaseY(self,value):
     self.y += value
+
   def decreaseY(self,value):
     self.y -= value
+
   def __str__(self):
-    return str(self.x)+','+str(self.y)
+    return "(" + str(self.x) + ',' + str(self.y) + ")"
 
 #-----------------Parking Spot Class-------------------#
 
@@ -46,6 +51,7 @@ class ParkingSpot(object):
 
   def available(self):
     return self.available
+
   def __str__(self):
     return "available: " + str(self.available)
 
@@ -60,26 +66,36 @@ class RoadSection(object):
     self.interstection = interstection
     self.direction = direction
 
-  #This assumes south->north or east->west
-  def parkingAvailable(carDirection):
-    if (self.interstection == True):
-      return false
-    if(self.crossable == True):
-      return parkingSpotRight.available or parkingSpotLeft.available
+  #orientation of north and east as "postitive" - south->north and west->east
+  def parkingAvailable(self, carDirection):
+    availableSpots = []
+    if (self.interstection == True): #cannot park at intersections
+      return availableSpots
+    elif(self.crossable == True): #can park on either side
+      if (self.parkingSpotRight.available()):
+        availableSpots.extend([self.parkingSpotRight])
+      if (self.parkingSpotLeft.available()):
+        availableSpots.extend([self.parkingSpotLeft])
+      return availableSpots
     else:
       if(carDirection == Direction.North):
-        return parkingSpotRight.available()
+        if (self.parkingSpotRight.available()):
+          return [self.parkingSpotRight]
       elif(carDirection == Direction.South):
-        return parkingSpotLeft.available()
-      elif(carDirection == West):
-        return parkingSpotRight.available()
+        if (self.parkingSpotLeft.available()):
+          return [self.parkingSpotLeft]
+      elif(carDirection == Direction.East):
+        if (self.parkingSpotRight.available()):
+          return [self.parkingSpotRight]
       else:
-        return parkingSpotLeft.available()
-  def isIntersection():
+        if (self.parkingSpotLeft.available()):
+          return [self.parkingSpotLeft]
+
+  def isIntersection(self):
     return self.interstection
 
   def __str__(self):
-    return "Coordinates: " +str(self.coordinates)+", Parking spot right " + str(self.parkingSpotRight)+", Parking spot left " + str(self.parkingSpotLeft)
+    return "Road Section " +str(self.coordinates) + " (spot right " + str(self.parkingSpotRight)+", spot left " + str(self.parkingSpotLeft) + ")"
 
 #-----------------Road Class-------------------#
 
@@ -92,7 +108,9 @@ class Road(object):
     self.roadSections = []
     self.id = id
   def addRoadSection(self,roadSection):
-    self.roadSections.append(roadSection)
+    self.roadSections.extend([roadSection])
+  def getRoadSection(self, coord):
+    return [section for section in self.roadSections]# if section.coordinates == coord]
 
   def __str__(self):
     return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
@@ -104,7 +122,6 @@ class RoadMap():
   def __init__(self):
     self.graph = {} #graph where nodes are roads and edges are intersections; Road: (Road, Coord)
     self.roads = [] #list of roads
-
 
   def calculateIntersections(self,road):
     #roads are vertical or horizontal, i.e. have direction North/South or East/West- we want the perpendicular direction
@@ -180,7 +197,7 @@ def loadCity(file):
 
     
     #Get the road sections
-    for roadSection in root.findall('./road/roadSection'):
+    for roadSection in root.findall(".//*[@name='" + str(road.id) + "']/roadSection"):
       coordX = roadSection.find('coordX').text
       coordY = roadSection.find('coordY').text
       parkingSpotLeft = ParkingSpot(xmlToBool(roadSection.find('parkingLeft').text))
@@ -192,6 +209,7 @@ def loadCity(file):
       newRoadSection = RoadSection(Coord(coordX,coordY),parkingSpotRight,parkingSpotLeft,crossable,intersection,direction)
       #add it to road
       road.addRoadSection(newRoadSection)
+      print("adding %s to %s" % (str(newRoadSection), str(road)))
     roadMap.addStreet(road)
 
   return roadMap
