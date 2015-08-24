@@ -84,6 +84,6 @@ if __name__ == '__main__':
 	for road in roads:
 		city.addStreet(road)
 	for road in roads:
-		fillWithRoadSection(road,60,True,city)
-	generateXML(city.roads,"test.xml")
+		fillWithRoadSection(road,100,True,city)
+	generateXML(city.roads,"cities/grid100_2.xml")
 	
