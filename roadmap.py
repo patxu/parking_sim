@@ -16,6 +16,7 @@ class Coord:
   def __init__(self,x,y):
     self.x = x
     self.y = y
+
   def __eq__(self,other):
     if(self.x == other.x and self.y == other.y):
       return True
@@ -44,13 +45,10 @@ class ParkingSpot(object):
     self.available = available
   
   def request(self):
-    self.available = True
-
-  def release(self):
     self.available = False
 
-  def available(self):
-    return self.available
+  def release(self):
+    self.available = True
 
   def __str__(self):
     return "available: " + str(self.available)
@@ -58,44 +56,45 @@ class ParkingSpot(object):
 #-----------------Road Section Class-------------------#
 
 class RoadSection(object):
-  def __init__(self,coordinates,parkingSpotRight,parkingSpotLeft,crossable,interstection,direction):
+  def __init__(self,coordinates,parkingRight,parkingLeft,crossable,interstection,direction):
     self.coordinates = coordinates
-    self.parkingSpotRight = parkingSpotRight
-    self.parkingSpotLeft = parkingSpotLeft
+    self.parkingRight = parkingRight
+    self.parkingLeft = parkingLeft
     self.crossable = crossable
     self.interstection = interstection
     self.direction = direction
 
   #orientation of north and east as "postitive" - south->north and west->east
-  def parkingAvailable(self, carDirection):
+  def getParkingSpots(self, carDirection):
     availableSpots = []
     if (self.interstection == True): #cannot park at intersections
       return availableSpots
     elif(self.crossable == True): #can park on either side
-      if (self.parkingSpotRight.available()):
-        availableSpots.extend([self.parkingSpotRight])
-      if (self.parkingSpotLeft.available()):
-        availableSpots.extend([self.parkingSpotLeft])
+      if (self.parkingRight.available()):
+        availableSpots.extend([self.parkingRight])
+      if (self.parkingLeft.available()):
+        availableSpots.extend([self.parkingLeft])
       return availableSpots
     else:
       if(carDirection == Direction.North):
-        if (self.parkingSpotRight.available()):
-          return [self.parkingSpotRight]
-      elif(carDirection == Direction.South):
-        if (self.parkingSpotLeft.available()):
-          return [self.parkingSpotLeft]
-      elif(carDirection == Direction.East):
-        if (self.parkingSpotRight.available()):
-          return [self.parkingSpotRight]
+        if(self.parkingRight.available):
+          return [self.parkingRight]
+      elif carDirection == Direction.South:
+        if self.parkingLeft.available:
+          print [self.parkingLeft]
+          return [self.parkingLeft]
+      elif carDirection == Direction.East:
+        if self.parkingRight.available:
+          return [self.parkingRight]
       else:
-        if (self.parkingSpotLeft.available()):
-          return [self.parkingSpotLeft]
+        if self.parkingLeft.available:
+          return [self.parkingLeft]
 
   def isIntersection(self):
     return self.interstection
 
   def __str__(self):
-    return "Road Section " +str(self.coordinates) + " (spot right " + str(self.parkingSpotRight)+", spot left " + str(self.parkingSpotLeft) + ")"
+    return "Road Section " +str(self.coordinates) + " (Parking right " + str(self.parkingRight)+", Parking left " + str(self.parkingLeft) + ")"
 
 #-----------------Road Class-------------------#
 
@@ -107,10 +106,13 @@ class Road(object):
     self.fixedCoord = fixedCoord
     self.roadSections = []
     self.id = id
+
   def addRoadSection(self,roadSection):
     self.roadSections.extend([roadSection])
-  def getRoadSection(self, coord):
-    return [section for section in self.roadSections]# if section.coordinates == coord]
+
+  #find the road section based on a coordinate
+  def getRoadSectionFromCoord(self, coord):
+    return [section for section in self.roadSections if section.coordinates == coord][0]
 
   def __str__(self):
     return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
@@ -198,18 +200,17 @@ def loadCity(file):
     
     #Get the road sections
     for roadSection in root.findall(".//*[@name='" + str(road.id) + "']/roadSection"):
-      coordX = roadSection.find('coordX').text
-      coordY = roadSection.find('coordY').text
+      coordX = int(roadSection.find('coordX').text)
+      coordY = int(roadSection.find('coordY').text)
       parkingSpotLeft = ParkingSpot(xmlToBool(roadSection.find('parkingLeft').text))
       parkingSpotRight = ParkingSpot(xmlToBool(roadSection.find('parkingRight').text))
       crossable = xmlToBool(roadSection.find('crossable')) 
       intersection = xmlToBool(roadSection.find('intersection').text) 
-      direction = xmlToDirection(roadSection.find('direction').text)   
+      direction = int(xmlToDirection(roadSection.find('direction').text))
       #create new road section
       newRoadSection = RoadSection(Coord(coordX,coordY),parkingSpotRight,parkingSpotLeft,crossable,intersection,direction)
       #add it to road
       road.addRoadSection(newRoadSection)
-      print("adding %s to %s" % (str(newRoadSection), str(road)))
     roadMap.addStreet(road)
 
   return roadMap

@@ -17,6 +17,7 @@ class Car(object):
 		self.currentStreetId = currentStreetId
 		self.direction = direction
 
+	#execute a move
 	def move(self,direction):
 		validDirections = self.getValidDirections()
 		if len(validDirections) > 1: #don't u-turn unless we have to
@@ -83,26 +84,36 @@ class Car(object):
 	def getNextMove(self):
 		return True
 
+	#define car behavior
 	def run(self):
 		while self.getNextMove() is not None:
-			print ('Car %d driving at time %d at coord %s' % (self.carID,self.env.now,str(self.coordinates)))
-			trip_duration = 1
-			self.move(self.direction)
-			yield self.env.timeout(trip_duration)
+			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
+			parkingSpots = section.getParkingSpots(self.direction)
+			if len(parkingSpots) == 0: #no parking available
+				print ("Car %d driving at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				trip_duration = 1
+				self.move(self.direction)
+				yield self.env.timeout(trip_duration)
+			else:
+				parkingSpot = random.choice(parkingSpots)
+				parkingSpot.request()
+				print ("Car %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				park_duration = 1
+				yield self.env.timeout(park_duration)
 
 	def __str__(self):
-		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + " Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")"
+		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")"
 			
 if __name__ == "__main__":
 	env = simpy.Environment()
 
-	roadMap = loadCity("cities/city1.xml")
-	# roadMap = loadCity("cities/city3.xml")
-	print roadMap
+	# roadMap = loadCity("cities/city1.xml")
+	roadMap = loadCity("cities/city3.xml")
 
 	for i in range(1):
 		car = Car(env,True,i,roadMap)
 		car.randomlyPlaceCarOnRoads()
+		car.coordinates=Coord(0,1)
 		print car
 
-	env.run(until=15)
+	env.run(until=10)
