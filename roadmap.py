@@ -107,7 +107,7 @@ class RoadMap():
 
 
   def calculateIntersections(self,road):
-    #roads are vertical or horizontal, i.e. have direction North/South or East/West, we want the opposite direction
+    #roads are vertical or horizontal, i.e. have direction North/South or East/West- we want the perpendicular direction
     intersectingRoadDirection = 0
     if road.direction == Direction.North:
      intersectingRoadDirection  = Direction.East
