@@ -3,11 +3,14 @@ from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCit
 import roadmap
 import xml.etree.cElementTree as ET
 
+import xml.dom.minidom
+
+
 SEED = 13
 MAP_SIZE = 100
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 15
-
+PERCENT_OPEN = 20
 
 def generateRoads():
 	roadID = 0
@@ -70,7 +73,22 @@ def generateXML(roads,filename):
 			
 
 	tree = ET.ElementTree(root)
+
+	#SUUUUUUUUUUUUPER ugly xml generation
 	tree.write(filename)
+
+	x = xml.dom.minidom.parse(filename)
+	pretty_xml = x.toprettyxml()
+
+	header = "<!-- GENERATION INFO:\nSEED = " + str(SEED) + "\nMAP_SIZE = " + str(MAP_SIZE) + "\nBLOCK_SIZE_HORIZONTAL = " + str(BLOCK_SIZE_HORIZONTAL) + "\nBLOCK_SIZE_VERTICAL = " + str(BLOCK_SIZE_VERTICAL) + "\nPERCENT_OPEN = " + str(PERCENT_OPEN) + " -->"
+	f = open(filename, 'w').write(pretty_xml)
+	f = open( filename, 'r' )
+	lines = f.readlines()
+	f.close()
+
+	f = open( filename, 'w' )
+	f.write( header + '\n' + ''.join( lines[1:] ) )
+	f.close()
 
 def boolToXML(bool):
 	if bool:
@@ -84,6 +102,6 @@ if __name__ == '__main__':
 	for road in roads:
 		city.addStreet(road)
 	for road in roads:
-		fillWithRoadSection(road,20,True,city)
+		fillWithRoadSection(road,PERCENT_OPEN,True,city)
 	generateXML(city.roads,"cities/grid100_1.xml")
 	
