@@ -206,7 +206,7 @@ def loadCity(file):
       parkingSpotRight = ParkingSpot(xmlToBool(roadSection.find('parkingRight').text))
       crossable = xmlToBool(roadSection.find('crossable')) 
       intersection = xmlToBool(roadSection.find('intersection').text) 
-      direction = int(xmlToDirection(roadSection.find('direction').text))
+      direction = int(roadSection.find('direction').text)
       #create new road section
       newRoadSection = RoadSection(Coord(coordX,coordY),parkingSpotRight,parkingSpotLeft,crossable,intersection,direction)
       #add it to road
