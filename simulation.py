@@ -6,6 +6,7 @@ from threading import Thread
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()
+# import pdb, traceback, sys, code
 
 class Car(object):
 	def __init__(self,env,carID,cityMap,wantsToPark = True,coordinates = None,currentStreetId = None,direction = None,parkingSpot=None):
@@ -48,7 +49,6 @@ class Car(object):
 		#set coordinate
 		startRoad = random.choice(self.cityMap.roads)
 		freeCoord = random.randrange(startRoad.min, startRoad.max + 1)
-		print(startRoad.direction)
 		if startRoad.direction == Direction.North:
 			coordinates = Coord(startRoad.fixedCoord,freeCoord)
 		if startRoad.direction == Direction.East:
@@ -126,6 +126,8 @@ if __name__ == "__main__":
 		car = Car(env,i,roadMap)
 		car.randomlyPlaceCarOnRoads()
 		print car
-	#env.run(until=10)
+
+	env.run(until=100)
+
 	# Thread(target = env.step()).start()
 	# Thread(target = func2).start()

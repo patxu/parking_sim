@@ -111,6 +111,8 @@ class Road(object):
 
   #find the road section based on a coordinate
   def getRoadSectionFromCoord(self, coord):
+    print(coord)
+    print([str(section) for section in self.roadSections])
     return [section for section in self.roadSections if section.coordinates == coord][0]
 
   def __str__(self):
@@ -215,11 +217,11 @@ def loadCity(file):
   return roadMap
 
 def xmlToDirection(value):
-  if (value == "1"):
+  if (value == 1):
     return Direction.North
-  elif(value == "2"):
+  elif(value == 2):
     return Direction.East
-  elif(value == "3"):
+  elif(value == 3):
     return Direction.South
   else:
     return Direction.West
