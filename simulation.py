@@ -2,6 +2,7 @@ import simpy
 import random
 from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 import roadmap
+from threading import Thread
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()
@@ -108,12 +109,13 @@ if __name__ == "__main__":
 	env = simpy.Environment()
 
 	# roadMap = loadCity("cities/city1.xml")
-	roadMap = loadCity("cities/city3.xml")
+	roadMap = loadCity("cities/city1.xml")
 
 	for i in range(1):
 		car = Car(env,True,i,roadMap)
 		car.randomlyPlaceCarOnRoads()
 		car.coordinates=Coord(0,1)
 		print car
-
-	env.run(until=10)
+	#env.run(until=10)
+	Tread(target = env.step()).start()
+    Thread(target = func2).start()
