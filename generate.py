@@ -7,7 +7,7 @@ SEED = 13
 MAP_SIZE = 100
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 15
-PARKING_DENSITY = 60
+
 
 def generateRoads():
 	roadID = 0
@@ -66,7 +66,7 @@ def generateXML(roads,filename):
 			data = ET.SubElement(roadSectionXML, "parkingLeft").text = boolToXML(roadSection.parkingLeft.available)
 			data = ET.SubElement(roadSectionXML, "crossable").text = boolToXML(roadSection.crossable)
 			data = ET.SubElement(roadSectionXML, "intersection").text = boolToXML(roadSection.intersection)
-			data = ET.SubElement(roadSectionXML, "direction").text = boolToXML(roadSection.direction)
+			data = ET.SubElement(roadSectionXML, "direction").text = str(roadSection.direction)
 			
 
 	tree = ET.ElementTree(root)
@@ -84,6 +84,6 @@ if __name__ == '__main__':
 	for road in roads:
 		city.addStreet(road)
 	for road in roads:
-		fillWithRoadSection(road,100,True,city)
-	generateXML(city.roads,"cities/grid100_2.xml")
+		fillWithRoadSection(road,20,True,city)
+	generateXML(city.roads,"cities/grid100_1.xml")
 	
