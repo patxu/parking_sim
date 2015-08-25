@@ -2,6 +2,7 @@ import simpy
 import random
 from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 import roadmap
+from threading import Thread
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()
@@ -47,6 +48,7 @@ class Car(object):
 		#set coordinate
 		startRoad = random.choice(self.cityMap.roads)
 		freeCoord = random.randrange(startRoad.min, startRoad.max + 1)
+		print(startRoad.direction)
 		if startRoad.direction == Direction.North:
 			coordinates = Coord(startRoad.fixedCoord,freeCoord)
 		if startRoad.direction == Direction.East:
@@ -124,5 +126,6 @@ if __name__ == "__main__":
 		car = Car(env,i,roadMap)
 		car.randomlyPlaceCarOnRoads()
 		print car
-
-	env.run(until=10)
+	#env.run(until=10)
+	# Thread(target = env.step()).start()
+	# Thread(target = func2).start()

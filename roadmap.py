@@ -215,11 +215,11 @@ def loadCity(file):
   return roadMap
 
 def xmlToDirection(value):
-  if (value == 1):
+  if (value == "1"):
     return Direction.North
-  elif(value == 2):
+  elif(value == "2"):
     return Direction.East
-  elif(value == 3):
+  elif(value == "3"):
     return Direction.South
   else:
     return Direction.West
@@ -241,5 +241,5 @@ def xmlToBool(value):
     return False
 
 if __name__ == '__main__':
-  loadCity("cities/city3.xml")
+  loadCity("cities/test.xml")
 
