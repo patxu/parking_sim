@@ -14,12 +14,12 @@ def generateRoads():
 	roads = []
 	for x in range(0,MAP_SIZE):
 		if (x%BLOCK_SIZE_HORIZONTAL == 0):
-			road = Road(roadID,Direction.North,0,MAP_SIZE-1,x)
+			road = Road(roadID,Direction.North,0,MAP_SIZE,x)
 			roads.append(road)
 			roadID +=1
 	for x in range(0,MAP_SIZE):
 		if (x%BLOCK_SIZE_VERTICAL == 0):
-			road = Road(roadID,Direction.East,0,MAP_SIZE-1,x)
+			road = Road(roadID,Direction.East,0,MAP_SIZE,x)
 			roads.append(road)
 			roadID +=1
 	return roads
@@ -27,7 +27,7 @@ def generateRoads():
 #parking density is a number between 0-100 which represents percentage of parking spots
 def fillWithRoadSection(road,parkingDensity,crossable,cityMap):
 	random.seed(SEED)
-	for x in range(0,road.max):
+	for x in range(0,road.max+1):
 		if (road.direction == Direction.North):
 			coordinates = Coord(road.fixedCoord,x)
 		elif (road.direction == Direction.East):

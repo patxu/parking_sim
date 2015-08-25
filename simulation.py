@@ -127,7 +127,7 @@ if __name__ == "__main__":
 		car.randomlyPlaceCarOnRoads()
 		print car
 
-	env.run(until=100)
+	env.run(until=10)
 
 	# Thread(target = env.step()).start()
 	# Thread(target = func2).start()
