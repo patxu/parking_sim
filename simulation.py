@@ -7,7 +7,7 @@ import roadmap
 # import ipdb; ipdb.set_trace()
 
 class Car(object):
-	def __init__(self,env,wantsToPark,carID,cityMap,coordinates = None,currentStreetId = None,direction = None):
+	def __init__(self,env,carID,cityMap,wantsToPark = True,coordinates = None,currentStreetId = None,direction = None,parkingSpot=None):
 		self.env = env
 		self.action = env.process(self.run())
 		self.wantsToPark = wantsToPark
@@ -16,6 +16,7 @@ class Car(object):
 		self.coordinates = coordinates
 		self.currentStreetId = currentStreetId
 		self.direction = direction
+		self.parkingSpot = parkingSpot 
 
 	#execute a move
 	def move(self,direction):
@@ -87,19 +88,27 @@ class Car(object):
 	#define car behavior
 	def run(self):
 		while self.getNextMove() is not None:
+			if self.parkingSpot != None: #unpark if parked
+				self.parkingSpot.release()
+				self.parkingSpot = None
+
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
-			if len(parkingSpots) == 0: #no parking available
+
+			if len(parkingSpots) > 0 and self.wantsToPark: #park
+				print ("Car %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				parkingSpot = random.choice(parkingSpots)
+				parkingSpot.request()
+				self.wantsToPark = False
+				self.parkingSpot = parkingSpot
+				park_duration = 1
+				yield self.env.timeout(park_duration)
+
+			else: #default behavior- drive
 				print ("Car %d driving at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
 				trip_duration = 1
 				self.move(self.direction)
 				yield self.env.timeout(trip_duration)
-			else:
-				parkingSpot = random.choice(parkingSpots)
-				parkingSpot.request()
-				print ("Car %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
-				park_duration = 1
-				yield self.env.timeout(park_duration)
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")"
@@ -108,12 +117,12 @@ if __name__ == "__main__":
 	env = simpy.Environment()
 
 	# roadMap = loadCity("cities/city1.xml")
-	roadMap = loadCity("cities/city3.xml")
+	# roadMap = loadCity("cities/city3.xml")
+	roadMap = loadCity("cities/grid100_1.xml")
 
 	for i in range(1):
-		car = Car(env,True,i,roadMap)
+		car = Car(env,i,roadMap)
 		car.randomlyPlaceCarOnRoads()
-		car.coordinates=Coord(0,1)
 		print car
 
 	env.run(until=10)

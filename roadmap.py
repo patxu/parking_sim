@@ -68,27 +68,26 @@ class RoadSection(object):
   def getParkingSpots(self, carDirection):
     availableSpots = []
     if (self.intersection == True): #cannot park at intersections
-      return availableSpots
+      pass
     elif(self.crossable == True): #can park on either side
       if (self.parkingRight.available()):
         availableSpots.extend([self.parkingRight])
       if (self.parkingLeft.available()):
         availableSpots.extend([self.parkingLeft])
-      return availableSpots
     else:
       if(carDirection == Direction.North):
         if(self.parkingRight.available):
-          return [self.parkingRight]
+          availableSpots.extend([self.parkingRight])
       elif carDirection == Direction.South:
         if self.parkingLeft.available:
-          print [self.parkingLeft]
-          return [self.parkingLeft]
+          availableSpots.extend([self.parkingLeft])
       elif carDirection == Direction.East:
         if self.parkingRight.available:
-          return [self.parkingRight]
+          availableSpots.extend([self.parkingRight])
       else:
         if self.parkingLeft.available:
-          return [self.parkingLeft]
+          availableSpots.extend([self.parkingLeft])
+    return availableSpots
 
   def isIntersection(self):
     return self.intersection
