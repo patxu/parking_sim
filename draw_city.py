@@ -1,83 +1,54 @@
 from cs1lib import *
 from roadmap import *
+from simulation import *
+import simpy
 
 CANVAS_WIDTH=1000
 CANVAS_HEIGHT=1000
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
+STEP_LENGTH = .5
 
-cityMap = loadCity("cities/grid100_2.xml")
+#cityMap = loadCity("cities/grid100_1.xml")
 
-def main():
+
+def runGraphics():
+	print("in main")
 	set_clear_color(1,1,1)
+	clear()
+
+	#Grass
+	disable_stroke()
+	set_fill_color(0,0.5,0) #Green
+	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
+
+	env = simpy.Environment()
+
+	# roadMap = loadCity("cities/city1.xml")
+	# roadMap = loadCity("cities/city3.xml")
+	cityMap = loadCity("cities/grid100_3.xml")
+	carList = []
+	for i in range(100):
+		car = Car(env,i,cityMap)
+		car.randomlyPlaceCarOnRoads()
+		carList.append(car)
+
 	while not window_closed():
-		clear()
-
-		#Grass
-		disable_stroke()
-		set_fill_color(0,0.5,0) #Green
-		draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
-
-		#Roads
-		#set_fill_color(0.5,0.5,0.5)
-		#draw_rectangle(150,0,100,400)
-		#set_fill_color(0.5,0.5,0.5)
-		#draw_rectangle(0,150,400,100)
-
-		#Intersection
-		#enable_stroke()
-		#set_stroke_width(2)
-		#set_stroke_color(1,1,0) #Yellow
-		#set_fill_color(0.5,0.5,0.5) #Gray
-		#draw_rectangle(150,150,100,100)
-		
-		#Draw Vertical
-		myCoordinates=Coord(0,0)
-		myParkingRight=ParkingSpot(True)
-		myParkingLeft=ParkingSpot(True)
-		Direction=1
-
-		myRoadSection=RoadSection(myCoordinates,myParkingRight,myParkingLeft,True,False,Direction)
-		#drawRoadSection(myRoadSection)
-
-		myCoordinates=Coord(0,1)
-		myParkingRight=ParkingSpot(True)
-		myParkingLeft=ParkingSpot(True)
-		Direction=1
-
-		myRoadSection2=RoadSection(myCoordinates,myParkingRight,myParkingLeft,True,False,Direction)
-		#drawRoadSection(myRoadSection2)
-		'''
-		myCoordinates3=Coord(200,100-ROAD_SECTION_HEIGHT)
-		myParkingRight3=ParkingSpot(True)
-		myParkingLeft3=ParkingSpot(True)
-		Direction3="Vertical"
-
-		myRoadSection3=RoadSection(myCoordinates3,myParkingRight3,myParkingLeft3,True,False,Direction3)
-		drawRoadSection(myRoadSection3)
-
-		#Draw Horizontal
-		myCoordinates1=Coord(200-ROAD_SECTION_HEIGHT,200)
-		myParkingRight1=ParkingSpot(True)
-		myParkingLeft1=ParkingSpot(True)
-		Direction1="Horizontal"
-
-		myRoadSection1=RoadSection(myCoordinates1,myParkingRight1,myParkingLeft1,True,False,Direction1)
-		drawRoadSection(myRoadSection1)
-
-		#Draw Intersection
-		myCoordinates2=Coord(200,200)
-		myRoadSection2=RoadSection(myCoordinates2,myParkingRight1,myParkingLeft1,False,True,Direction1)
-		drawRoadSection(myRoadSection2)
-		'''
+		numDriving = len([car for car in carList if car.parkingSpot == None])
+		for i in range(numDriving):
+			env.step()
+		if numDriving == 0:
+			print("Everything parked")
+			env.step()
 		for road in cityMap.roads:
 			for roadSection in road.roadSections:
 				#print "drawing road section"
-				print roadSection
 				drawRoadSection(roadSection)
-		#drawRoads(cityMap)
+		for car in carList:
+			drawCar(car)
+		# drawRoads(cityMap)
 		request_redraw()
-		sleep(5)
+		sleep(STEP_LENGTH)
 
 
 
@@ -162,7 +133,60 @@ def drawRoadSection(roadSection):
 			disable_stroke()
 
 			
+def drawCar(car):
+	myCoordinates=car.coordinates
+	x_coor=myCoordinates.x
+	y_coor=myCoordinates.y
+	y_coor = y_coor*ROAD_SECTION_HEIGHT
+	x_coor = x_coor*ROAD_SECTION_WIDTH
+
+	enable_stroke()
+	set_stroke_width(2)
+	set_stroke_color(1,0,0.7) #Yellow
+	set_fill_color(1,0,0.7) #Blue
+	if(car.direction == Direction.North):
+		x_coor = x_coor+(ROAD_SECTION_WIDTH/2)+(ROAD_SECTION_WIDTH/5)
+		y_coor = y_coor + (ROAD_SECTION_HEIGHT/2)
+	elif(car.direction == Direction.South):
+		x_coor = x_coor+(ROAD_SECTION_WIDTH/2)-(ROAD_SECTION_WIDTH/5)
+		y_coor = y_coor + (ROAD_SECTION_HEIGHT/2)
+
+	elif(car.direction == Direction.West):
+		y_coor = y_coor+(ROAD_SECTION_HEIGHT/2)+(ROAD_SECTION_HEIGHT/5)
+		x_coor = x_coor + (ROAD_SECTION_WIDTH/2)
+	elif(car.direction == Direction.East):
+		y_coor = y_coor+(ROAD_SECTION_HEIGHT/2)-(ROAD_SECTION_HEIGHT/5)
+		x_coor = x_coor + (ROAD_SECTION_WIDTH/2)
+	
+
+	draw_circle(x_coor,y_coor,ROAD_SECTION_WIDTH/4)
+	disable_stroke()
 
 
-start_graphics(main,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
+if __name__ == '__main__':
+	'''
+	canvas = create_canvas("simulation",CANVAS_WIDTH,CANVAS_HEIGHT,True)
+	def wrapped_user_fn():
+		runGraphics()
+        
+        if window_closed():
+            cs1_quit()
+
+	
+	canvas.start_thread(wrapped_user_fn)
+	exit(app.exec_())
+	
+	for road in cityMap.roads:
+		for roadSection in road.roadSections:
+			#print "drawing road section"
+			drawRoadSection(roadSection)
+	for i in range(1):
+		car = Car(env,i,cityMap)
+		car.coordinates = Coord(0,5)
+		car.direction = Direction.North
+		drawCar(car)
+		print car
+		'''
+		
+	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 	

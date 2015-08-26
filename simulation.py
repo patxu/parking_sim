@@ -3,6 +3,8 @@ import random
 from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 import roadmap
 from threading import Thread
+from cs1lib import *
+from draw_city import *
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()
@@ -98,12 +100,12 @@ class Car(object):
 			parkingSpots = section.getParkingSpots(self.direction)
 
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
-				print ("Car %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
 				parkingSpot = random.choice(parkingSpots)
 				parkingSpot.request()
 				self.wantsToPark = False
 				self.parkingSpot = parkingSpot
-				park_duration = 1
+				park_duration = 50
 				yield self.env.timeout(park_duration)
 
 			else: #default behavior- drive
@@ -117,17 +119,24 @@ class Car(object):
 			
 if __name__ == "__main__":
 	env = simpy.Environment()
-
+	
 	# roadMap = loadCity("cities/city1.xml")
 	# roadMap = loadCity("cities/city3.xml")
-	roadMap = loadCity("cities/grid100_1.xml")
-
-	for i in range(1):
-		car = Car(env,i,roadMap)
+	cityMap = loadCity("cities/grid100_1.xml")
+	carList = []
+	for i in range(100):
+		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
-		print car
+		carList.append(car)
 
-	env.run(until=10)
+
+	
+	for i in range(1,100):
+		#env.run(until=i)
+		env.step()
+		sleep(1)
+	#
+	#env.run(until=10)
 
 	# Thread(target = env.step()).start()
 	# Thread(target = func2).start()

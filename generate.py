@@ -11,9 +11,10 @@ SEED = 13
 MAP_SIZE = 100
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 15
-PERCENT_OPEN = 100
+PERCENT_OPEN = 3
+PERCENT_CROSSABLE = 20
 
-FILENAME = "cities/grid100_2.xml"
+FILENAME = "cities/grid100_3.xml"
 
 def generateRoads():
 	roadID = 0
@@ -78,7 +79,7 @@ def generateXML(roads,filename):
 	tree = ET.ElementTree(root)
 
 	#write to file with header
-	header = "<!-- GENERATION INFO:\nSEED = " + str(SEED) + "\nMAP_SIZE = " + str(MAP_SIZE) + "\nBLOCK_SIZE_HORIZONTAL = " + str(BLOCK_SIZE_HORIZONTAL) + "\nBLOCK_SIZE_VERTICAL = " + str(BLOCK_SIZE_VERTICAL) + "\nPERCENT_OPEN = " + str(PERCENT_OPEN) + " -->\n"
+	header = "<!-- GENERATION INFO:\nSEED = " + str(SEED) + "\nMAP_SIZE = " + str(MAP_SIZE) + "\nBLOCK_SIZE_HORIZONTAL = " + str(BLOCK_SIZE_HORIZONTAL) + "\nBLOCK_SIZE_VERTICAL = " + str(BLOCK_SIZE_VERTICAL) + "\nPERCENT_OPEN = " + str(PERCENT_OPEN) + "\nPERCENT_CROSSABLE = " + str(PERCENT_CROSSABLE) +" -->\n"
 	open(filename, 'w').write(header + ET.tostring(tree, pretty_print=True))
 
 def boolToXML(bool):
@@ -88,11 +89,15 @@ def boolToXML(bool):
 		return 'N'
 
 if __name__ == '__main__':
+	random.seed(SEED)
 	roads = generateRoads()
 	city = RoadMap()
 	for road in roads:
 		city.addStreet(road)
 	for road in roads:
-		fillWithRoadSection(road,PERCENT_OPEN,True,city)
+		if (random.randint(0,100) <= PERCENT_CROSSABLE):
+			fillWithRoadSection(road,PERCENT_OPEN,True,city)
+		else:
+			fillWithRoadSection(road,PERCENT_OPEN,False,city)
 	generateXML(city.roads,FILENAME)
 	

@@ -612,7 +612,7 @@ def start_graphics(user_fn = None, title = "cs1", width = 400, height = 400, fli
         if window_closed():
             cs1_quit()
 
-
+    
     canvas.start_thread(wrapped_user_fn)
     exit(app.exec_())
 
