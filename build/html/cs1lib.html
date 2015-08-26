@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cs1lib module &mdash; Parking_Simulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Parking_Simulation 1.0 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-cs1lib">
+<span id="cs1lib-module"></span><h1>cs1lib module<a class="headerlink" href="#module-cs1lib" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="cs1lib.CS1Canvas">
+<em class="property">class </em><code class="descclassname">cs1lib.</code><code class="descname">CS1Canvas</code><span class="sig-paren">(</span><em>parent=None</em>, <em>width=400</em>, <em>height=400</em>, <em>flipped_y=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.closeEvent">
+<code class="descname">closeEvent</code><span class="sig-paren">(</span><em>QCloseEvent</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.disable_fill">
+<code class="descname">disable_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.disable_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.disable_smoothing">
+<code class="descname">disable_smoothing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.disable_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.disable_stroke">
+<code class="descname">disable_stroke</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.disable_stroke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_ellipse">
+<code class="descname">draw_ellipse</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>rx</em>, <em>ry</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_image">
+<code class="descname">draw_image</code><span class="sig-paren">(</span><em>image</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_line">
+<code class="descname">draw_line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_point">
+<code class="descname">draw_point</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_polygon">
+<code class="descname">draw_polygon</code><span class="sig-paren">(</span><em>vertices</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_polygon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_rectangle">
+<code class="descname">draw_rectangle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>w</em>, <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.draw_text">
+<code class="descname">draw_text</code><span class="sig-paren">(</span><em>s</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.draw_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.enable_fill">
+<code class="descname">enable_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.enable_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.enable_smoothing">
+<code class="descname">enable_smoothing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.enable_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.enable_stroke">
+<code class="descname">enable_stroke</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.enable_stroke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.get_image_painter">
+<code class="descname">get_image_painter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.get_image_painter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.get_last_keypress">
+<code class="descname">get_last_keypress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.get_last_keypress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.get_text_height">
+<code class="descname">get_text_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.get_text_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.get_text_width">
+<code class="descname">get_text_width</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.get_text_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.keyPressEvent">
+<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.keyReleaseEvent">
+<code class="descname">keyReleaseEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.keyReleaseEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.key_down">
+<code class="descname">key_down</code><span class="sig-paren">(</span><em>key_text</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.key_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.mouseMoveEvent">
+<code class="descname">mouseMoveEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.mouseMoveEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.mousePressEvent">
+<code class="descname">mousePressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.mousePressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.mouseReleaseEvent">
+<code class="descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.mouse_x">
+<code class="descname">mouse_x</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.mouse_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.mouse_y">
+<code class="descname">mouse_y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.mouse_y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.paintEvent">
+<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.paintEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.restore">
+<code class="descname">restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.restore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.rotate">
+<code class="descname">rotate</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>sx</em>, <em>sy</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_clear_color">
+<code class="descname">set_clear_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_clear_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_fill_color">
+<code class="descname">set_fill_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_fill_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_font">
+<code class="descname">set_font</code><span class="sig-paren">(</span><em>font_name</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_font_bold">
+<code class="descname">set_font_bold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_font_bold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_font_italic">
+<code class="descname">set_font_italic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_font_italic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_font_normal">
+<code class="descname">set_font_normal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_font_normal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_font_size">
+<code class="descname">set_font_size</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_font_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_keypress_function">
+<code class="descname">set_keypress_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_keypress_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_mouse_button_function">
+<code class="descname">set_mouse_button_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_mouse_button_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_mouse_motion_function">
+<code class="descname">set_mouse_motion_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_mouse_motion_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_stroke_color">
+<code class="descname">set_stroke_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_stroke_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.set_stroke_width">
+<code class="descname">set_stroke_width</code><span class="sig-paren">(</span><em>width</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.set_stroke_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.start_thread">
+<code class="descname">start_thread</code><span class="sig-paren">(</span><em>user_fn</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.start_thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cs1lib.CS1Canvas.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#cs1lib.CS1Canvas.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Canvas.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Canvas.translate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cs1lib.CS1Image">
+<em class="property">class </em><code class="descclassname">cs1lib.</code><code class="descname">CS1Image</code><a class="headerlink" href="#cs1lib.CS1Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QImage</span></code></p>
+<dl class="method">
+<dt id="cs1lib.CS1Image.get_pixel">
+<code class="descname">get_pixel</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Image.get_pixel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cs1lib.CS1Image.set_pixel">
+<code class="descname">set_pixel</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>g</em>, <em>b</em>, <em>a=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.CS1Image.set_pixel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.clear">
+<code class="descclassname">cs1lib.</code><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.create_canvas">
+<code class="descclassname">cs1lib.</code><code class="descname">create_canvas</code><span class="sig-paren">(</span><em>title='cs1'</em>, <em>width=400</em>, <em>height=400</em>, <em>flipped_y=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.create_canvas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.cs1_quit">
+<code class="descclassname">cs1lib.</code><code class="descname">cs1_quit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.cs1_quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.degrees">
+<code class="descclassname">cs1lib.</code><code class="descname">degrees</code><span class="sig-paren">(</span><em>rad</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.degrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.disable_fill">
+<code class="descclassname">cs1lib.</code><code class="descname">disable_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.disable_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.disable_smoothing">
+<code class="descclassname">cs1lib.</code><code class="descname">disable_smoothing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.disable_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.disable_stroke">
+<code class="descclassname">cs1lib.</code><code class="descname">disable_stroke</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.disable_stroke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_circle">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_circle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_ellipse">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_ellipse</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>rx</em>, <em>ry</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_image">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_image</code><span class="sig-paren">(</span><em>image</em>, <em>x</em>, <em>y</em>, <em>cx=0</em>, <em>cy=0</em>, <em>theta=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_line">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_line</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_point">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_point</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_polygon">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_polygon</code><span class="sig-paren">(</span><em>vertices</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_polygon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_rectangle">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_rectangle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>w</em>, <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_text">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_text</code><span class="sig-paren">(</span><em>string</em>, <em>x</em>, <em>y</em>, <em>centered=False</em>, <em>centered_x=False</em>, <em>centered_y=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.draw_triangle">
+<code class="descclassname">cs1lib.</code><code class="descname">draw_triangle</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>x3</em>, <em>y3</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.draw_triangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.enable_fill">
+<code class="descclassname">cs1lib.</code><code class="descname">enable_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.enable_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.enable_smoothing">
+<code class="descclassname">cs1lib.</code><code class="descname">enable_smoothing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.enable_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.enable_stroke">
+<code class="descclassname">cs1lib.</code><code class="descname">enable_stroke</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.enable_stroke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.get_last_keypress">
+<code class="descclassname">cs1lib.</code><code class="descname">get_last_keypress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.get_last_keypress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.get_text_height">
+<code class="descclassname">cs1lib.</code><code class="descname">get_text_height</code><span class="sig-paren">(</span><em>string=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.get_text_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.get_text_width">
+<code class="descclassname">cs1lib.</code><code class="descname">get_text_width</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.get_text_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.is_key_pressed">
+<code class="descclassname">cs1lib.</code><code class="descname">is_key_pressed</code><span class="sig-paren">(</span><em>key_text</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.is_key_pressed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.load_image">
+<code class="descclassname">cs1lib.</code><code class="descname">load_image</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.load_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.mouse_button_pressed">
+<code class="descclassname">cs1lib.</code><code class="descname">mouse_button_pressed</code><span class="sig-paren">(</span><em>buttons</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.mouse_button_pressed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.mouse_down">
+<code class="descclassname">cs1lib.</code><code class="descname">mouse_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.mouse_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.mouse_x">
+<code class="descclassname">cs1lib.</code><code class="descname">mouse_x</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.mouse_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.mouse_y">
+<code class="descclassname">cs1lib.</code><code class="descname">mouse_y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.mouse_y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.pop_state">
+<code class="descclassname">cs1lib.</code><code class="descname">pop_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.pop_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.push_state">
+<code class="descclassname">cs1lib.</code><code class="descname">push_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.push_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.request_redraw">
+<code class="descclassname">cs1lib.</code><code class="descname">request_redraw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.request_redraw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.rotate">
+<code class="descclassname">cs1lib.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_clear_color">
+<code class="descclassname">cs1lib.</code><code class="descname">set_clear_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_clear_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_fill_color">
+<code class="descclassname">cs1lib.</code><code class="descname">set_fill_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_fill_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_font">
+<code class="descclassname">cs1lib.</code><code class="descname">set_font</code><span class="sig-paren">(</span><em>font_name</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_font_bold">
+<code class="descclassname">cs1lib.</code><code class="descname">set_font_bold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_font_bold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_font_italic">
+<code class="descclassname">cs1lib.</code><code class="descname">set_font_italic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_font_italic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_font_normal">
+<code class="descclassname">cs1lib.</code><code class="descname">set_font_normal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_font_normal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_font_size">
+<code class="descclassname">cs1lib.</code><code class="descname">set_font_size</code><span class="sig-paren">(</span><em>font_size</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_font_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_frame_rate">
+<code class="descclassname">cs1lib.</code><code class="descname">set_frame_rate</code><span class="sig-paren">(</span><em>frame_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_frame_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_keypress_function">
+<code class="descclassname">cs1lib.</code><code class="descname">set_keypress_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_keypress_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_mouse_button_function">
+<code class="descclassname">cs1lib.</code><code class="descname">set_mouse_button_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_mouse_button_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_mouse_motion_function">
+<code class="descclassname">cs1lib.</code><code class="descname">set_mouse_motion_function</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_mouse_motion_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_stroke_color">
+<code class="descclassname">cs1lib.</code><code class="descname">set_stroke_color</code><span class="sig-paren">(</span><em>r</em>, <em>g</em>, <em>b</em>, <em>alpha=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_stroke_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.set_stroke_width">
+<code class="descclassname">cs1lib.</code><code class="descname">set_stroke_width</code><span class="sig-paren">(</span><em>width</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.set_stroke_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.start_graphics">
+<code class="descclassname">cs1lib.</code><code class="descname">start_graphics</code><span class="sig-paren">(</span><em>user_fn=None</em>, <em>title='cs1'</em>, <em>width=400</em>, <em>height=400</em>, <em>flipped_y=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.start_graphics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.translate">
+<code class="descclassname">cs1lib.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.translate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cs1lib.window_closed">
+<code class="descclassname">cs1lib.</code><code class="descname">window_closed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cs1lib.window_closed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/cs1lib.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, David Bain Patrick Xu Will McConnell.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/cs1lib.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

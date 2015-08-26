@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>roadmap module &mdash; Parking_Simulation 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Parking_Simulation 1.0 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-roadmap">
+<span id="roadmap-module"></span><h1>roadmap module<a class="headerlink" href="#module-roadmap" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="roadmap.Coord">
+<em class="property">class </em><code class="descclassname">roadmap.</code><code class="descname">Coord</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Coord" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="roadmap.Coord.decreaseX">
+<code class="descname">decreaseX</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Coord.decreaseX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.Coord.decreaseY">
+<code class="descname">decreaseY</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Coord.decreaseY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.Coord.increaseX">
+<code class="descname">increaseX</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Coord.increaseX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.Coord.increaseY">
+<code class="descname">increaseY</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Coord.increaseY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="roadmap.Direction">
+<code class="descclassname">roadmap.</code><code class="descname">Direction</code><a class="headerlink" href="#roadmap.Direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="roadmap.ParkingSpot">
+<em class="property">class </em><code class="descclassname">roadmap.</code><code class="descname">ParkingSpot</code><span class="sig-paren">(</span><em>available</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.ParkingSpot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="roadmap.ParkingSpot.release">
+<code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.ParkingSpot.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.ParkingSpot.request">
+<code class="descname">request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.ParkingSpot.request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="roadmap.Road">
+<em class="property">class </em><code class="descclassname">roadmap.</code><code class="descname">Road</code><span class="sig-paren">(</span><em>id</em>, <em>direction</em>, <em>min</em>, <em>max</em>, <em>fixedCoord</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Road" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="roadmap.Road.addRoadSection">
+<code class="descname">addRoadSection</code><span class="sig-paren">(</span><em>roadSection</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Road.addRoadSection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.Road.getRoadSectionFromCoord">
+<code class="descname">getRoadSectionFromCoord</code><span class="sig-paren">(</span><em>coord</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.Road.getRoadSectionFromCoord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="roadmap.RoadMap">
+<em class="property">class </em><code class="descclassname">roadmap.</code><code class="descname">RoadMap</code><a class="headerlink" href="#roadmap.RoadMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="roadmap.RoadMap.addStreet">
+<code class="descname">addStreet</code><span class="sig-paren">(</span><em>road</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadMap.addStreet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.RoadMap.calculateIntersections">
+<code class="descname">calculateIntersections</code><span class="sig-paren">(</span><em>road</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadMap.calculateIntersections" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.RoadMap.getRoadFromCoord">
+<code class="descname">getRoadFromCoord</code><span class="sig-paren">(</span><em>coord</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadMap.getRoadFromCoord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="roadmap.RoadSection">
+<em class="property">class </em><code class="descclassname">roadmap.</code><code class="descname">RoadSection</code><span class="sig-paren">(</span><em>coordinates</em>, <em>parkingRight</em>, <em>parkingLeft</em>, <em>crossable</em>, <em>intersection</em>, <em>direction</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadSection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="roadmap.RoadSection.getParkingSpots">
+<code class="descname">getParkingSpots</code><span class="sig-paren">(</span><em>carDirection</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadSection.getParkingSpots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="roadmap.RoadSection.isIntersection">
+<code class="descname">isIntersection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.RoadSection.isIntersection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="roadmap.directionToCardinalDirection">
+<code class="descclassname">roadmap.</code><code class="descname">directionToCardinalDirection</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.directionToCardinalDirection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="roadmap.enum">
+<code class="descclassname">roadmap.</code><code class="descname">enum</code><span class="sig-paren">(</span><em>**enums</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.enum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares enums for the four cardinal directions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="roadmap.loadCity">
+<code class="descclassname">roadmap.</code><code class="descname">loadCity</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.loadCity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="roadmap.xmlToBool">
+<code class="descclassname">roadmap.</code><code class="descname">xmlToBool</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.xmlToBool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="roadmap.xmlToDirection">
+<code class="descclassname">roadmap.</code><code class="descname">xmlToDirection</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#roadmap.xmlToDirection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/roadmap.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, David Bain Patrick Xu Will McConnell.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/roadmap.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

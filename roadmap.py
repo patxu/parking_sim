@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 #-----------------Direction Enum-------------------#
 
 def enum(**enums):
+  """Declares enums for the four cardinal directions.
+  """
   return type('Enum',(),enums)
 
 Direction = enum(North=1,East=2,South=3,West=4)
