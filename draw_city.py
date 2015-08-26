@@ -9,8 +9,6 @@ ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = .05
 FILENAME = "cities/grid100_3.xml"
-#cityMap = loadCity("cities/grid100_1.xml")
-
 
 def runGraphics():
 	print("in main")
@@ -23,9 +21,7 @@ def runGraphics():
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
 	env = simpy.Environment()
-
-	# roadMap = loadCity("cities/city1.xml")
-	# roadMap = loadCity("cities/city3.xml")
+g
 	cityMap = loadCity(FILENAME)
 	carList = []
 	for i in range(1000):
