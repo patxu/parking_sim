@@ -140,6 +140,7 @@ def drawCar(car):
 	y_coor = y_coor*ROAD_SECTION_HEIGHT
 	x_coor = x_coor*ROAD_SECTION_WIDTH
 
+
 	enable_stroke()
 	set_stroke_width(2)
 	set_stroke_color(1,0,0.7) #Yellow
@@ -189,4 +190,5 @@ if __name__ == '__main__':
 		'''
 		
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
+
 	

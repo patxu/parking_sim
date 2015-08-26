@@ -14,7 +14,6 @@ Contents:
    cars.rst
    draw_city.rst
    generate.rst
-   index.rst
    roadmap.rst
    simulation.rst
 
