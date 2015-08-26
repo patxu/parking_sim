@@ -203,7 +203,7 @@
 			<parkingLeft>N</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>Y</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -212,7 +212,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -221,7 +221,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -230,7 +230,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -239,7 +239,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -248,7 +248,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -257,7 +257,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -266,7 +266,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -275,7 +275,7 @@
 			<parkingLeft>Y</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>N</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 		<roadSection>
 			<coordX>9</coordX>
@@ -284,7 +284,7 @@
 			<parkingLeft>N</parkingLeft>
 			<crossable>Y</crossable>
 			<intersection>Y</intersection>
-			<direction>2</direction>
+			<direction>1</direction>
 		</roadSection>
 	</road>
 	<road name="4">

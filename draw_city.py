@@ -1,13 +1,12 @@
 from cs1lib import *
 from roadmap import *
 
-CANVAS_WIDTH=600
-CANVAS_HEIGHT=600
-ROAD_SECTION_WIDTH=10
-ROAD_SECTION_HEIGHT=1
-SCALE_FACTOR = 10
+CANVAS_WIDTH=1000
+CANVAS_HEIGHT=1000
+ROAD_SECTION_WIDTH=20
+ROAD_SECTION_HEIGHT=20
 
-cityMap = loadCity("cities/city1.xml")
+cityMap = loadCity("cities/grid100_2.xml")
 
 def main():
 	set_clear_color(1,1,1)
@@ -33,13 +32,21 @@ def main():
 		#draw_rectangle(150,150,100,100)
 		
 		#Draw Vertical
-		myCoordinates=Coord(0,9)
+		myCoordinates=Coord(0,0)
 		myParkingRight=ParkingSpot(True)
 		myParkingLeft=ParkingSpot(True)
-		Direction="Vertical"
+		Direction=1
 
 		myRoadSection=RoadSection(myCoordinates,myParkingRight,myParkingLeft,True,False,Direction)
 		#drawRoadSection(myRoadSection)
+
+		myCoordinates=Coord(0,1)
+		myParkingRight=ParkingSpot(True)
+		myParkingLeft=ParkingSpot(True)
+		Direction=1
+
+		myRoadSection2=RoadSection(myCoordinates,myParkingRight,myParkingLeft,True,False,Direction)
+		#drawRoadSection(myRoadSection2)
 		'''
 		myCoordinates3=Coord(200,100-ROAD_SECTION_HEIGHT)
 		myParkingRight3=ParkingSpot(True)
@@ -73,10 +80,13 @@ def main():
 		sleep(5)
 
 
+
 def drawRoadSection(roadSection):
 	myCoordinates=roadSection.coordinates
 	x_coor=myCoordinates.x
 	y_coor=myCoordinates.y
+	y_coor = y_coor*ROAD_SECTION_HEIGHT
+	x_coor = x_coor*ROAD_SECTION_WIDTH
 	if (roadSection.intersection==True):
 		enable_stroke()
 		set_stroke_width(2)
@@ -85,10 +95,7 @@ def drawRoadSection(roadSection):
 		draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH,ROAD_SECTION_WIDTH)
 		disable_stroke()
 	else:
-		print("HERE")
-		print roadSection.direction
 		if (roadSection.direction==Direction.North):
-			print("HERE1")
 			disable_stroke()
 			set_fill_color(0.5,0.5,0.5)
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH,ROAD_SECTION_HEIGHT)
@@ -98,27 +105,31 @@ def drawRoadSection(roadSection):
 			draw_line(x_coor+ROAD_SECTION_WIDTH/2,y_coor,x_coor+ROAD_SECTION_WIDTH/2,y_coor+ROAD_SECTION_HEIGHT)
 			disable_stroke()
 
+			
+			enable_stroke()
+			set_stroke_width(2)
+			set_stroke_color(1,1,0) #Yellow
 			if (roadSection.parkingLeft.available==True):
-				print("HERE1")
-				enable_stroke()
-				set_stroke_width(2)
-				set_stroke_color(1,1,0) #Yellow
 				set_fill_color(0,0.9,0)
-				draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
-				disable_stroke()
+			else:
+				set_fill_color(0.9,0,0)
+			draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
+			disable_stroke()
 
+			
+			enable_stroke()
+			set_stroke_width(2)
+			set_stroke_color(1,1,0) #Yellow
 			if (roadSection.parkingRight.available==True):
-				print("HERE2")
-				enable_stroke()
-				set_stroke_width(2)
-				set_stroke_color(1,1,0) #Yellow
 				set_fill_color(0,0.9,0)
-				draw_rectangle(x_coor+((3*(ROAD_SECTION_WIDTH))/4),y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
-				disable_stroke()
+			else:
+				set_fill_color(0.9,0,0)
+			draw_rectangle(x_coor+((3*(ROAD_SECTION_WIDTH))/4),y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
+			disable_stroke()
 
 
 		if (roadSection.direction==Direction.East):
-			print("HERE2")
+			
 			disable_stroke()
 			set_fill_color(0.5,0.5,0.5)
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH)
@@ -128,30 +139,30 @@ def drawRoadSection(roadSection):
 			draw_line(x_coor,y_coor+ROAD_SECTION_WIDTH/2,x_coor+ROAD_SECTION_HEIGHT,y_coor+ROAD_SECTION_WIDTH/2)
 			disable_stroke()
 
+			
+			enable_stroke()
+			set_stroke_width(1)
+			set_stroke_color(1,1,0) #Yellow
 			if (roadSection.parkingLeft.available==True):
-				enable_stroke()
-				set_stroke_width(2)
-				set_stroke_color(1,1,0) #Yellow
 				set_fill_color(0,0.9,0)
-				draw_rectangle(x_coor,y_coor,ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
-				disable_stroke()
+			else:
+				set_fill_color(0.9,0,0)
+			draw_rectangle(x_coor,y_coor,ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
+			disable_stroke()
 
+			
+			enable_stroke()
+			set_stroke_width(2)
+			set_stroke_color(1,1,0) #Yellow
 			if (roadSection.parkingRight.available==True):
-				enable_stroke()
-				set_stroke_width(2)
-				set_stroke_color(1,1,0) #Yellow
 				set_fill_color(0,0.9,0)
-				draw_rectangle(x_coor,y_coor+((3*(ROAD_SECTION_WIDTH))/4),ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
-				disable_stroke()
+			else:
+				set_fill_color(0.9,0,0)
+			draw_rectangle(x_coor,y_coor+((3*(ROAD_SECTION_WIDTH))/4),ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
+			disable_stroke()
+
+			
 
 
-
-'''
-def drawRoads(cityMap):
-	for road in cityMap.roads:
-		for roadSection in road.roadSections:
-			#print "drawing road section"
-			print roadSection
-			drawRoadSection(roadSection)
-'''
-start_graphics(main,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)	
+start_graphics(main,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
+	
