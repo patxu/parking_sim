@@ -105,7 +105,7 @@ class Car(object):
 				parkingSpot.request()
 				self.wantsToPark = False
 				self.parkingSpot = parkingSpot
-				park_duration = 50
+				park_duration = 15
 				yield self.env.timeout(park_duration)
 
 			else: #default behavior- drive

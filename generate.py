@@ -12,10 +12,10 @@ MAP_SIZE = 100
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 15
 PERCENT_OPEN = 3
-PERCENT_CROSSABLE = 20
+PERCENT_CROSSABLE = 50
 
 FILENAME = "cities/grid100_3.xml"
-
+random.seed(SEED)
 def generateRoads():
 	roadID = 0
 	roads = []
@@ -33,7 +33,6 @@ def generateRoads():
 
 #parking density is a number between 0-100 which represents percentage of parking spots
 def fillWithRoadSection(road,parkingDensity,crossable,cityMap):
-	random.seed(SEED)
 	for x in range(0,road.max+1):
 		if (road.direction == Direction.North):
 			coordinates = Coord(road.fixedCoord,x)
@@ -89,7 +88,6 @@ def boolToXML(bool):
 		return 'N'
 
 if __name__ == '__main__':
-	random.seed(SEED)
 	roads = generateRoads()
 	city = RoadMap()
 	for road in roads:

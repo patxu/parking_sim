@@ -45,12 +45,18 @@ class Coord:
 class ParkingSpot(object):
   def __init__(self,available):
     self.available = available
-  
+    self.isParkingSpot = True
   def request(self):
     self.available = False
 
   def release(self):
     self.available = True
+
+  def isAvailable(self):
+    if self.isParkingSpot:
+      return self.available
+    else:
+      return False
 
   def __str__(self):
     return "available: " + str(self.available)
@@ -72,9 +78,9 @@ class RoadSection(object):
     if (self.intersection == True): #cannot park at intersections
       pass
     elif(self.crossable == True): #can park on either side
-      if (self.parkingRight.available()):
+      if self.parkingRight.available:
         availableSpots.extend([self.parkingRight])
-      if (self.parkingLeft.available()):
+      if self.parkingLeft.available:
         availableSpots.extend([self.parkingLeft])
     else:
       if(carDirection == Direction.North):
@@ -86,9 +92,11 @@ class RoadSection(object):
       elif carDirection == Direction.East:
         if self.parkingRight.available:
           availableSpots.extend([self.parkingRight])
-      else:
+      elif carDirection == Direction.West:
         if self.parkingLeft.available:
           availableSpots.extend([self.parkingLeft])
+      else:
+        print "error with car direction"
     return availableSpots
 
   def isIntersection(self):
@@ -205,7 +213,7 @@ def loadCity(file):
       coordY = int(roadSection.find('coordY').text)
       parkingSpotLeft = ParkingSpot(xmlToBool(roadSection.find('parkingLeft').text))
       parkingSpotRight = ParkingSpot(xmlToBool(roadSection.find('parkingRight').text))
-      crossable = xmlToBool(roadSection.find('crossable')) 
+      crossable = xmlToBool(roadSection.find('crossable').text)
       intersection = xmlToBool(roadSection.find('intersection').text) 
       direction = int(roadSection.find('direction').text)
       #create new road section
@@ -237,10 +245,12 @@ def directionToCardinalDirection(value):
     return "West"
 
 def xmlToBool(value):
-  if (value == 'Y'):
+  if (value == "Y"):
     return True
-  else:
+  elif (value == "N"):
     return False
+  else:
+    print "no valid bool"
 
 if __name__ == '__main__':
   loadCity("cities/test.xml")
