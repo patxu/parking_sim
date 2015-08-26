@@ -164,5 +164,4 @@ def drawRoadSection(roadSection):
 			
 
 
-start_graphics(main,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 	
