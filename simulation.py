@@ -10,6 +10,10 @@ from draw_city import *
 # import ipdb; ipdb.set_trace()
 # import pdb, traceback, sys, code
 
+SEED = 10
+
+random.seed(SEED)
+
 class Car(object):
 	def __init__(self,env,carID,cityMap,wantsToPark = True,coordinates = None,currentStreetId = None,direction = None,parkingSpot=None):
 		self.env = env
