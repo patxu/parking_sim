@@ -1,7 +1,8 @@
 import random
 from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 import roadmap
-import xml.etree.cElementTree as ET
+# import xml.etree.cElementTree as ET
+from lxml import etree as ET
 
 import xml.dom.minidom
 
@@ -74,21 +75,9 @@ def generateXML(roads,filename):
 
 	tree = ET.ElementTree(root)
 
-	#SUUUUUUUUUUUUPER ugly xml generation
-	tree.write(filename)
-
-	x = xml.dom.minidom.parse(filename)
-	pretty_xml = x.toprettyxml()
-
-	header = "<!-- GENERATION INFO:\nSEED = " + str(SEED) + "\nMAP_SIZE = " + str(MAP_SIZE) + "\nBLOCK_SIZE_HORIZONTAL = " + str(BLOCK_SIZE_HORIZONTAL) + "\nBLOCK_SIZE_VERTICAL = " + str(BLOCK_SIZE_VERTICAL) + "\nPERCENT_OPEN = " + str(PERCENT_OPEN) + " -->"
-	f = open(filename, 'w').write(pretty_xml)
-	f = open( filename, 'r' )
-	lines = f.readlines()
-	f.close()
-
-	f = open( filename, 'w' )
-	f.write( header + '\n' + ''.join( lines[1:] ) )
-	f.close()
+	#write to file with header
+	header = "<!-- GENERATION INFO:\nSEED = " + str(SEED) + "\nMAP_SIZE = " + str(MAP_SIZE) + "\nBLOCK_SIZE_HORIZONTAL = " + str(BLOCK_SIZE_HORIZONTAL) + "\nBLOCK_SIZE_VERTICAL = " + str(BLOCK_SIZE_VERTICAL) + "\nPERCENT_OPEN = " + str(PERCENT_OPEN) + " -->\n"
+	open(filename, 'w').write(header + ET.tostring(tree, pretty_print=True))
 
 def boolToXML(bool):
 	if bool:
