@@ -11,7 +11,9 @@ SEED = 13
 MAP_SIZE = 100
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 15
-PERCENT_OPEN = 20
+PERCENT_OPEN = 100
+
+FILENAME = "cities/grid100_2.xml"
 
 def generateRoads():
 	roadID = 0
@@ -92,5 +94,5 @@ if __name__ == '__main__':
 		city.addStreet(road)
 	for road in roads:
 		fillWithRoadSection(road,PERCENT_OPEN,True,city)
-	generateXML(city.roads,"cities/grid100_1.xml")
+	generateXML(city.roads,FILENAME)
 	
