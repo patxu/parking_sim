@@ -3,7 +3,7 @@ from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCit
 import roadmap
 # import xml.etree.cElementTree as ET
 from lxml import etree as ET
-
+import sys
 import xml.dom.minidom
 
 
@@ -88,6 +88,7 @@ def boolToXML(bool):
 		return 'N'
 
 if __name__ == '__main__':
+	FILENAME = sys.argv[1]
 	roads = generateRoads()
 	city = RoadMap()
 	for road in roads:
