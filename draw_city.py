@@ -3,10 +3,10 @@ from roadmap import *
 from simulation import *
 import simpy
 
-CANVAS_WIDTH=1000
+CANVAS_WIDTH=2000
 CANVAS_HEIGHT=1000
-ROAD_SECTION_WIDTH=20
-ROAD_SECTION_HEIGHT=20
+ROAD_SECTION_WIDTH=50
+ROAD_SECTION_HEIGHT=50
 STEP_LENGTH = .05
 FILENAME = "cities/grid100_3.xml"
 
@@ -21,7 +21,7 @@ def runGraphics():
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
 	env = simpy.Environment()
-g
+
 	cityMap = loadCity(FILENAME)
 	carList = []
 	for i in range(1000):
@@ -200,7 +200,8 @@ def drawCar(car):
 
 
 if __name__ == '__main__':
-	FILENAME = sys.argv[1]
+	if(len(sys.argv) > 1):
+		FILENAME = sys.argv[1]
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 
 	
