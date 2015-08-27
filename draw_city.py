@@ -21,7 +21,7 @@ def runGraphics():
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
 	env = simpy.Environment()
-g
+	
 	cityMap = loadCity(FILENAME)
 	carList = []
 	for i in range(1000):

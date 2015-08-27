@@ -24,7 +24,8 @@ class Car(object):
 		self.coordinates = coordinates
 		self.currentStreetId = currentStreetId
 		self.direction = direction
-		self.parkingSpot = parkingSpot 
+		self.parkingSpot = parkingSpot
+		self.timeSpent=0;
 
 	#execute a move
 	def move(self,direction):
@@ -116,11 +117,18 @@ class Car(object):
 				print ("Car %d driving at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
 				trip_duration = 1
 				self.move(self.direction)
+				self.clockCounter()
 				yield self.env.timeout(trip_duration)
 
+	def clockCounter(self):
+		self.timeSpent=self.timeSpent+1
+
+
+
 	def __str__(self):
-		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")"
-			
+		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timSpent)
+	
+
 if __name__ == "__main__":
 	env = simpy.Environment()
 	
