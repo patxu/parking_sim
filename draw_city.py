@@ -9,7 +9,7 @@ CANVAS_WIDTH=2000
 CANVAS_HEIGHT=1000
 ROAD_SECTION_WIDTH=50
 ROAD_SECTION_HEIGHT=50
-STEP_LENGTH = .05
+STEP_LENGTH = 1
 FILENAME = "cities/grid100_3.xml"
 LOGNAME = "ParkingLog"
 toHoursFactor=1/3600 #convert seconds to hours
@@ -31,7 +31,7 @@ def runGraphics():
 
 	cityMap = loadCity(FILENAME)
 	carList = []
-	for i in range(1000):
+	for i in range(1):
 		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
 		car.generateRandomDestinations(2,100) #100 for map size, not good way to get map size progromatically
@@ -46,7 +46,7 @@ def runGraphics():
 	while not window_closed():
 		numDriving = len([car for car in carList if car.parkingSpot == None])
 		for i in range(numDriving):
-			env.step()
+			env.step() 
 		if numDriving == 0:
 			print("Everything parked")
 			env.step()
@@ -226,8 +226,9 @@ def drawCar(car):
 
 
 if __name__ == '__main__':
-	if(len(sys.argv) > 2):
+	if(len(sys.argv) > 1):
 		FILENAME = sys.argv[1]
+	if(len(sys.argv) > 2):
 		LOGNAME = sys.argv[2]
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 

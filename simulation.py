@@ -72,6 +72,8 @@ class Car(object):
 	def getValidDirections(self):
 		#get valid roads
 		roads = [self.cityMap.getRoadFromCoord(self.coordinates)]
+		for edge in self.cityMap.graph[self.currentStreetId]:
+			print edge[0]
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
 		if intersectingStreets:
 			roads.extend(intersectingStreets)
@@ -149,7 +151,7 @@ if __name__ == "__main__":
 	# roadMap = loadCity("cities/city3.xml")
 	cityMap = loadCity("cities/grid100_1.xml")
 	carList = []
-	for i in range(100):
+	for i in range(1):
 		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
 		carList.append(car)
