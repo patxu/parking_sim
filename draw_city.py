@@ -5,10 +5,10 @@ from simulation import *
 import simpy
 
 
-CANVAS_WIDTH=2000
+CANVAS_WIDTH=1000
 CANVAS_HEIGHT=1000
-ROAD_SECTION_WIDTH=50
-ROAD_SECTION_HEIGHT=50
+ROAD_SECTION_WIDTH=20
+ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = .05
 FILENAME = "cities/grid100_3.xml"
 LOGNAME = "ParkingLog"
@@ -31,10 +31,10 @@ def runGraphics():
 
 	cityMap = loadCity(FILENAME)
 	carList = []
-	for i in range(1000):
+	for i in range(1):
 		car = Car(env,i,cityMap)
+		car.generateRandomDestinations(2) #100 for map size, not good way to get map size progromatically
 		car.randomlyPlaceCarOnRoads()
-		car.generateRandomDestinations(2,100) #100 for map size, not good way to get map size progromatically
 		carList.append(car)
 	for road in cityMap.roads:
 			for roadSection in road.roadSections:

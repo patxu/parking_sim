@@ -8,13 +8,13 @@ import xml.dom.minidom
 
 
 SEED = 13
-MAP_SIZE = 100
+MAP_SIZE = 40
 BLOCK_SIZE_HORIZONTAL = 10
-BLOCK_SIZE_VERTICAL = 15
+BLOCK_SIZE_VERTICAL = 10
 PERCENT_OPEN = 3
-PERCENT_CROSSABLE = 50
+PERCENT_CROSSABLE = 100
 
-FILENAME = "cities/grid100_3.xml"
+FILENAME = "cities/foo.xml"
 random.seed(SEED)
 def generateRoads():
 	roadID = 0

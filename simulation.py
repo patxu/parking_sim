@@ -28,10 +28,13 @@ class Car(object):
 		self.destinations = []
 		self.goal = None 
 		self.timeSpent=0
+		self.circling = False
+		self.intersectionCount = 0
 
 	#execute a move
 	def move(self,direction):
 		validDirections = self.getValidDirections()
+		print validDirections
 		if len(validDirections) > 1: #don't u-turn unless we have to
 			oppositeDirection = (self.direction + 2) % 4
 			if oppositeDirection == 0:
@@ -40,6 +43,7 @@ class Car(object):
 				validDirections.remove(oppositeDirection) #remove backwards direction
 			except ValueError:
 				pass #this is okay
+		print validDirections
 		self.direction = random.choice(validDirections)
 
 		if(self.direction == Direction.North):
@@ -67,6 +71,7 @@ class Car(object):
 		#set direction
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 		self.direction = random.choice(self.getValidDirections())
+		return self.coordinates
 
 	#return all valid directions the car may move in; must account for size of street and any intersections
 	def getValidDirections(self):
@@ -123,6 +128,37 @@ class Car(object):
 					self.clockCounter()
 				yield self.env.timeout(trip_duration)
 
+
+	def circling ():
+		roads = [self.cityMap.getRoadFromCoord(self.coordinates)]
+		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
+
+		if(len(intersectingStreets)>0):
+			if(self.intersectionCount%7 != 0):
+				self.direction = getRight(self.direction)
+			self.intersectionCount +=1
+		
+		if(self.direction == Direction.North):
+				self.coordinates.increaseY(1)
+		elif(self.direction == Direction.East):
+			self.coordinates.increaseX(1)
+		elif(self.direction == Direction.South):
+			self.coordinates.decreaseY(1)
+		elif(self.direction == Direction.West):
+			self.coordinates.decreaseX(1)
+		else:
+			print("invalid direction")
+
+	def getRight(currentDirection):
+		if(currentDirection == Direction.North):
+			return Direction.East
+		elif(currentDirection == Direction.East):
+			return Direction.South
+		elif(currentDirection == Direction.South):
+			return Direction.West
+		elif(currentDirection == Direction.West):
+			return Direction.North
+
 	def clockCounter(self):
 		self.timeSpent=self.timeSpent+1
 
@@ -131,11 +167,9 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
-	def generateRandomDestinations(self,numOfDestination,mapSize):
+	def generateRandomDestinations(self,numOfDestination):
 		for i in range(0,numOfDestination):
-			x = random.randint(0,mapSize)
-			y = random.randint(0,mapSize)
-			destination = Coord(x,y)
+			destination = self.randomlyPlaceCarOnRoads()
 			self.destinations.append(destination)
 
 	def __str__(self):
