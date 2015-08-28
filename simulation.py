@@ -24,7 +24,9 @@ class Car(object):
 		self.coordinates = coordinates
 		self.currentStreetId = currentStreetId
 		self.direction = direction
-		self.parkingSpot = parkingSpot 
+		self.parkingSpot = parkingSpot
+		self.locations = []
+		self.destination = None 
 
 	#execute a move
 	def move(self,direction):
