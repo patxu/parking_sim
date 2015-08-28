@@ -30,17 +30,18 @@ class Car(object):
 		self.timeSpent=0
 
 	#execute a move
-	def move(self,direction):
+	def move(self,prevDirection):
 		validDirections = self.getValidDirections()
-		if len(validDirections) > 1: #don't u-turn unless we have to
-			oppositeDirection = (self.direction + 2) % 4
-			if oppositeDirection == 0:
-				oppositeDirection = 4
+		oppositeDirection = (self.direction + 2) % 4
+		if oppositeDirection == 0: #since directions are not 0-indexed
+			oppositeDirection = 4
+		if len(validDirections) > 1: #remove u-turn direction if we have other options
 			try:
 				validDirections.remove(oppositeDirection) #remove backwards direction
 			except ValueError:
 				pass #this is okay
 		self.direction = random.choice(validDirections)
+		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
@@ -182,7 +183,7 @@ if __name__ == "__main__":
 	# roadMap = loadCity("cities/city3.xml")
 	cityMap = loadCity("cities/grid100_1.xml")
 	carList = []
-	for i in range(100):
+	for i in range(1):
 		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
 		carList.append(car)

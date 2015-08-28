@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>simulation module &mdash; Parking_Simulation 1.0 documentation</title>
+    <title>generate module &mdash; Parking_Simulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,6 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Parking_Simulation 1.0 documentation" href="index.html" />
+    <link rel="next" title="roadmap module" href="roadmap.html" />
+    <link rel="prev" title="draw_city module" href="draw_city.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -36,38 +38,32 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-simulation">
-<span id="simulation-module"></span><h1>simulation module<a class="headerlink" href="#module-simulation" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="simulation.Car">
-<em class="property">class </em><code class="descclassname">simulation.</code><code class="descname">Car</code><span class="sig-paren">(</span><em>env</em>, <em>carID</em>, <em>cityMap</em>, <em>wantsToPark=True</em>, <em>coordinates=None</em>, <em>currentStreetId=None</em>, <em>direction=None</em>, <em>parkingSpot=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="simulation.Car.getNextMove">
-<code class="descname">getNextMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getNextMove" title="Permalink to this definition">¶</a></dt>
+  <div class="section" id="module-generate">
+<span id="generate-module"></span><h1>generate module<a class="headerlink" href="#module-generate" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="generate.boolToXML">
+<code class="descclassname">generate.</code><code class="descname">boolToXML</code><span class="sig-paren">(</span><em>bool</em><span class="sig-paren">)</span><a class="headerlink" href="#generate.boolToXML" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="simulation.Car.getValidDirections">
-<code class="descname">getValidDirections</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getValidDirections" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="generate.checkCoordForIntersection">
+<code class="descclassname">generate.</code><code class="descname">checkCoordForIntersection</code><span class="sig-paren">(</span><em>coord</em>, <em>edges</em><span class="sig-paren">)</span><a class="headerlink" href="#generate.checkCoordForIntersection" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="simulation.Car.move">
-<code class="descname">move</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.move" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="generate.fillWithRoadSection">
+<code class="descclassname">generate.</code><code class="descname">fillWithRoadSection</code><span class="sig-paren">(</span><em>road</em>, <em>parkingDensity</em>, <em>crossable</em>, <em>cityMap</em><span class="sig-paren">)</span><a class="headerlink" href="#generate.fillWithRoadSection" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="simulation.Car.randomlyPlaceCarOnRoads">
-<code class="descname">randomlyPlaceCarOnRoads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.randomlyPlaceCarOnRoads" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="generate.generateRoads">
+<code class="descclassname">generate.</code><code class="descname">generateRoads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generate.generateRoads" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="simulation.Car.run">
-<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.run" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="generate.generateXML">
+<code class="descclassname">generate.</code><code class="descname">generateXML</code><span class="sig-paren">(</span><em>roads</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#generate.generateXML" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-</dd></dl>
 
 </div>
 
@@ -80,13 +76,15 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="draw_city.html" title="previous chapter">draw_city module</a></li>
+      <li>Next: <a href="roadmap.html" title="next chapter">roadmap module</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/simulation.txt"
+      <li><a href="_sources/generate.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -115,7 +113,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/simulation.txt"
+      <a href="_sources/generate.txt"
           rel="nofollow">Page source</a>
     </div>
 

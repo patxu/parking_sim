@@ -3,22 +3,22 @@ from cs1lib import *
 from roadmap import *
 from simulation import *
 import simpy
+import sys
 
 
 CANVAS_WIDTH=2000
 CANVAS_HEIGHT=1000
-ROAD_SECTION_WIDTH=50
-ROAD_SECTION_HEIGHT=50
-STEP_LENGTH = .05
+ROAD_SECTION_WIDTH=21
+ROAD_SECTION_HEIGHT=21
+STEP_LENGTH = 0.05
 FILENAME = "cities/grid100_3.xml"
-LOGNAME = "ParkingLog"
+LOGNAME = "logs/ParkingLog.log"
 toHoursFactor=1/3600 #convert seconds to hours
 AvgMPH=30 #average mph of a car driving in a city
 AvgMPG=20 #average mpg of a car driving in a city
 AvgCarbonEmissions=18 #average CO2 emissions in lbs per gallon of gas
 
 def runGraphics():
-	print("in main")
 	set_clear_color(1,1,1)
 	clear()
 
@@ -52,13 +52,11 @@ def runGraphics():
 	while not window_closed():
 		numDriving = len([car for car in carList if car.parkingSpot == None])
 		for i in range(numDriving):
-			env.step()
+			env.step() 
 		if numDriving == 0:
-			print("Everything parked")
 			env.step()
 		for road in cityMap.roads:
 			for roadSection in road.roadSections:
-				#print "drawing road section"
 				drawRoadSection(roadSection)
 		for car in carList:
 			drawCar(car)
@@ -70,10 +68,9 @@ def runGraphics():
 			while 1:
 				if is_key_pressed("r"):
 					break;
+				sleep(0.1)
 
-	logname="ParkingLog.log"
-	logname=LOGNAME
-	fp=open(logname,"w")
+	fp=open(LOGNAME,"w")
 	fp.write("Parking Log\n")
 	totalDrivingTime=0;
 	for car in carList:
@@ -238,8 +235,9 @@ def drawCar(car):
 
 
 if __name__ == '__main__':
-	if(len(sys.argv) > 2):
+	if(len(sys.argv) > 1):
 		FILENAME = sys.argv[1]
+	if(len(sys.argv) > 2):
 		LOGNAME = sys.argv[2]
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 
