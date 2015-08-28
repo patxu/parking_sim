@@ -167,7 +167,20 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
+
 	def generateRandomDestinations(self,numOfDestination):
+
+	#Returns RoadSection's List of Parking Spots
+	def getParkingSpotsDistance(self):
+		#For each car Get Map
+		self.cityMap
+		#Get Roads
+		#Get Road Sections
+		#If road section has available spots, then add to list
+		#For each road section compute distance, find the closest distance
+
+
+	def generateRandomDestinations(self,numOfDestination,mapSize):
 		for i in range(0,numOfDestination):
 			destination = self.randomlyPlaceCarOnRoads()
 			self.destinations.append(destination)
@@ -189,7 +202,6 @@ if __name__ == "__main__":
 		carList.append(car)
 
 
-	
 	for i in range(1,100):
 		#env.run(until=i)
 		env.step()
