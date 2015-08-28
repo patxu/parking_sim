@@ -12,7 +12,7 @@ from draw_city import *
 
 SEED = 10
 
-random.seed(SEED)
+#random.seed(SEED)
 
 class Car(object):
 	def __init__(self,env,carID,cityMap,wantsToPark = True,coordinates = None,currentStreetId = None,direction = None,parkingSpot=None):
@@ -25,8 +25,8 @@ class Car(object):
 		self.currentStreetId = currentStreetId
 		self.direction = direction
 		self.parkingSpot = parkingSpot
-		self.locations = []
-		self.destination = None 
+		self.destinations = []
+		self.goal = None 
 		self.timeSpent=0
 
 	#execute a move
@@ -119,7 +119,8 @@ class Car(object):
 				print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				trip_duration = 1
 				self.move(self.direction)
-				self.clockCounter()
+				if(self.wantsToPark):
+					self.clockCounter()
 				yield self.env.timeout(trip_duration)
 
 	def clockCounter(self):
@@ -130,7 +131,12 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
-
+	def generateRandomDestinations(self,numOfDestination,mapSize):
+		for i in range(0,numOfDestination):
+			x = random.randint(0,mapSize)
+			y = random.randint(0,mapSize)
+			destination = Coord(x,y)
+			self.destinations.append(destination)
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)
