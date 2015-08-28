@@ -15,24 +15,42 @@ SEED = 10
 #random.seed(SEED)
 
 class Car(object):
-	def __init__(self,env,carID,cityMap,wantsToPark = True,coordinates = None,currentStreetId = None,direction = None,parkingSpot=None):
+	def __init__(self,env,carID,cityMap,moveFunction = "random", wantsToPark = True,coordinates = None,direction = None):
 		self.env = env
 		self.action = env.process(self.run())
 		self.wantsToPark = wantsToPark
 		self.carID = carID
 		self.cityMap = cityMap
 		self.coordinates = coordinates
-		self.currentStreetId = currentStreetId
 		self.direction = direction
-		self.parkingSpot = parkingSpot
-		self.destinations = []
-		self.goal = None 
+
+		self.setMoveFunction(moveFunction)
+
+		#default settings
+		self.parkingSpot = None
+		self.currentStreetId = None
+		self.destinationStack = []
+		self.currentDestination= None 
 		self.timeSpent=0
 		self.circlingBool = False
 		self.intersectionCount = 1
 
-	#execute a move
-	def move(self,prevDirection):
+	#random
+	#circling
+	#
+	def setMovementPattern(moveFunction):
+		if (moveFunction == "random"):
+			self.moveFunction = randomMove()
+		if (moveFunction == "circling")
+			self.moveFunction = circling
+		if (moveFunction == "smart")
+			self.moveFunction == smartMove()
+		else:
+			print("setMoveFunction error: invalid move function choice; setting to random")
+			self.moveFunction == randomMove()
+
+	#execute a move in a random direction
+	def randomMove(self,prevDirection):
 		validDirections = self.getValidDirections()
 		print validDirections
 		if len(validDirections) > 1: #don't u-turn unless we have to
@@ -60,23 +78,32 @@ class Car(object):
 		elif(self.direction == Direction.West):
 			self.coordinates.decreaseX(1)
 		else:
-			print("invalid direction")
+			print("randomMove error: invalid direction")
+
+	#executes a move towards a destination
+	def smartMove(self):
+
 
 	#randomly place self on a road
 	def randomlyPlaceCarOnRoads(self):
-		#set coordinate
-		startRoad = random.choice(self.cityMap.roads)
-		freeCoord = random.randrange(startRoad.min, startRoad.max + 1)
-		if startRoad.direction == Direction.North:
-			coordinates = Coord(startRoad.fixedCoord,freeCoord)
-		if startRoad.direction == Direction.East:
-			coordinates = Coord(freeCoord,startRoad.fixedCoord)
-		self.coordinates = coordinates
-
-		#set direction
+		self.coordinates = generateValidCoordinate
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 		self.direction = random.choice(self.getValidDirections())
 		return self.coordinates
+
+	#a valid coordinate is one that is on a street
+	def generateValidCoordinate(self):
+		startRoad = random.choice(self.cityMap.roads)
+		freeCoord = random.randrange(startRoad.min, startRoad.max + 1)
+		if startRoad.direction == Direction.North:
+			coordinate = Coord(startRoad.fixedCoord,freeCoord)
+		elif startRoad.direction == Direction.East:
+			coordinate = Coord(freeCoord,startRoad.fixedCoord)
+		else:
+			print("generateRandomValidCoordinate error: unable to generate valid coordinate; None returned")
+			coordinate = None
+		return coordinate
+
 
 	#return all valid directions the car may move in; must account for size of street and any intersections
 	def getValidDirections(self):
@@ -94,11 +121,13 @@ class Car(object):
 					validDirections.append(Direction.North)
 				if self.coordinates.y != road.min:
 					validDirections.append(Direction.South)
-			if road.direction == Direction.East:
+			elif road.direction == Direction.East:
 				if self.coordinates.x != road.max:
 					validDirections.append(Direction.East)
 				if self.coordinates.x != road.min:
 					validDirections.append(Direction.West)
+			else:
+				print("getValidDirections error: invalid direction")
 
 		return validDirections #it's theoretically possible to get multiples of the same direction, but the setup of the roads will not allow it
 
@@ -112,7 +141,11 @@ class Car(object):
 			if self.parkingSpot != None: #unpark if parked
 				self.parkingSpot.release()
 				self.parkingSpot = None
-			'''	
+			if len(self.destinationStack) == 0:
+				setMovementPattern("random")
+			elif goal == None:
+				if self.
+				goal=destinationStack.pop(0)
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
 			
@@ -132,12 +165,11 @@ class Car(object):
 				if(self.wantsToPark):
 					self.clockCounter()
 				yield self.env.timeout(trip_duration)
-				'''
 			self.circling()
 			trip_duration = 1
 			yield self.env.timeout(trip_duration)
 
-
+	#search for parking in a "dumb" circling pattern
 	def circling (self):
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
 		
@@ -167,7 +199,7 @@ class Car(object):
 		elif(self.direction == Direction.West):
 			self.coordinates.decreaseX(1)
 		else:
-			print("invalid direction")
+			print("circling error: invalid direction")
 		
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 
@@ -206,13 +238,10 @@ class Car(object):
 				if len(myList)>0:
 					RoadSectionList.append(roadSection)
 
-		myDistance=1000000000
-		#print(RoadSectionList)
+		myDistance = (float("inf")) #infinity
 		#For each road section compute distance, find the closest distance
 		for RoadSectionWithParkingSpot in RoadSectionList:
-			#print(str(RoadSectionWithParkingSpot))
 			parking_spot_coordinates=RoadSectionWithParkingSpot.coordinates
-			#print(parking_destination,parking_spot_coordinates)
 			thisDistance=parking_spot_coordinates.distanceFrom(parking_destination)
 			if thisDistance<myDistance:
 				myDistance=thisDistance
@@ -220,12 +249,10 @@ class Car(object):
 
 		return myRoadSection
 
-
-	def generateRandomDestinations(self,numOfDestination):
-		for i in range(0,numOfDestination):
-			destination = self.randomlyPlaceCarOnRoads()
-			self.destinations.append(destination)
-		return destination
+	def generateDestinations(self,numOfDestination):
+		for i in range(numOfDestination):
+			self.destinations.append(self.generateValidCoordinate())
+		return destinations
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)
@@ -234,8 +261,6 @@ class Car(object):
 if __name__ == "__main__":
 	env = simpy.Environment()
 	
-	# roadMap = loadCity("cities/city1.xml")
-	# roadMap = loadCity("cities/city3.xml")
 	cityMap = loadCity("cities/grid100_1.xml")
 	carList = []
 	for i in range(1):
@@ -243,13 +268,5 @@ if __name__ == "__main__":
 		car.randomlyPlaceCarOnRoads()
 		carList.append(car)
 
+	env.run(until=10)
 
-	for i in range(1,100):
-		#env.run(until=i)
-		env.step()
-		sleep(1)
-	#
-	#env.run(until=10)
-
-	# Thread(target = env.step()).start()
-	# Thread(target = func2).start()
