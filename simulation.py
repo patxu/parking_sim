@@ -32,19 +32,24 @@ class Car(object):
 		self.intersectionCount = 1
 
 	#execute a move
-	def move(self,direction):
+	def move(self,prevDirection):
 		validDirections = self.getValidDirections()
 		print validDirections
 		if len(validDirections) > 1: #don't u-turn unless we have to
 			oppositeDirection = (self.direction + 2) % 4
 			if oppositeDirection == 0:
 				oppositeDirection = 4
+		oppositeDirection = (self.direction + 2) % 4
+		if oppositeDirection == 0: #since directions are not 0-indexed
+			oppositeDirection = 4
+		if len(validDirections) > 1: #remove u-turn direction if we have other options
 			try:
 				validDirections.remove(oppositeDirection) #remove backwards direction
 			except ValueError:
 				pass #this is okay
 		print validDirections
 		self.direction = random.choice(validDirections)
+		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
@@ -178,21 +183,43 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
-
 	#Returns RoadSection's List of Parking Spots
-	def getParkingSpotsDistance(self):
-		#For each car Get Map
-		self.cityMap
+	def getParkingSpotsDistance(self,parking_destination):
+		#For each car Get RoadMap
+		RoadSectionList=[]
+		roadList=self.cityMap.roads
 		#Get Roads
-		#Get Road Sections
-		#If road section has available spots, then add to list
+		for road in roadList:
+			#Get RoadSection
+			RoadSectionsForRoad=road.roadSections
+			for roadSection in RoadSectionsForRoad:
+				#If road section has available spots, then add to list
+				myList= []
+				myList=roadSection.getParkingSpots(road.direction)
+				#print(str(roadSection.coordinates.x))
+				if len(myList)>0:
+					RoadSectionList.append(roadSection)
+
+		myDistance=1000000000
+		#print(RoadSectionList)
 		#For each road section compute distance, find the closest distance
+		for RoadSectionWithParkingSpot in RoadSectionList:
+			#print(str(RoadSectionWithParkingSpot))
+			parking_spot_coordinates=RoadSectionWithParkingSpot.coordinates
+			#print(parking_destination,parking_spot_coordinates)
+			thisDistance=parking_spot_coordinates.distanceFrom(parking_destination)
+			if thisDistance<myDistance:
+				myDistance=thisDistance
+				myRoadSection=RoadSectionWithParkingSpot
+
+		return myRoadSection
 
 
 	def generateRandomDestinations(self,numOfDestination):
 		for i in range(0,numOfDestination):
 			destination = self.randomlyPlaceCarOnRoads()
 			self.destinations.append(destination)
+		return destination
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)
@@ -205,7 +232,7 @@ if __name__ == "__main__":
 	# roadMap = loadCity("cities/city3.xml")
 	cityMap = loadCity("cities/grid100_1.xml")
 	carList = []
-	for i in range(100):
+	for i in range(1):
 		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
 		carList.append(car)

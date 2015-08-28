@@ -3,23 +3,33 @@ from cs1lib import *
 from roadmap import *
 from simulation import *
 import simpy
+import sys
 
 
 CANVAS_WIDTH=1000
 CANVAS_HEIGHT=1000
+<<<<<<< HEAD
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = .05
+=======
+ROAD_SECTION_WIDTH=21
+ROAD_SECTION_HEIGHT=21
+STEP_LENGTH = 0.05
+>>>>>>> 77f83e2e4fc4e13d329a67a87571dc17fc2af292
 FILENAME = "cities/grid100_3.xml"
-LOGNAME = "ParkingLog"
+LOGNAME = "logs/ParkingLog.log"
 toHoursFactor=1/3600 #convert seconds to hours
 AvgMPH=30 #average mph of a car driving in a city
 AvgMPG=20 #average mpg of a car driving in a city
 AvgCarbonEmissions=18 #average CO2 emissions in lbs per gallon of gas
 
 def runGraphics():
+<<<<<<< HEAD
 	
 	print("in main")
+=======
+>>>>>>> 77f83e2e4fc4e13d329a67a87571dc17fc2af292
 	set_clear_color(1,1,1)
 	clear()
 
@@ -34,11 +44,22 @@ def runGraphics():
 	carList = []
 	for i in range(1):
 		car = Car(env,i,cityMap)
+<<<<<<< HEAD
 		car.generateRandomDestinations(2) #100 for map size, not good way to get map size progromatically
 		#car.randomlyPlaceCarOnRoads()
 		car.coordinates = Coord(20,38)
 		car.direction = Direction.North
 		car.currentStreetId = 2
+=======
+		car.randomlyPlaceCarOnRoads()
+		Destination=car.generateRandomDestinations(1,100)
+		ParkingBlock=car.getParkingSpotsDistance(Destination)
+		print("----------------")
+		print(Destination)
+		print(ParkingBlock.__str__())
+		print("----------------")
+		car.generateRandomDestinations(2,100) #100 for map size, not good way to get map size progromatically
+>>>>>>> 77f83e2e4fc4e13d329a67a87571dc17fc2af292
 		carList.append(car)
 	for road in cityMap.roads:
 			for roadSection in road.roadSections:
@@ -50,13 +71,11 @@ def runGraphics():
 	while not window_closed():
 		numDriving = len([car for car in carList if car.parkingSpot == None])
 		for i in range(numDriving):
-			env.step()
+			env.step() 
 		if numDriving == 0:
-			print("Everything parked")
 			env.step()
 		for road in cityMap.roads:
 			for roadSection in road.roadSections:
-				#print "drawing road section"
 				drawRoadSection(roadSection)
 		for car in carList:
 			drawCar(car)
@@ -68,10 +87,9 @@ def runGraphics():
 			while 1:
 				if is_key_pressed("r"):
 					break;
+				sleep(0.1)
 
-	logname="ParkingLog"
-	logname=LOGNAME
-	fp=open(logname,"w")
+	fp=open(LOGNAME,"w")
 	fp.write("Parking Log\n")
 	totalDrivingTime=0;
 	for car in carList:
@@ -236,8 +254,9 @@ def drawCar(car):
 
 
 if __name__ == '__main__':
-	if(len(sys.argv) > 2):
+	if(len(sys.argv) > 1):
 		FILENAME = sys.argv[1]
+	if(len(sys.argv) > 2):
 		LOGNAME = sys.argv[2]
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 

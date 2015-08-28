@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>draw_city module &mdash; Parking_Simulation 1.0 documentation</title>
+    <title>cars module &mdash; Parking_Simulation 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Parking_Simulation 1.0 documentation" href="index.html" />
-    <link rel="next" title="Welcome to Parking_Simulation’s documentation!" href="index.html" />
-    <link rel="prev" title="cars module" href="cars.html" />
+    <link rel="next" title="draw_city module" href="draw_city.html" />
+    <link rel="prev" title="Welcome to Parking_Simulation’s documentation!" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -38,17 +38,34 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-draw_city">
-<span id="draw-city-module"></span><h1>draw_city module<a class="headerlink" href="#module-draw_city" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="draw_city.drawRoadSection">
-<code class="descclassname">draw_city.</code><code class="descname">drawRoadSection</code><span class="sig-paren">(</span><em>roadSection</em><span class="sig-paren">)</span><a class="headerlink" href="#draw_city.drawRoadSection" title="Permalink to this definition">¶</a></dt>
+  <div class="section" id="module-cars">
+<span id="cars-module"></span><h1>cars module<a class="headerlink" href="#module-cars" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="cars.Car">
+<em class="property">class </em><code class="descclassname">cars.</code><code class="descname">Car</code><span class="sig-paren">(</span><em>env</em>, <em>id</em>, <em>start</em>, <em>stoplights</em><span class="sig-paren">)</span><a class="headerlink" href="#cars.Car" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cars.Car.drive">
+<code class="descname">drive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cars.Car.drive" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="draw_city.main">
-<code class="descclassname">draw_city.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#draw_city.main" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="class">
+<dt id="cars.Stoplight">
+<em class="property">class </em><code class="descclassname">cars.</code><code class="descname">Stoplight</code><span class="sig-paren">(</span><em>env</em>, <em>position</em>, <em>cars</em><span class="sig-paren">)</span><a class="headerlink" href="#cars.Stoplight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cars.Stoplight.switch_colors">
+<code class="descname">switch_colors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cars.Stoplight.switch_colors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cars.Stoplight.wait_until_green">
+<code class="descname">wait_until_green</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cars.Stoplight.wait_until_green" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </div>
 
@@ -61,15 +78,15 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="cars.html" title="previous chapter">cars module</a></li>
-      <li>Next: <a href="index.html" title="next chapter">Welcome to Parking_Simulation&#8217;s documentation!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Parking_Simulation&#8217;s documentation!</a></li>
+      <li>Next: <a href="draw_city.html" title="next chapter">draw_city module</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/draw_city.txt"
+      <li><a href="_sources/cars.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -98,7 +115,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/draw_city.txt"
+      <a href="_sources/cars.txt"
           rel="nofollow">Page source</a>
     </div>
 
