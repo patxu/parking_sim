@@ -129,8 +129,10 @@ class Road(object):
 
   #find the road section based on a coordinate
   def getRoadSectionFromCoord(self, coord):
-    return [section for section in self.roadSections if section.coordinates == coord][0]
-
+    try:
+      return [section for section in self.roadSections if section.coordinates == coord][0]
+    except:
+      None
   def __str__(self):
     return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
 
@@ -186,19 +188,53 @@ class RoadMap():
     return string
 
   def getRoadFromCoord(self, coord):
-    vertRoads = [road for road in self.roads if road.direction == Direction.North]
-    r1 = [road for road in vertRoads if road.fixedCoord == coord.x]
-    horRoads = [road for road in self.roads if road.direction == Direction.East]
-    r2 = ([road for road in horRoads if road.fixedCoord == coord.y])
-    roads = []
-    if r1 != []:
-      roads.extend(r1)
-    if r2 != []:
-      roads.extend(r2)
-    if roads == []:
+    try:
+      vertRoads = [road for road in self.roads if road.direction == Direction.North]
+      r1 = [road for road in vertRoads if road.fixedCoord == coord.x]
+      horRoads = [road for road in self.roads if road.direction == Direction.East]
+      r2 = ([road for road in horRoads if road.fixedCoord == coord.y])
+      roads = []
+      if r1 != []:
+        roads.extend(r1)
+      if r2 != []:
+        roads.extend(r2)
+      if roads == []:
+        return None
+      else:
+        return roads[0] #return first row (always vertical road if > 1 road?)
+    except:
       return None
-    else:
-      return roads[0] #return first row (always vertical road if > 1 road?)
+
+  def isOutOfBounds(self,coord,direction,road):
+    outOfBounds = False
+    if direction == Direction.North:
+      if(coord.y > road.max):
+        outOfBounds = True
+    elif direction == Direction.South:
+      if(coord.y < road.min):
+        outOfBounds = True
+    elif direction == Direction.East:
+      if(coord.x > road.max):
+        outOfBounds = True
+    elif direction == Direction.West:
+      if(coord.x < road.min):
+        outOfBounds = True
+    return outOfBounds
+
+
+  def willBeOutOfBounds(self,coord,direction,road):
+    if (direction == Direction.North):
+      newCoord = Coord(coord.x,coord.y+1)
+      return self.isOutOfBounds(newCoord,direction,road)
+    if (direction == Direction.East):
+      newCoord = Coord(coord.x+1,coord.y)
+      return self.isOutOfBounds(newCoord,direction,road)
+    if (direction == Direction.South):
+      newCoord = Coord(coord.x,coord.y-1)
+      return self.isOutOfBounds(newCoord,direction,road)
+    if (direction == Direction.West):
+      newCoord = Coord(coord.x,coord.y-1)
+      return self.isOutOfBounds(newCoord,direction,road)           
 
 #-----------------Helper Classes-------------------#
 

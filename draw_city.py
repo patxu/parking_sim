@@ -7,7 +7,7 @@ import sys
 
 
 CANVAS_WIDTH=1000
-CANVAS_HEIGHT=1000
+CANVAS_HEIGHT=800
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = .05
@@ -37,20 +37,25 @@ def runGraphics():
 	carList = []
 	for i in range(1):
 		car = Car(env,i,cityMap)
-		car.generateRandomDestinations(2) #100 for map size, not good way to get map size progromatically
+		car.generateRandomDestinations(2) 
 		#car.randomlyPlaceCarOnRoads()
-		car.coordinates = Coord(20,38)
+		car.coordinates = Coord(40,18)
 		car.direction = Direction.North
-		car.currentStreetId = 2
-		car.randomlyPlaceCarOnRoads()
+		car.currentStreetId = 4
+		#car.randomlyPlaceCarOnRoads()
+		'''
 		Destination=car.generateRandomDestinations(1)
 		ParkingBlock=car.getParkingSpotsDistance(Destination)
 		print("----------------")
 		print(Destination)
 		print(ParkingBlock.__str__())
 		print("----------------")
-		car.generateRandomDestinations(2) #100 for map size, not good way to get map size progromatically
+		#car.generateRandomDestinations(2) 
+		'''
 		carList.append(car)
+	
+	#determine which spots will never be avaialable to park in
+	#Note: this is mainly for the graphics
 	for road in cityMap.roads:
 			for roadSection in road.roadSections:
 				if roadSection.parkingRight.available == False:

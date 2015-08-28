@@ -112,10 +112,10 @@ class Car(object):
 			if self.parkingSpot != None: #unpark if parked
 				self.parkingSpot.release()
 				self.parkingSpot = None
-
+			'''	
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
-			'''
+			
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
 				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				parkingSpot = random.choice(parkingSpots)
@@ -139,18 +139,25 @@ class Car(object):
 
 
 	def circling (self):
-		roads = [self.cityMap.getRoadFromCoord(self.coordinates)]
-		print ("current street id" + str(self.currentStreetId))
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
-		print("# of intersecting street" + str(len(intersectingStreets)))
 		
+		#if there is a road to turn onto
 		if(len(intersectingStreets)>0):
+			#and we have not made 7 rights
 			if(self.intersectionCount%8 != 0):
-				self.direction = self.getRight(self.direction)
+				self.direction = self.getRight(self.direction) #turn right
 				self.intersectionCount +=1
 			else:
-				self.intersectionCount = 1
-		print (self.direction)
+				self.intersectionCount = 1 #go straight
+
+		currentRoad = self.cityMap.getRoadFromCoord(self.coordinates)
+		if (self.cityMap.willBeOutOfBounds(self.coordinates,self.direction,currentRoad)):
+			oppositeDirection = (self.direction + 2) % 4
+			if oppositeDirection == 0:
+				oppositeDirection = 4
+			self.direction = oppositeDirection
+		
+		
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
 		elif(self.direction == Direction.East):
@@ -163,7 +170,6 @@ class Car(object):
 			print("invalid direction")
 		
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
-		print ("changed street id" + str(self.currentStreetId))
 
 	def getRight(self,currentDirection):
 		if(currentDirection == Direction.North):
