@@ -22,7 +22,6 @@ AvgMPG=20 #average mpg of a car driving in a city
 AvgCarbonEmissions=18 #average CO2 emissions in lbs per gallon of gas
 
 def runGraphics():	
-	print("in main")
 	set_clear_color(1,1,1)
 	clear()
 
@@ -35,15 +34,11 @@ def runGraphics():
 
 	cityMap = loadCity(FILENAME)
 	carList = []
-	for i in range(1500):
-		car = Car(env,i,cityMap)
-		car.generateRandomDestinations(2) 
+	
+	for i in range(1):
+		car = Car(env,i,cityMap,"random")
 		car.randomlyPlaceCarOnRoads()
-		print ("destination" + str(car.coordinates))
-		#car.coordinates = Coord(40,18)
-		#car.direction = Direction.North
-		#car.currentStreetId = 4
-		#car.randomlyPlaceCarOnRoads()
+		car.generateDestinations(2) 
 		'''
 		Destination=car.generateRandomDestinations(1)
 		ParkingBlock=car.getParkingSpotsDistance(Destination)
