@@ -28,8 +28,8 @@ class Car(object):
 		self.destinations = []
 		self.goal = None 
 		self.timeSpent=0
-		self.circling = False
-		self.intersectionCount = 0
+		self.circlingBool = False
+		self.intersectionCount = 1
 
 	#execute a move
 	def move(self,direction):
@@ -110,7 +110,7 @@ class Car(object):
 
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
-
+			'''
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
 				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				parkingSpot = random.choice(parkingSpots)
@@ -127,19 +127,27 @@ class Car(object):
 				if(self.wantsToPark):
 					self.clockCounter()
 				yield self.env.timeout(trip_duration)
+				'''
+			self.circling()
+			trip_duration = 1
+			yield self.env.timeout(trip_duration)
 
 
-	def circling ():
+	def circling (self):
 		roads = [self.cityMap.getRoadFromCoord(self.coordinates)]
+		print ("current street id" + str(self.currentStreetId))
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
-
-		if(len(intersectingStreets)>0):
-			if(self.intersectionCount%7 != 0):
-				self.direction = getRight(self.direction)
-			self.intersectionCount +=1
+		print("# of intersecting street" + str(len(intersectingStreets)))
 		
+		if(len(intersectingStreets)>0):
+			if(self.intersectionCount%8 != 0):
+				self.direction = self.getRight(self.direction)
+				self.intersectionCount +=1
+			else:
+				self.intersectionCount = 1
+		print (self.direction)
 		if(self.direction == Direction.North):
-				self.coordinates.increaseY(1)
+			self.coordinates.increaseY(1)
 		elif(self.direction == Direction.East):
 			self.coordinates.increaseX(1)
 		elif(self.direction == Direction.South):
@@ -148,8 +156,11 @@ class Car(object):
 			self.coordinates.decreaseX(1)
 		else:
 			print("invalid direction")
+		
+		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
+		print ("changed street id" + str(self.currentStreetId))
 
-	def getRight(currentDirection):
+	def getRight(self,currentDirection):
 		if(currentDirection == Direction.North):
 			return Direction.East
 		elif(currentDirection == Direction.East):
@@ -168,8 +179,6 @@ class Car(object):
 		return self.carID
 
 
-	def generateRandomDestinations(self,numOfDestination):
-
 	#Returns RoadSection's List of Parking Spots
 	def getParkingSpotsDistance(self):
 		#For each car Get Map
@@ -180,7 +189,7 @@ class Car(object):
 		#For each road section compute distance, find the closest distance
 
 
-	def generateRandomDestinations(self,numOfDestination,mapSize):
+	def generateRandomDestinations(self,numOfDestination):
 		for i in range(0,numOfDestination):
 			destination = self.randomlyPlaceCarOnRoads()
 			self.destinations.append(destination)

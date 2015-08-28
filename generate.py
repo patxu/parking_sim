@@ -8,7 +8,7 @@ import xml.dom.minidom
 
 
 SEED = 13
-MAP_SIZE = 40
+MAP_SIZE = 41
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 10
 PERCENT_OPEN = 3
@@ -21,19 +21,19 @@ def generateRoads():
 	roads = []
 	for x in range(0,MAP_SIZE):
 		if (x%BLOCK_SIZE_HORIZONTAL == 0):
-			road = Road(roadID,Direction.North,0,MAP_SIZE,x)
+			road = Road(roadID,Direction.North,0,MAP_SIZE-1,x)
 			roads.append(road)
 			roadID +=1
 	for x in range(0,MAP_SIZE):
 		if (x%BLOCK_SIZE_VERTICAL == 0):
-			road = Road(roadID,Direction.East,0,MAP_SIZE,x)
+			road = Road(roadID,Direction.East,0,MAP_SIZE-1,x)
 			roads.append(road)
 			roadID +=1
 	return roads
 
 #parking density is a number between 0-100 which represents percentage of parking spots
 def fillWithRoadSection(road,parkingDensity,crossable,cityMap):
-	for x in range(0,road.max+1):
+	for x in range(0,road.max):
 		if (road.direction == Direction.North):
 			coordinates = Coord(road.fixedCoord,x)
 		elif (road.direction == Direction.East):
