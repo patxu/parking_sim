@@ -58,6 +58,11 @@ def runGraphics():
 		request_redraw()
 		sleep(STEP_LENGTH)
 
+		if is_key_pressed("p"):
+			while 1:
+				if is_key_pressed("r"):
+					break;
+
 	logname="ParkingLog"
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")

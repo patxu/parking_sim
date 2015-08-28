@@ -128,6 +128,14 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
+	#Returns RoadSection's List of Parking Spots
+	def getParkingSpotsDistance(self):
+		#For each car Get Map
+		self.cityMap
+		#Get Roads
+		#Get Road Sections
+		#If road section has available spots, then add to list
+		#For each road section compute distance, find the closest distance
 
 
 	def __str__(self):
@@ -147,7 +155,6 @@ if __name__ == "__main__":
 		carList.append(car)
 
 
-	
 	for i in range(1,100):
 		#env.run(until=i)
 		env.step()
