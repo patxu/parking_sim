@@ -34,6 +34,12 @@ def runGraphics():
 	for i in range(1000):
 		car = Car(env,i,cityMap)
 		car.randomlyPlaceCarOnRoads()
+		Destination=car.generateRandomDestinations(1,100)
+		ParkingBlock=car.getParkingSpotsDistance(Destination)
+		print("----------------")
+		print(Destination)
+		print(ParkingBlock.__str__())
+		print("----------------")
 		car.generateRandomDestinations(2,100) #100 for map size, not good way to get map size progromatically
 		carList.append(car)
 	for road in cityMap.roads:
@@ -65,7 +71,7 @@ def runGraphics():
 				if is_key_pressed("r"):
 					break;
 
-	logname="ParkingLog"
+	logname="ParkingLog.log"
 	logname=LOGNAME
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
