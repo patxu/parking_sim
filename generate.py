@@ -88,7 +88,8 @@ def boolToXML(bool):
 		return 'N'
 
 if __name__ == '__main__':
-	FILENAME = sys.argv[1]
+	if(len(sys.argv) > 1):
+		FILENAME = sys.argv[1]
 	roads = generateRoads()
 	city = RoadMap()
 	for road in roads:

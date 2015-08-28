@@ -1,14 +1,20 @@
+from __future__ import division
 from cs1lib import *
 from roadmap import *
 from simulation import *
 import simpy
 
-CANVAS_WIDTH=1000
+
+CANVAS_WIDTH=2000
 CANVAS_HEIGHT=1000
-ROAD_SECTION_WIDTH=20
-ROAD_SECTION_HEIGHT=20
+ROAD_SECTION_WIDTH=50
+ROAD_SECTION_HEIGHT=50
 STEP_LENGTH = .05
 FILENAME = "cities/grid100_3.xml"
+toHoursFactor=1/3600 #convert seconds to hours
+AvgMPH=30 #average mph of a car driving in a city
+AvgMPG=20 #average mpg of a car driving in a city
+AvgCarbonEmissions=18 #average CO2 emissions in lbs per gallon of gas
 
 def runGraphics():
 	print("in main")
@@ -21,7 +27,7 @@ def runGraphics():
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
 	env = simpy.Environment()
-	
+
 	cityMap = loadCity(FILENAME)
 	carList = []
 	for i in range(1000):
@@ -51,6 +57,24 @@ def runGraphics():
 		# drawRoads(cityMap)
 		request_redraw()
 		sleep(STEP_LENGTH)
+
+	logname="ParkingLog"
+	fp=open(logname,"w")
+	fp.write("Parking Log\n")
+	totalDrivingTime=0;
+	for car in carList:
+		totalDrivingTime=totalDrivingTime+car.getTime()
+		fp.write("Car: "+str(car.getCarID())+" Time Spent Driving: "+str(car.getTime())+"\n")
+
+	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(totalDrivingTime)+" seconds\n")
+	#Computation for Carbon Emissions
+		#~18 lbs of CO2 emitted per gallon of gas
+		#Drivers driving for x seconds
+		#Driving ~30 miles per hour on city streets
+		#Average car gets ~20 MPG
+	CarbonEmissions=(totalDrivingTime*toHoursFactor*AvgMPH*(1/AvgMPG)*AvgCarbonEmissions)
+	fp.write("Predicted Total Carbon Emissions: "+ str(CarbonEmissions)+" lbs\n")
+	fp.close()
 
 
 
@@ -200,7 +224,8 @@ def drawCar(car):
 
 
 if __name__ == '__main__':
-	FILENAME = sys.argv[1]
+	if(len(sys.argv) > 1):
+		FILENAME = sys.argv[1]
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 
 	

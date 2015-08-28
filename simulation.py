@@ -105,7 +105,7 @@ class Car(object):
 			parkingSpots = section.getParkingSpots(self.direction)
 
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
-				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				parkingSpot = random.choice(parkingSpots)
 				parkingSpot.request()
 				self.wantsToPark = False
@@ -114,7 +114,7 @@ class Car(object):
 				yield self.env.timeout(park_duration)
 
 			else: #default behavior- drive
-				print ("Car %d driving at time %d at coord %s" % (self.carID,self.env.now,str(self.coordinates)))
+				print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				trip_duration = 1
 				self.move(self.direction)
 				self.clockCounter()
@@ -123,10 +123,15 @@ class Car(object):
 	def clockCounter(self):
 		self.timeSpent=self.timeSpent+1
 
+	def getTime(self):
+		return self.timeSpent
+	def getCarID(self):
+		return self.carID
+
 
 
 	def __str__(self):
-		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timSpent)
+		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)
 	
 
 if __name__ == "__main__":

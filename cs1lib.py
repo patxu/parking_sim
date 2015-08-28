@@ -20,6 +20,8 @@ from threading import Lock
 from sys import exit, argv
 import sys
 
+from draw_city import *
+
 from threading import Thread
 
 class CS1Canvas(QWidget):
