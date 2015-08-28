@@ -35,13 +35,14 @@ def runGraphics():
 
 	cityMap = loadCity(FILENAME)
 	carList = []
-	for i in range(1):
+	for i in range(1500):
 		car = Car(env,i,cityMap)
 		car.generateRandomDestinations(2) 
-		#car.randomlyPlaceCarOnRoads()
-		car.coordinates = Coord(40,18)
-		car.direction = Direction.North
-		car.currentStreetId = 4
+		car.randomlyPlaceCarOnRoads()
+		print ("destination" + str(car.coordinates))
+		#car.coordinates = Coord(40,18)
+		#car.direction = Direction.North
+		#car.currentStreetId = 4
 		#car.randomlyPlaceCarOnRoads()
 		'''
 		Destination=car.generateRandomDestinations(1)
