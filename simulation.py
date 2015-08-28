@@ -30,17 +30,18 @@ class Car(object):
 		self.timeSpent=0
 
 	#execute a move
-	def move(self,direction):
+	def move(self,prevDirection):
 		validDirections = self.getValidDirections()
-		if len(validDirections) > 1: #don't u-turn unless we have to
-			oppositeDirection = (self.direction + 2) % 4
-			if oppositeDirection == 0:
-				oppositeDirection = 4
+		oppositeDirection = (self.direction + 2) % 4
+		if oppositeDirection == 0: #since directions are not 0-indexed
+			oppositeDirection = 4
+		if len(validDirections) > 1: #remove u-turn direction if we have other options
 			try:
 				validDirections.remove(oppositeDirection) #remove backwards direction
 			except ValueError:
 				pass #this is okay
 		self.direction = random.choice(validDirections)
+		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
@@ -72,8 +73,6 @@ class Car(object):
 	def getValidDirections(self):
 		#get valid roads
 		roads = [self.cityMap.getRoadFromCoord(self.coordinates)]
-		for edge in self.cityMap.graph[self.currentStreetId]:
-			print edge[0]
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
 		if intersectingStreets:
 			roads.extend(intersectingStreets)
@@ -133,7 +132,6 @@ class Car(object):
 	def getCarID(self):
 		return self.carID
 
-<<<<<<< HEAD
 	#Returns RoadSection's List of Parking Spots
 	def getParkingSpotsDistance(self):
 		#For each car Get Map
@@ -143,14 +141,12 @@ class Car(object):
 		#If road section has available spots, then add to list
 		#For each road section compute distance, find the closest distance
 
-=======
 	def generateRandomDestinations(self,numOfDestination,mapSize):
 		for i in range(0,numOfDestination):
 			x = random.randint(0,mapSize)
 			y = random.randint(0,mapSize)
 			destination = Coord(x,y)
 			self.destinations.append(destination)
->>>>>>> b9dbb19b70563d6d7f85736c7285afe8d18681ff
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)
