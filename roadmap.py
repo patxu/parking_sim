@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import math
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()
@@ -36,6 +37,13 @@ class Coord:
 
   def decreaseY(self,value):
     self.y -= value
+
+  def distanceFrom(self,otherCoord):
+    return math.sqrt(math.pow((self.x-otherCoord.x),2)+math.pow((self.y-otherCoord.y),2))
+
+  @staticmethod
+  def distanceBetween(self,firstCoord,secondCoord):
+    return math.sqrt(math.pow((firstCoord.x-secondCoord.x),2)+math.pow((firstCoord.y-secondCoord.y),2))
 
   def __str__(self):
     return "(" + str(self.x) + ',' + str(self.y) + ")"
