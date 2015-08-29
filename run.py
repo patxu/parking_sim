@@ -6,6 +6,8 @@ from roadmap import *
 from simulation import *
 from draw_city import *
 from cs1lib import *
+import time
+import sys
 
 logname = "cities/test.log" #this will be changed everytime because output path is required
 env = simpy.Environment()
@@ -234,13 +236,32 @@ def drawCar(car):
 	draw_circle(x_coor,y_coor,ROAD_SECTION_WIDTH/4)
 	disable_stroke()	
 
+def update_progress(progress):
+	barLength = 50 # Modify this to change the length of the progress bar
+	status = ""
+	if isinstance(progress, int):
+		progress = float(progress)
+	if not isinstance(progress, float):
+		progress = 0
+		status = "error: progress var must be float\r\n"
+	if progress < 0:
+		progress = 0
+		status = "Halt...\r\n"
+	if progress >= 1:
+		progress = 1
+		status = "Done...\r\n"
+	block = int(round(barLength*progress))
+	text = "\rPercent: [{0}] {1}% {2}".format( "#"*block + "-"*(barLength-block), progress*100, status)
+	sys.stdout.write(text)
+	sys.stdout.flush()
+
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler) #make sure log is written too even with ctl+c
 	
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-m','--map',help="Path to city map",required=True)
-	parser.add_argument('-g','--graphics',help="Run with graphics",action="store_true")
 	parser.add_argument('-o','--output',help="Path to file output",required=True)
+	parser.add_argument('-g','--graphics',help="Run with graphics",action="store_true")
 	parser.add_argument('-t','--time_length',help="Time between steps",default=0)
 	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=900)
 	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=900)
@@ -293,8 +314,10 @@ if __name__ == '__main__':
 				env.step()
 			sleep(STEP_LENGTH)
 
-			print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+			# print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+			update_progress(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)))
 			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+				sys.stdout.write("\n")
 				break
 
 
