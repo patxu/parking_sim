@@ -21,8 +21,8 @@ AvgMPH=30 #average mph of a car driving in a city
 AvgMPG=20 #average mpg of a car driving in a city
 AvgCarbonEmissions=18 #average CO2 emissions in lbs per gallon of gas
 
-def runGraphics():	
-	set_clear_color(1,1,1)
+def runGraphics(canvas):	
+	canvas.set_clear_color(1,1,1)
 	clear()
 
 	#Grass
@@ -34,12 +34,12 @@ def runGraphics():
 
 	cityMap = loadCity(FILENAME)
 	carList = []
-	
+	'''
 	for i in range(1):
 		car = Car(env,i,cityMap,"random")
 		car.randomlyPlaceCarOnRoads()
 		car.generateDestinations(2) 
-		'''
+		
 		Destination=car.generateRandomDestinations(1)
 		ParkingBlock=car.getParkingSpotsDistance(Destination)
 		print("----------------")
@@ -47,7 +47,7 @@ def runGraphics():
 		print(ParkingBlock.__str__())
 		print("----------------")
 		#car.generateRandomDestinations(2) 
-		'''
+		
 		carList.append(car)
 	
 	#determine which spots will never be avaialable to park in
@@ -98,7 +98,7 @@ def runGraphics():
 	fp.close()
 
 
-
+	'''
 def drawRoadSection(roadSection):
 	myCoordinates=roadSection.coordinates
 	x_coor=myCoordinates.x
@@ -249,6 +249,7 @@ if __name__ == '__main__':
 		FILENAME = sys.argv[1]
 	if(len(sys.argv) > 2):
 		LOGNAME = sys.argv[2]
-	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
+	c = create_canvas("smart parking",CANVAS_WIDTH,CANVAS_HEIGHT,True)
+	start_graphics(runGraphics(c),"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 
 	

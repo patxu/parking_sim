@@ -1,14 +1,13 @@
 import random
 from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCity
 import roadmap
-# import xml.etree.cElementTree as ET
 from lxml import etree as ET
 import sys
 import xml.dom.minidom
-
+import argparse
 
 SEED = 13
-MAP_SIZE = 41
+MAP_SIZE = 101
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 10
 PERCENT_OPEN = 3
@@ -88,8 +87,27 @@ def boolToXML(bool):
 		return 'N'
 
 if __name__ == '__main__':
-	if(len(sys.argv) > 1):
-		FILENAME = sys.argv[1]
+
+	#Get Arguments
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-s','--map_size',help="City Size")
+	parser.add_argument('-l','--block_length',help="Block Length")
+	parser.add_argument('-w','--block_width',help="Block Width")
+	parser.add_argument('-o','--percent_open',help="Number between 0-100 representing percent of spaces open")
+	parser.add_argument('-f','--file',help="File to write too")
+	args = vars(parser.parse_args())
+
+	if (args["map_size"] != None):
+		MAP_SIZE = args["map_size"]
+	if (args["block_length"] != None):
+		BLOCK_SIZE_VERTICAL = args["block_length"]
+	if (args["block_width"] != None):
+		BLOCK_SIZE_HORIZONTAL = args["block_width"]
+	if (args["percent_open"] != None):
+		PERCENT_OPEN = args["percent_open"]
+	if (args["file"] != None):
+		FILENAME = args["file"]
+	
 	roads = generateRoads()
 	city = RoadMap()
 	for road in roads:
