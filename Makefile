@@ -1,18 +1,56 @@
 
+# City generation parameters
+CITY_DIR = cities/
 LENGTH = 10
 WIDTH = 10
 
-#CITIES
-CITY_THREE = cities/grid_$(LENGTH)x$(WIDTH)_three.xml
-CITY_FIVE = cities/grid_$(LENGTH)x$(WIDTH)_five.xml
-CITY_TEN = cities/grid_$(LENGTH)x$(WIDTH)_ten.xml
-CITY_TWENTY = cities/grip_$(LENGTH)x$(WIDTH)_twenty.xml
+PERCENT3 = 3
+PERCENT5 = 5
+PERCENT10 = 10
+PERCENT20 = 20
+
+CITY_THREE = percent$(PERCENT3)_$(LENGTH)x$(WIDTH).xml
+CITY_FIVE = percent$(PERCENT5)_$(LENGTH)x$(WIDTH).xml
+CITY_TEN = percent$(PERCENT10)_$(LENGTH)x$(WIDTH).xml
+CITY_TWENTY = percent$(PERCENT20)_$(LENGTH)x$(WIDTH).xml
+
+# Test and Log parameters
+# log output format: smartXX_carsXX_destXX_PERCENTAGE
+LOG_DIR = logs/
+
+CARS100 = 100
+CARS500 = 500
+CARS1000 = 1000
+CARS2500 = 2500
+DESTINATIONS = 3 
+
+SMART100 = 100
+SMART80 = 80
+SMART60 = 60
+SMART40 = 40
+SMART20 = 20
+SMART0 = 0
+
+LOG_THREE = cars$(CARS)_dest$(DESTIONATIONS)_three.xml
+LOG_FIVE = cars$(CARS)_dest$(DESTIONATIONS)_five.xml
+LOG_TEN = cars$(CARS)_dest$(DESTIONATIONS)_ten.xml
+LOG_TWENTY = cars$(CARS)_dest$(DESTIONATIONS)_twenty.xml
 
 generate:
-	python generate.py -s 100 -l 10 -w 10 -o 3 -f $(CITY_THREE)
-	python generate.py -s 100 -l 10 -w 10 -o 3 -f $(CITY_FIVE)
-	python generate.py -s 100 -l 10 -w 10 -o 3 -f $(CITY_TEN)
-	python generate.py -s 100 -l 10 -w 10 -o 3 -f $(CITY_TWENTY)
+	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT3) -f $(CITY_DIR)$(CITY_THREE)
+	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT5) -f $(CITY_DIR)$(CITY_FIVE)
+	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT10) -f $(CITY_DIR)$(CITY_TEN)
+	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT20) -f $(CITY_DIR)$(CITY_TWENTY)
 
-run:
-	# python run.py
+#we don't loop through the smart-dumb ratios in a single command in order to be able to run the tests in parallel
+run_smart100:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_THREE -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_FIVE -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_TEN -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_TWENTY -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_TWENTY); \
+	done
+
+sphinxhtml:
+	cd sphinx/; make html; cd ..
+	rm -rf *.pyc
