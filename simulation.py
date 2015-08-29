@@ -30,12 +30,23 @@ class Car(object):
 		#default settings
 		self.parkingSpot = None
 		self.currentStreetId = None
+		self.totalDestinations = 0
 		self.destinations = []
 		self.goalDestination= None 
 		self.timeSpent=0
 		self.circlingBool = False
 		self.intersectionCount = 1
 
+	#random
+	#circling
+	#
+	def setMovementPattern(moveFunction):
+		if (moveFunction == "random"):
+			self.moveFunction = randomMove()
+		if (moveFunction == "circling"):
+			self.moveFunction = circling
+		if (moveFunction == "smart"):
+			self.moveFunction == smartMove()
 	def executeMovementBehavior(self):
 		print (self.moveFunction, str(self.goalDestination))
 		if (self.moveFunction == "random"):
@@ -143,6 +154,11 @@ class Car(object):
 		elif(self.direction == Direction.West):
 			self.coordinates.decreaseX(1)
 		else:
+			print("randomMove error: invalid direction")
+
+	#executes a move towards a destination
+	def smartMove(self):
+		return True
 			print("moveTowardsCurrentDirection error: invalid direction")
 
 	#randomly place self on a road
@@ -202,6 +218,13 @@ class Car(object):
 			if self.parkingSpot != None: #release parking spot
 				self.parkingSpot.release()
 				self.parkingSpot = None
+			if len(self.destinationStack) == 0:
+				setMovementPattern("random")
+			elif goal == None:
+				#if self.
+				goal=destinationStack.pop(0)
+			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
+			parkingSpots = section.getParkingSpots(self.direction)
 
 			if self.coordinates == self.goalDestination:
 				print("Got to Goal!!")
