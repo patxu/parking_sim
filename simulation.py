@@ -285,7 +285,7 @@ class Car(object):
 				if len(myList)>0:
 					RoadSectionList.append(roadSection)
 
-		myDistance = 100000000000#(float("inf")) #infinity
+		myDistance = sys.maxint #infinity
 		#For each road section compute distance, find the closest distance
 		for RoadSectionWithParkingSpot in RoadSectionList:
 			parking_spot_coordinates=RoadSectionWithParkingSpot.coordinates

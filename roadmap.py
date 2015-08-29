@@ -29,12 +29,7 @@ class Coord:
       return False
 
   def __ne__(self,other):
-    if other == None:
-      return True
-    elif(self.x != other.x and self.y != other.y):
-      return True
-    else:
-      return False
+    return not self.__eq__(other)
 
   def increaseX(self,value):
     self.x += value
