@@ -241,11 +241,13 @@ if __name__ == '__main__':
 	parser.add_argument('-m','--map',help="Path to city map",required=True)
 	parser.add_argument('-g','--graphics',help="Run with graphics",action="store_true")
 	parser.add_argument('-o','--output',help="Path to file output",required=True)
-	parser.add_argument('-s','--step_length',help="Time between steps",default=.05)
+	parser.add_argument('-t','--time_length',help="Time between steps",default=0)
 	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=900)
 	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=900)
 	parser.add_argument('-z','--zoom',help="Zoom: Best results in range 20(zoomed out)-50(zoomed in)",default=20)
-	parser.add_argument('-c','--cars',help="Number of cars",default=2)
+	parser.add_argument('-c','--cars',help="Number of cars",default=1)
+	parser.add_argument('-s','--smart',help="Percentage of smart cars: 100 for all smart, 0 for all dumb",default=0,type=int, choices=xrange(0,101),metavar='')
+	parser.add_argument('-d','--destinations',help="Number of destinations each car should have",default=1,type=int)
 	
 	args = vars(parser.parse_args())
 
@@ -255,18 +257,21 @@ if __name__ == '__main__':
 	CANVAS_WIDTH = int(args["canvas_width"])
 	ROAD_SECTION_WIDTH=int(args["zoom"])
 	ROAD_SECTION_HEIGHT=int(args["zoom"])
-	STEP_LENGTH=float(args["step_length"])
+	STEP_LENGTH=float(args["time_length"])
 
 	cityMap = loadCity(cityFile)
 	carList = []
 
+	percentSmart = float(args["smart"])/100
 	#create cars
 	for i in range(int(args["cars"])):
-		car = Car(env,i,cityMap,"dumb")
+		if (i < percentSmart * int(args["cars"])):
+			car = Car(env,i,cityMap,"smart")
+		else:
+			car = Car(env,i,cityMap,"dumb")
 		car.randomlyPlaceCarOnRoads()
-		car.generateDestinations(1)
+		car.generateDestinations(args["destinations"])
 		carList.append(car)
-	
 	#only done for graphic purposes
 	if(args["graphics"]):
 		for road in cityMap.roads:
