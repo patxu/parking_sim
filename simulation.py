@@ -12,11 +12,12 @@ from draw_city import *
 
 SEED = 10
 PARK_DURATION = 15
+PARK_RADIUS = 20
 
 #random.seed(SEED)
 
 class Car(object):
-	def __init__(self,env,carID,cityMap,moveFunction = "random", wantsToPark = True,coordinates = None,direction = None):
+	def __init__(self,env,carID,cityMap,moveFunction = "random",wantsToPark = False,coordinates = None,direction = None):
 		self.env = env
 		self.action = env.process(self.run())
 		self.wantsToPark = wantsToPark
@@ -37,7 +38,6 @@ class Car(object):
 		self.intersectionCount = 1
 
 	def executeMovementBehavior(self):
-		print (self.moveFunction, str(self.smartParkingDestination))
 		if (self.moveFunction == "random"):
 			self.randomMove()
 		elif (self.moveFunction == "dumb"):
@@ -57,9 +57,6 @@ class Car(object):
 		if self.coordinates == None:
 			return
 		
-		if self.coordinates.distanceFrom(self.smartParkingDestination) < 20:
-			self.wantsToPark = True
-
 		validDirections = self.getValidDirections()
 		oppositeDirection = (self.direction + 2) % 4
 		if oppositeDirection == 0: #since directions are not 0-indexed
@@ -116,16 +113,19 @@ class Car(object):
 	def smartMove(self):
 		if self.coordinates == None:
 			return
-		self.wantsToPark = True
+		if self.coordinates.distanceFrom(self.destinations[0]) < PARK_RADIUS:
+			self.wantsToPark = True
 		self.smartParkingDestination = self.getClosestRoadSectionToDestination(self.destinations[0])
-		self.goToCoordinate(self.smartParkingDestination)
+		self.goToCoordinate(self.smartParkingDestination.coordinates)
 
 	# ---- Normal "Dumb" Movement ---- #
 	def dumbMove(self):
 		if self.coordinates == None:
 			return
-		if self.coordinates.distanceFrom(self.destinations[0]) < 20:
+		if self.coordinates.distanceFrom(self.destinations[0]) < PARK_RADIUS:
 			self.wantsToPark = True
+		else:
+			self.wantsToPark = False
 		if self.coordinates == self.destinations[0]:
 			self.moveFunction = "circling"
 		self.goToCoordinate(self.destinations[0])
@@ -140,22 +140,28 @@ class Car(object):
 
 		# validDirections = self.getValidDirections()
 
-		xDiff = abs(self.smartParkingDestination.coordinates.x - self.coordinates.x)
-		yDiff = abs(self.smartParkingDestination.coordinates.y - self.coordinates.y)
+		xDiff = abs(destination.x - self.coordinates.x)
+		yDiff = abs(destination.y - self.coordinates.y)
 
 		if xDiff > yDiff:
-			if self.smartParkingDestination.coordinates.x < self.coordinates.x:
+			if destination.x < self.coordinates.x:
 				self.direction = Direction.West
-			elif (self.smartParkingDestination.coordinates.x > self.coordinates.x):
+			elif destination.x > self.coordinates.x:
 				self.direction = Direction.East
 		else:
-			if (self.smartParkingDestination.coordinates.y < self.coordinates.y):
+			if destination.y < self.coordinates.y:
 				self.direction = Direction.South
-			elif (self.smartParkingDestination.coordinates.y > self.coordinates.y):
+			elif destination.y > self.coordinates.y:
 				self.direction = Direction.North
 		self.moveTowardsCurrentDirection()
 
 	def moveTowardsCurrentDirection(self):
+		currentRoad = self.cityMap.getRoadFromCoord(self.coordinates)
+		if (self.cityMap.willBeOutOfBounds(self.coordinates,self.direction,currentRoad)):
+			oppositeDirection = (self.direction + 2) % 4
+			if oppositeDirection == 0:
+				oppositeDirection = 4
+			self.direction = oppositeDirection
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
 		elif(self.direction == Direction.East):
@@ -227,20 +233,24 @@ class Car(object):
 
 			if len(self.destinations) == 0:
 				self.moveFunction = "random"
+				self.wantsToPark = False
 
 			currentSection = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = currentSection.getParkingSpots(self.direction)
 			
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
-				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
+				if self.smartParkingDestination != None and self.smartParkingDestination != self.coordinates:
+					continue
+				# print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				parkingSpot = random.choice(parkingSpots)
 				parkingSpot.request()
 				self.wantsToPark = False
 				self.parkingSpot = parkingSpot
+				self.destinations.pop(0)
 				yield self.env.timeout(PARK_DURATION)
 
 			else: #default behavior- drive
-				print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
+				# print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
 				self.executeMovementBehavior()
 				if(self.wantsToPark):
 					self.clockCounter()
@@ -271,7 +281,7 @@ class Car(object):
 				if len(myList)>0:
 					RoadSectionList.append(roadSection)
 
-		myDistance = (float("inf")) #infinity
+		myDistance = 100000000000#(float("inf")) #infinity
 		#For each road section compute distance, find the closest distance
 		for RoadSectionWithParkingSpot in RoadSectionList:
 			parking_spot_coordinates=RoadSectionWithParkingSpot.coordinates

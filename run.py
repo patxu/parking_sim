@@ -15,6 +15,7 @@ CANVAS_HEIGHT = 100
 CANVAS_WIDTH = 100
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
+STEP_LENGTH = 0.05
 
 def signal_handler(signal,frame):
 	fp=open(logname,"w")
@@ -60,6 +61,8 @@ def runGraphics():
 				if is_key_pressed("r"):
 					break;
 				sleep(0.1)
+
+		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
 
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
@@ -226,8 +229,8 @@ if __name__ == '__main__':
 	parser.add_argument('-g','--graphics',help="Run with graphics",action="store_true")
 	parser.add_argument('-o','--output',help="Path to fileoutput",required=True)
 	parser.add_argument('-s','--step_length',help="Time between steps",default=.05)
-	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=800)
-	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=800)
+	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=900)
+	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=900)
 	parser.add_argument('-z','--zoom',help="Zoom: Best results in range 20-50",default=20)
 	parser.add_argument('-c','--cars',help="Number of cars",default=2)
 	
@@ -239,15 +242,18 @@ if __name__ == '__main__':
 	CANVAS_WIDTH = args["canvas_width"]
 	ROAD_SECTION_WIDTH=int(args["zoom"])
 	ROAD_SECTION_HEIGHT=int(args["zoom"])
+	STEP_LENGTH=float(args["step_length"])
 
 	cityMap = loadCity(cityFile)
 	carList = []
 
 	#create cars
 	for i in range(int(args["cars"])):
-		car = Car(env,i,cityMap,"smart")
+		car = Car(env,i,cityMap,"dumb")
 		car.randomlyPlaceCarOnRoads()
-		car.generateDestinations(2)
+		car.coordinates = Coord(0,30)
+		car.direction = Direction.West
+		car.generateDestinations(1)
 		carList.append(car)
 	
 	#only done for graphic purposes
@@ -268,6 +274,6 @@ if __name__ == '__main__':
 				env.step() 
 			if numDriving == 0:
 				env.step()
-			sleep(args["step_length"])
+			sleep(STEP_LENGTH)
 
 

@@ -131,10 +131,16 @@ class Road(object):
 
   #find the road section based on a coordinate
   def getRoadSectionFromCoord(self, coord):
-    try:
-      return [section for section in self.roadSections if section.coordinates == coord][0]
-    except:
-      None
+      print(coord)
+      print[str(section) for section in self.roadSections]
+      for section in self.roadSections:
+        print section.coordinates, coord
+        if (section.coordinates == coord):
+          print "equals"
+          return section
+        else:
+          print "not equals"
+      # return [section for section in self.roadSections if section.coordinates == coord][0]
   def __str__(self):
     return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
 
