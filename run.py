@@ -284,7 +284,7 @@ if __name__ == '__main__':
 		start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 	
 	else:
-		print("STARTING RUN: cars: %d destinations: %d map: %s" %(int(args["cars"]), int(args["destinations"]), cityFile))
+		print("STARTING RUN: cars: %d destinations: %d map: %s output: %s" %(int(args["cars"]), int(args["destinations"]), cityFile, logname))
 		while True:
 			numDriving = len([car for car in carList if car.parkingSpot == None])
 			for i in range(numDriving):
