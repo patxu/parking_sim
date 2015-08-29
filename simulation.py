@@ -192,8 +192,7 @@ class Car(object):
 
 	#executes a move towards a destination
 	def smartMove(self):
-		return True
-			print("moveTowardsCurrentDirection error: invalid direction")
+		print("moveTowardsCurrentDirection error: invalid direction")
 
 	#randomly place self on a road
 	def randomlyPlaceCarOnRoads(self):
@@ -252,11 +251,11 @@ class Car(object):
 			if self.parkingSpot != None: #release parking spot
 				self.parkingSpot.release()
 				self.parkingSpot = None
-			if len(self.destinationStack) == 0:
+			if len(self.destinations) == 0:
 				setMovementPattern("random")
-			elif goal == None:
+			elif self.goalDestination == None:
 				#if self.
-				goal=destinationStack.pop(0)
+				goal=self.destinations.pop(0)
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
 

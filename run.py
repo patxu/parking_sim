@@ -19,7 +19,8 @@ ROAD_SECTION_HEIGHT=20
 def signal_handler(signal,frame):
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
-	totalDrivingTime=0;
+	total=0
+	totalAverage = 0
 	for car in carList:
 		averageTime = (car.timeSpent / car.totalDestinations)
 		totalAverage += averageTime
@@ -230,7 +231,7 @@ if __name__ == '__main__':
 	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=800)
 	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=800)
 	parser.add_argument('-z','--zoom',help="Zoom: Best results in range 20-50",default=20)
-	parser.add_argument('-c','--cars',help="Number of cars",default=100)
+	parser.add_argument('-c','--cars',help="Number of cars",default=2)
 	
 	args = vars(parser.parse_args())
 
