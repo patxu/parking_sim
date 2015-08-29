@@ -68,7 +68,6 @@ def runGraphics():
 				sleep(0.1)
 
 		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
-		# print [(str(car.coordinates), str(car.destinations[0])) for car in carList if len(car.destinations) != 0]
 		if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 			break
 
@@ -295,7 +294,6 @@ if __name__ == '__main__':
 			sleep(STEP_LENGTH)
 
 			print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
-			print [(str(car.coordinates), str(car.destination[0])) for car in carList if len(car.destinations) != 0]
 			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 				break
 
@@ -318,6 +316,5 @@ if __name__ == '__main__':
 		fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
 		fp.close()
 		print ("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
-		sys.exit(0)	
-
+		sys.exit(0)
 

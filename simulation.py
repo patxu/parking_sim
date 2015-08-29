@@ -78,6 +78,8 @@ class Car(object):
 		if self.coordinates == None:
 			return
 		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
+		if self.wantsToPark == False:
+			self.wantsToPark = True
 		
 		#if there is a road to turn onto
 		if(len(intersectingStreets)>0):
@@ -125,8 +127,6 @@ class Car(object):
 			return
 		if self.coordinates.distanceFrom(self.destinations[0]) < PARK_RADIUS:
 			self.wantsToPark = True
-		else:
-			self.wantsToPark = False
 		if self.coordinates == self.destinations[0]:
 			self.moveFunction = "circling"
 		self.goToCoordinate(self.destinations[0])
