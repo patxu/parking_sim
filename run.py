@@ -7,7 +7,7 @@ from simulation import *
 from draw_city import *
 from cs1lib import *
 
-logname = "foo.xml" #this will be changed everytime because output path is required
+logname = "cities/test.log" #this will be changed everytime because output path is required
 env = simpy.Environment()
 carList = []
 cityMap = RoadMap()
@@ -240,11 +240,11 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-m','--map',help="Path to city map",required=True)
 	parser.add_argument('-g','--graphics',help="Run with graphics",action="store_true")
-	parser.add_argument('-o','--output',help="Path to fileoutput",required=True)
+	parser.add_argument('-o','--output',help="Path to file output",required=True)
 	parser.add_argument('-s','--step_length',help="Time between steps",default=.05)
 	parser.add_argument('-l','--canvas_length',help="Canvas Length",default=900)
 	parser.add_argument('-w','--canvas_width',help="Canvas Width",default=900)
-	parser.add_argument('-z','--zoom',help="Zoom: Best results in range 20-50",default=20)
+	parser.add_argument('-z','--zoom',help="Zoom: Best results in range 20(zoomed out)-50(zoomed in)",default=20)
 	parser.add_argument('-c','--cars',help="Number of cars",default=2)
 	
 	args = vars(parser.parse_args())
