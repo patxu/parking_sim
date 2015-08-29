@@ -11,6 +11,7 @@ from draw_city import *
 # import pdb, traceback, sys, code
 
 SEED = 10
+PARK_DURATION = 15
 
 #random.seed(SEED)
 
@@ -24,39 +25,36 @@ class Car(object):
 		self.coordinates = coordinates
 		self.direction = direction
 
-		self.setMoveFunction(moveFunction)
+		self.moveFunction = moveFunction
 
 		#default settings
 		self.parkingSpot = None
 		self.currentStreetId = None
-		self.destinationStack = []
-		self.currentDestination= None 
+		self.destinations = []
+		self.goalDestination= None 
 		self.timeSpent=0
 		self.circlingBool = False
 		self.intersectionCount = 1
 
-	#random
-	#circling
-	#
-	def setMovementPattern(moveFunction):
-		if (moveFunction == "random"):
-			self.moveFunction = randomMove()
-		if (moveFunction == "circling")
-			self.moveFunction = circling
-		if (moveFunction == "smart")
-			self.moveFunction == smartMove()
+	def executeMovementBehavior(self):
+		print (self.moveFunction, str(self.goalDestination))
+		if (self.moveFunction == "random"):
+			self.randomMove()
+		elif (self.moveFunction == "circling"):
+			self.circling()
+		elif (self.moveFunction == "smart"):
+			self.smartMove()
 		else:
-			print("setMoveFunction error: invalid move function choice; setting to random")
-			self.moveFunction == randomMove()
+			print("executeMovementBehvaior error: invalid move function choice %s; setting to random" %self.moveFunction)
+			self.randomMove()
+
+	# ---- Random ---- #
 
 	#execute a move in a random direction
-	def randomMove(self,prevDirection):
+	def randomMove(self):
+		if self.coordinates == None:
+			return
 		validDirections = self.getValidDirections()
-		print validDirections
-		if len(validDirections) > 1: #don't u-turn unless we have to
-			oppositeDirection = (self.direction + 2) % 4
-			if oppositeDirection == 0:
-				oppositeDirection = 4
 		oppositeDirection = (self.direction + 2) % 4
 		if oppositeDirection == 0: #since directions are not 0-indexed
 			oppositeDirection = 4
@@ -65,10 +63,111 @@ class Car(object):
 				validDirections.remove(oppositeDirection) #remove backwards direction
 			except ValueError:
 				pass #this is okay
-		print validDirections
 		self.direction = random.choice(validDirections)
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
+		self.moveTowardsCurrentDirection()
 
+	# ---- Circling ---- #
+
+	#search for parking in a "dumb" circling pattern
+	def circling (self):
+		if self.coordinates == None:
+			return
+		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
+		
+		#if there is a road to turn onto
+		if(len(intersectingStreets)>0):
+			#and we have not made 7 rights
+			if(self.intersectionCount%8 != 0):
+				self.direction = self.getRight(self.direction) #turn right
+				self.intersectionCount +=1
+			else:
+				self.intersectionCount = 1 #go straight
+
+		currentRoad = self.cityMap.getRoadFromCoord(self.coordinates)
+		if (self.cityMap.willBeOutOfBounds(self.coordinates,self.direction,currentRoad)):
+			oppositeDirection = (self.direction + 2) % 4
+			if oppositeDirection == 0:
+				oppositeDirection = 4
+			self.direction = oppositeDirection
+		
+		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
+		self.moveTowardsCurrentDirection()
+
+	def getRight(self,currentDirection):
+		if(currentDirection == Direction.North):
+			return Direction.East
+		elif(currentDirection == Direction.East):
+			return Direction.South
+		elif(currentDirection == Direction.South):
+			return Direction.West
+		elif(currentDirection == Direction.West):
+			return Direction.North
+
+	# ---- Smart Movement ---- #
+
+	#executes a move towards a destination
+	def smartMove(self):
+		if self.coordinates == None:
+			return
+
+		currentSection = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
+		if currentSection.intersection == False:
+			self.moveTowardsCurrentDirection()
+			return
+
+		validDirections = self.getValidDirections()
+		if self.carID % 2 == 0:
+			newDirection = self.approachXCoord(validDirections)
+			if newDirection == None:
+				newDirection = self.appraochYCoord(validDirections)
+				if newDirection == None: #arrived at destination
+					if self.coordinates != self.goalDestination:
+						print("no more move to destination but somehow not at goal")#TESTING ONLY
+					else:
+						print("arrived at destination")
+					self.goalDestination = None #is it right to set this here?
+				else:
+					self.direction = newDirection
+			else:
+				self.direction = newDirection
+		elif self.carID % 2 == 1:
+			newDirection = self.approachYCoord(validDirections)
+			if newDirection == None:
+				newDirection = self.appraochXCoord(validDirections)
+				if newDirection == None: #arrived at destination
+					if self.coordinates != self.goalDestination:
+						print("no more move to destination but somehow not at goal")#TESTING ONLY
+					else:
+						print("arrived at destination")
+					self.goalDestination = None #is it right to set this here?
+				else:
+					self.direction = newDirection
+			else:
+				self.direction = newDirection
+		self.moveTowardsCurrentDirection()
+
+	def approachXCoord(self,validDirections):
+		if self.goalDestination.x > self.coordinates.x:
+			if Direction.East in validDirections:
+				return Direction.East
+		elif self.goalDestination.x < self.coordinates.x:
+			if Direction.West in validDirections:
+				return Direction.West
+		else:
+			return None
+
+	def appraochYCoord(self,validDirections):
+		if self.goalDestination.y > self.coordinates.y:
+			if Direction.North in validDirections:
+				return Direction.North
+		elif self.goalDestination.y < self.coordinates.y:
+			if Direction.South in validDirections:
+				return Direction.South
+		else:
+			return None
+
+	def moveTowardsCurrentDirection(self):
 		if(self.direction == Direction.North):
 			self.coordinates.increaseY(1)
 		elif(self.direction == Direction.East):
@@ -78,15 +177,11 @@ class Car(object):
 		elif(self.direction == Direction.West):
 			self.coordinates.decreaseX(1)
 		else:
-			print("randomMove error: invalid direction")
-
-	#executes a move towards a destination
-	def smartMove(self):
-
+			print("moveTowardsCurrentDirection error: invalid direction")
 
 	#randomly place self on a road
 	def randomlyPlaceCarOnRoads(self):
-		self.coordinates = generateValidCoordinate
+		self.coordinates = self.generateValidCoordinate()
 		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
 		self.direction = random.choice(self.getValidDirections())
 		return self.coordinates
@@ -138,16 +233,20 @@ class Car(object):
 	#define car behavior
 	def run(self):
 		while self.getNextMove() is not None:
-			if self.parkingSpot != None: #unpark if parked
+			if self.parkingSpot != None: #release parking spot
 				self.parkingSpot.release()
 				self.parkingSpot = None
-			if len(self.destinationStack) == 0:
-				setMovementPattern("random")
-			elif goal == None:
-				if self.
-				goal=destinationStack.pop(0)
-			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
-			parkingSpots = section.getParkingSpots(self.direction)
+
+			if len(self.destinations) == 0 and self.goalDestination == None:
+				self.moveFunction = "random" #start random movements once out of destinations
+			elif self.goalDestination == None:
+				if self.moveFunction == "random":
+					print("run warning: searching for a destination using random movement pattern")
+				self.goalDestination = self.destinations.pop(0)
+				self.wantsToPark == True
+
+			currentSection = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
+			parkingSpots = currentSection.getParkingSpots(self.direction)
 			
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
 				print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
@@ -155,63 +254,14 @@ class Car(object):
 				parkingSpot.request()
 				self.wantsToPark = False
 				self.parkingSpot = parkingSpot
-				park_duration = 15
-				yield self.env.timeout(park_duration)
+				yield self.env.timeout(PARK_DURATION)
 
 			else: #default behavior- drive
 				print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
-				trip_duration = 1
-				self.move(self.direction)
+				self.executeMovementBehavior()
 				if(self.wantsToPark):
 					self.clockCounter()
-				yield self.env.timeout(trip_duration)
-			self.circling()
-			trip_duration = 1
-			yield self.env.timeout(trip_duration)
-
-	#search for parking in a "dumb" circling pattern
-	def circling (self):
-		intersectingStreets = ([edge[0] for edge in self.cityMap.graph[self.currentStreetId] if edge[1] == self.coordinates])
-		
-		#if there is a road to turn onto
-		if(len(intersectingStreets)>0):
-			#and we have not made 7 rights
-			if(self.intersectionCount%8 != 0):
-				self.direction = self.getRight(self.direction) #turn right
-				self.intersectionCount +=1
-			else:
-				self.intersectionCount = 1 #go straight
-
-		currentRoad = self.cityMap.getRoadFromCoord(self.coordinates)
-		if (self.cityMap.willBeOutOfBounds(self.coordinates,self.direction,currentRoad)):
-			oppositeDirection = (self.direction + 2) % 4
-			if oppositeDirection == 0:
-				oppositeDirection = 4
-			self.direction = oppositeDirection
-		
-		
-		if(self.direction == Direction.North):
-			self.coordinates.increaseY(1)
-		elif(self.direction == Direction.East):
-			self.coordinates.increaseX(1)
-		elif(self.direction == Direction.South):
-			self.coordinates.decreaseY(1)
-		elif(self.direction == Direction.West):
-			self.coordinates.decreaseX(1)
-		else:
-			print("circling error: invalid direction")
-		
-		self.currentStreetId = self.cityMap.getRoadFromCoord(self.coordinates).id
-
-	def getRight(self,currentDirection):
-		if(currentDirection == Direction.North):
-			return Direction.East
-		elif(currentDirection == Direction.East):
-			return Direction.South
-		elif(currentDirection == Direction.South):
-			return Direction.West
-		elif(currentDirection == Direction.West):
-			return Direction.North
+				yield self.env.timeout(1)
 
 	def clockCounter(self):
 		self.timeSpent=self.timeSpent+1
@@ -252,7 +302,7 @@ class Car(object):
 	def generateDestinations(self,numOfDestination):
 		for i in range(numOfDestination):
 			self.destinations.append(self.generateValidCoordinate())
-		return destinations
+		return self.destinations
 
 	def __str__(self):
 		return "Car " + str(self.carID) + " (Coordinates: " + str(self.coordinates) + ", Direction: " + roadmap.directionToCardinalDirection(self.direction) + ")" + "Time: "+ str(self.timeSpent)

@@ -6,14 +6,14 @@ import simpy
 import sys
 
 
-CANVAS_WIDTH=1000
-CANVAS_HEIGHT=800
+CANVAS_WIDTH=2000
+CANVAS_HEIGHT=1000
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = .05
 ROAD_SECTION_WIDTH=21
 ROAD_SECTION_HEIGHT=21
-STEP_LENGTH = 0.05
+STEP_LENGTH = 0.25
 FILENAME = "cities/grid100_3.xml"
 LOGNAME = "logs/ParkingLog.log"
 toHoursFactor=1/3600 #convert seconds to hours
@@ -35,18 +35,9 @@ def runGraphics():
 	cityMap = loadCity(FILENAME)
 	carList = []
 	for i in range(1):
-		car = Car(env,i,cityMap,"random")
+		car = Car(env,i,cityMap,"smart")
 		car.randomlyPlaceCarOnRoads()
-		car.generateDestinations(2) 
-		'''
-		Destination=car.generateRandomDestinations(1)
-		ParkingBlock=car.getParkingSpotsDistance(Destination)
-		print("----------------")
-		print(Destination)
-		print(ParkingBlock.__str__())
-		print("----------------")
-		#car.generateRandomDestinations(2) 
-		'''
+		car.generateDestinations(1) 
 		carList.append(car)
 	
 	#determine which spots will never be avaialable to park in
