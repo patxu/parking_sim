@@ -7,7 +7,7 @@ import xml.dom.minidom
 import argparse
 
 SEED = 13
-MAP_SIZE = 101
+MAP_SIZE = 11
 BLOCK_SIZE_HORIZONTAL = 10
 BLOCK_SIZE_VERTICAL = 10
 PERCENT_OPEN = 3
