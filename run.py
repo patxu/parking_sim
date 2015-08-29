@@ -62,7 +62,13 @@ def runGraphics():
 					break;
 				sleep(0.1)
 
-		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+		# print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+		# if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+		# 	while True:
+		# 		for car in carList:
+		# 			print car.carID, car.destinations
+		# 		sleep(1)
+		# 	break
 
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
@@ -76,6 +82,7 @@ def runGraphics():
 	
 	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
 	fp.close()
+	sys.exit(0)
 
 def drawRoadSection(roadSection):
 	myCoordinates=roadSection.coordinates
@@ -249,10 +256,8 @@ if __name__ == '__main__':
 
 	#create cars
 	for i in range(int(args["cars"])):
-		car = Car(env,i,cityMap,"dumb")
+		car = Car(env,i,cityMap,"smart")
 		car.randomlyPlaceCarOnRoads()
-		car.coordinates = Coord(0,30)
-		car.direction = Direction.West
 		car.generateDestinations(1)
 		carList.append(car)
 	

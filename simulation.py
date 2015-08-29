@@ -237,17 +237,25 @@ class Car(object):
 
 			currentSection = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = currentSection.getParkingSpots(self.direction)
-			
+
 			if len(parkingSpots) > 0 and self.wantsToPark: #park
-				if self.smartParkingDestination != None and self.smartParkingDestination != self.coordinates:
-					continue
-				# print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
-				parkingSpot = random.choice(parkingSpots)
-				parkingSpot.request()
-				self.wantsToPark = False
-				self.parkingSpot = parkingSpot
-				self.destinations.pop(0)
-				yield self.env.timeout(PARK_DURATION)
+				if self.smartParkingDestination != None and self.smartParkingDestination.coordinates != self.coordinates:
+					print ("if")
+					self.executeMovementBehavior()
+					if(self.wantsToPark):
+						self.clockCounter()
+					yield self.env.timeout(1)
+				else:					
+					print ("else")
+					# print ("\t\t\t\t\t\tCar %d parking at time %d at coord %s.  Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))
+					parkingSpot = random.choice(parkingSpots)
+					parkingSpot.request()
+					print(str(parkingSpot))
+					self.wantsToPark = False
+					self.parkingSpot = parkingSpot
+					self.destinations.pop(0)
+					print(self.destinations)
+					yield self.env.timeout(PARK_DURATION)
 
 			else: #default behavior- drive
 				# print ("Car %d driving at time %d at coord %s. Total Time Elapsed: %d" % (self.carID,self.env.now,str(self.coordinates),self.timeSpent))

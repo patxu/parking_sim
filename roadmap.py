@@ -28,6 +28,14 @@ class Coord:
     else:
       return False
 
+  def __ne__(self,other):
+    if other == None:
+      return True
+    elif(self.x != other.x and self.y != other.y):
+      return True
+    else:
+      return False
+
   def increaseX(self,value):
     self.x += value
 
@@ -131,16 +139,7 @@ class Road(object):
 
   #find the road section based on a coordinate
   def getRoadSectionFromCoord(self, coord):
-      print(coord)
-      print[str(section) for section in self.roadSections]
-      for section in self.roadSections:
-        print section.coordinates, coord
-        if (section.coordinates == coord):
-          print "equals"
-          return section
-        else:
-          print "not equals"
-      # return [section for section in self.roadSections if section.coordinates == coord][0]
+    return [section for section in self.roadSections if section.coordinates == coord][0]
   def __str__(self):
     return "Road " + str(self.id) + " (Direction: " + str(directionToCardinalDirection(self.direction)) + ", FixedCoord: " + str(self.fixedCoord) + ")"
 
@@ -241,7 +240,7 @@ class RoadMap():
       newCoord = Coord(coord.x,coord.y-1)
       return self.isOutOfBounds(newCoord,direction,road)
     if (direction == Direction.West):
-      newCoord = Coord(coord.x,coord.y-1)
+      newCoord = Coord(coord.x-1,coord.y)
       return self.isOutOfBounds(newCoord,direction,road)           
 
 #-----------------Helper Classes-------------------#
