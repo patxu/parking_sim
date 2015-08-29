@@ -80,8 +80,9 @@ def runGraphics():
 					break;
 				sleep(0.1)
 
-		print str(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))*100) + "% parked"
+		update_progress(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)))
 		if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+			sys.stdout.write("\n")
 			print("Finished Simulation!")
 			break
 
@@ -361,7 +362,6 @@ if __name__ == '__main__':
 				env.step()
 			sleep(STEP_LENGTH)
 
-			# print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
 			update_progress(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)))
 			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 				sys.stdout.write("\n")
