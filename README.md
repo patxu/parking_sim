@@ -16,7 +16,7 @@
 
 ## Color Chart
 - Cars
-  - Orange = want to park
+  - Orange = wants to park
   - Blue = done parking
 - Parking Spots
   - Dark Green = always unavailable
