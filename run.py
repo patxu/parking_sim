@@ -40,7 +40,6 @@ def runGraphics():
 	set_fill_color(0,0.5,0) #Green
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
-	print (ROAD_SECTION_WIDTH)
 	while not window_closed():
 		numDriving = len([car for car in carList if car.parkingSpot == None])
 		for i in range(numDriving):
@@ -49,7 +48,6 @@ def runGraphics():
 			env.step()
 		for road in cityMap.roads:
 			for roadSection in road.roadSections:
-				print ("drawing road" + str(road.id))
 				drawRoadSection(roadSection)
 		for car in carList:
 			drawCar(car)
@@ -77,7 +75,6 @@ def runGraphics():
 
 def drawRoadSection(roadSection):
 	myCoordinates=roadSection.coordinates
-	print (myCoordinates)
 	x_coor=myCoordinates.x
 	y_coor=myCoordinates.y
 	y_coor = y_coor*ROAD_SECTION_HEIGHT
@@ -247,7 +244,7 @@ if __name__ == '__main__':
 
 	#create cars
 	for i in range(int(args["cars"])):
-		car = Car(env,i,cityMap,"random")
+		car = Car(env,i,cityMap,"smart")
 		car.randomlyPlaceCarOnRoads()
 		car.generateDestinations(2)
 		carList.append(car)
