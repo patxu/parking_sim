@@ -63,7 +63,8 @@ def runGraphics():
 
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
-	totalDrivingTime=0;
+	totalAverage = 0
+	total = 0
 	for car in carList:
 		averageTime = (car.timeSpent / car.totalDestinations)
 		totalAverage += averageTime
