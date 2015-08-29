@@ -35,6 +35,7 @@ class Car(object):
 		self.destinations = []
 		self.smartParkingDestination= None 
 		self.timeSpent=0
+		self.distanceFrom=0
 		self.intersectionCount = 1
 
 	def executeMovementBehavior(self):
@@ -250,6 +251,7 @@ class Car(object):
 					parkingSpot.request()
 					self.wantsToPark = False
 					self.parkingSpot = parkingSpot
+					self.distanceFrom += self.coordinates.distanceFrom(self.destinations[0])
 					self.destinations.pop(0)
 					yield self.env.timeout(PARK_DURATION)
 

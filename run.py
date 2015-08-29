@@ -22,13 +22,18 @@ def signal_handler(signal,frame):
 	fp.write("Parking Log\n")
 	total=0
 	totalAverage = 0
+	totalDistanceAverage = 0
 	for car in carList:
 		averageTime = (car.timeSpent / car.totalDestinations)
+		averageDistance = (car.distanceFrom / car.totalDestinations)
+		
 		totalAverage += averageTime
+		totalDistanceAverage += averageDistance
+		
 		total += car.timeSpent
-		fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "\n")
+		fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "For an average distance from destination of: " + str(averageDistance) + "\n")
 	
-	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
+	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
 	fp.close()
 	sys.exit(0)	
 
@@ -68,15 +73,20 @@ def runGraphics():
 
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
+	total=0
 	totalAverage = 0
-	total = 0
+	totalDistanceAverage = 0
 	for car in carList:
 		averageTime = (car.timeSpent / car.totalDestinations)
+		averageDistance = (car.distanceFrom / car.totalDestinations)
+		
 		totalAverage += averageTime
+		totalDistanceAverage += averageDistance
+		
 		total += car.timeSpent
-		fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "\n")
+		fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "For an average distance from destination of: " + str(averageDistance) + "\n")
 	
-	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
+	fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
 	fp.close()
 	sys.exit(0)
 
@@ -252,7 +262,7 @@ if __name__ == '__main__':
 
 	#create cars
 	for i in range(int(args["cars"])):
-		car = Car(env,i,cityMap,"smart")
+		car = Car(env,i,cityMap,"dumb")
 		car.randomlyPlaceCarOnRoads()
 		car.generateDestinations(1)
 		carList.append(car)
@@ -285,15 +295,20 @@ if __name__ == '__main__':
 		fp.write("Parking Log\n")
 		total=0
 		totalAverage = 0
+		totalDistanceAverage = 0
 		for car in carList:
 			averageTime = (car.timeSpent / car.totalDestinations)
+			averageDistance = (car.distanceFrom / car.totalDestinations)
+			
 			totalAverage += averageTime
+			totalDistanceAverage += averageDistance
+			
 			total += car.timeSpent
-			fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "\n")
+			fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "For an average distance from destination of: " + str(averageDistance) + "\n")
 		
-		fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
+		fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
 		fp.close()
-		print("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
+		print ("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(totalAverage/len(carList)) + " Average Distance from destination: " + str(totalDistanceAverage/len(carList))+"\n")
 		sys.exit(0)	
 
 
