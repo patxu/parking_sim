@@ -127,56 +127,22 @@ class Car(object):
 			self.moveTowardsCurrentDirection()
 			return
 
-		validDirections = self.getValidDirections()
-		if self.carID % 2 == 0:
-			newDirection = self.approachXCoord(validDirections)
-			if newDirection == None:
-				newDirection = self.appraochYCoord(validDirections)
-				if newDirection == None: #arrived at destination
-					if self.coordinates != self.goalDestination:
-						print("no more move to destination but somehow not at goal")#TESTING ONLY
-					else:
-						print("arrived at destination")
-					self.goalDestination = None #is it right to set this here?
-				else:
-					self.direction = newDirection
-			else:
-				self.direction = newDirection
-		elif self.carID % 2 == 1:
-			newDirection = self.approachYCoord(validDirections)
-			if newDirection == None:
-				newDirection = self.appraochXCoord(validDirections)
-				if newDirection == None: #arrived at destination
-					if self.coordinates != self.goalDestination:
-						print("no more move to destination but somehow not at goal")#TESTING ONLY
-					else:
-						print("arrived at destination")
-					self.goalDestination = None #is it right to set this here?
-				else:
-					self.direction = newDirection
-			else:
-				self.direction = newDirection
-		self.moveTowardsCurrentDirection()
+		# validDirections = self.getValidDirections()
 
-	def approachXCoord(self,validDirections):
-		if self.goalDestination.x > self.coordinates.x:
-			if Direction.East in validDirections:
-				return Direction.East
-		elif self.goalDestination.x < self.coordinates.x:
-			if Direction.West in validDirections:
-				return Direction.West
-		else:
-			return None
+		xDiff = abs(self.goalDestination.x - self.coordinates.x)
+		yDiff = abs(self.goalDestination.y - self.coordinates.y)
 
-	def appraochYCoord(self,validDirections):
-		if self.goalDestination.y > self.coordinates.y:
-			if Direction.North in validDirections:
-				return Direction.North
-		elif self.goalDestination.y < self.coordinates.y:
-			if Direction.South in validDirections:
-				return Direction.South
+		if xDiff > yDiff:
+			if self.goalDestination.x < self.coordinates.x:
+				self.direction = Direction.West
+			elif (self.goalDestination.x > self.coordinates.x):
+				self.direction = Direction.East
 		else:
-			return None
+			if (self.goalDestination.y < self.coordinates.y):
+				self.direction = Direction.South
+			elif (self.goalDestination.y > self.coordinates.y):
+				self.direction = Direction.North
+		print self.direction
 
 	def moveTowardsCurrentDirection(self):
 		if(self.direction == Direction.North):
@@ -193,7 +159,6 @@ class Car(object):
 	#executes a move towards a destination
 	def smartMove(self):
 		print("moveTowardsCurrentDirection error: invalid direction")
-
 	#randomly place self on a road
 	def randomlyPlaceCarOnRoads(self):
 		self.coordinates = self.generateValidCoordinate()
@@ -256,8 +221,15 @@ class Car(object):
 			elif self.goalDestination == None:
 				#if self.
 				goal=self.destinations.pop(0)
+				self.moveFunction = "random"
+			elif self.goalDestination == None:
+				self.goalDestination=self.destinations.pop(0)
 			section = self.cityMap.getRoadFromCoord(self.coordinates).getRoadSectionFromCoord(self.coordinates)
 			parkingSpots = section.getParkingSpots(self.direction)
+
+			if self.coordinates == self.goalDestination:
+				print("Got to Goal!!")
+				self.goalDestination = None
 
 			if len(self.destinations) == 0 and self.goalDestination == None:
 				self.moveFunction = "random" #start random movements once out of destinations
@@ -324,6 +296,7 @@ class Car(object):
 	def generateDestinations(self,numOfDestination):
 		for i in range(numOfDestination):
 			self.destinations.append(self.generateValidCoordinate())
+		self.totalDestinations = numOfDestination
 		return self.destinations
 
 	def __str__(self):

@@ -9,7 +9,7 @@ PERCENT_CROSSABLE = 100 -->
   <road name="0">
     <direction>1</direction>
     <min>0</min>
-    <max>10</max>
+    <max>11</max>
     <fixedCoord>0</fixedCoord>
     <roadSection>
       <coordX>0</coordX>
@@ -101,11 +101,29 @@ PERCENT_CROSSABLE = 100 -->
       <intersection>N</intersection>
       <direction>1</direction>
     </roadSection>
+    <roadSection>
+      <coordX>0</coordX>
+      <coordY>10</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>Y</intersection>
+      <direction>1</direction>
+    </roadSection>
+    <roadSection>
+      <coordX>0</coordX>
+      <coordY>11</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>N</intersection>
+      <direction>1</direction>
+    </roadSection>
   </road>
   <road name="1">
     <direction>1</direction>
     <min>0</min>
-    <max>10</max>
+    <max>11</max>
     <fixedCoord>10</fixedCoord>
     <roadSection>
       <coordX>10</coordX>
@@ -197,11 +215,29 @@ PERCENT_CROSSABLE = 100 -->
       <intersection>N</intersection>
       <direction>1</direction>
     </roadSection>
+    <roadSection>
+      <coordX>10</coordX>
+      <coordY>10</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>Y</intersection>
+      <direction>1</direction>
+    </roadSection>
+    <roadSection>
+      <coordX>10</coordX>
+      <coordY>11</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>N</intersection>
+      <direction>1</direction>
+    </roadSection>
   </road>
   <road name="2">
     <direction>2</direction>
     <min>0</min>
-    <max>10</max>
+    <max>11</max>
     <fixedCoord>0</fixedCoord>
     <roadSection>
       <coordX>0</coordX>
@@ -293,11 +329,29 @@ PERCENT_CROSSABLE = 100 -->
       <intersection>N</intersection>
       <direction>2</direction>
     </roadSection>
+    <roadSection>
+      <coordX>10</coordX>
+      <coordY>0</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>Y</intersection>
+      <direction>2</direction>
+    </roadSection>
+    <roadSection>
+      <coordX>11</coordX>
+      <coordY>0</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>N</intersection>
+      <direction>2</direction>
+    </roadSection>
   </road>
   <road name="3">
     <direction>2</direction>
     <min>0</min>
-    <max>10</max>
+    <max>11</max>
     <fixedCoord>10</fixedCoord>
     <roadSection>
       <coordX>0</coordX>
@@ -382,6 +436,24 @@ PERCENT_CROSSABLE = 100 -->
     </roadSection>
     <roadSection>
       <coordX>9</coordX>
+      <coordY>10</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>N</intersection>
+      <direction>2</direction>
+    </roadSection>
+    <roadSection>
+      <coordX>10</coordX>
+      <coordY>10</coordY>
+      <parkingRight>N</parkingRight>
+      <parkingLeft>N</parkingLeft>
+      <crossable>Y</crossable>
+      <intersection>Y</intersection>
+      <direction>2</direction>
+    </roadSection>
+    <roadSection>
+      <coordX>11</coordX>
       <coordY>10</coordY>
       <parkingRight>N</parkingRight>
       <parkingLeft>N</parkingLeft>
