@@ -88,7 +88,6 @@ def runGraphics():
 	fp.close()
 
 
-
 def drawRoadSection(roadSection):
 	myCoordinates=roadSection.coordinates
 	x_coor=myCoordinates.x
@@ -239,6 +238,7 @@ if __name__ == '__main__':
 		FILENAME = sys.argv[1]
 	if(len(sys.argv) > 2):
 		LOGNAME = sys.argv[2]
+	c = create_canvas("smart parking",CANVAS_WIDTH,CANVAS_HEIGHT,True)
 	start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 
 	
