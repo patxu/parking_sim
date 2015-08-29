@@ -31,10 +31,10 @@ SMART40 = 40
 SMART20 = 20
 SMART0 = 0
 
-LOG_THREE = dest$(DESTINATIONS)_three.log
-LOG_FIVE = dest$(DESTINATIONS)_five.log
-LOG_TEN = dest$(DESTINATIONS)_ten.log
-LOG_TWENTY = dest$(DESTINATIONS)_twenty.log
+LOG_THREE = dest$(DESTINATIONS)_percent3.log
+LOG_FIVE = dest$(DESTINATIONS)_percent5.log
+LOG_TEN = dest$(DESTINATIONS)_percent10.log
+LOG_TWENTY = dest$(DESTINATIONS)_percent20.log
 
 generate:
 	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT3) -f $(CITY_DIR)$(CITY_THREE)

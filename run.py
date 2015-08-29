@@ -8,6 +8,7 @@ from draw_city import *
 from cs1lib import *
 import time
 import sys
+import matplotlib.colors as colors
 
 logname = "cities/test.log" #this will be changed everytime because output path is required
 env = simpy.Environment()
@@ -18,6 +19,15 @@ CANVAS_WIDTH = 100
 ROAD_SECTION_WIDTH=20
 ROAD_SECTION_HEIGHT=20
 STEP_LENGTH = 0.05
+
+# Color enum
+def enum(**enums):
+  """Declares enums for various colors.
+  """
+  return type('Enum',(),enums)
+
+Color = enum(Red="#F44336", Pink="#E91E63", Yellow="#FFEB3B", Orange="#FF9800", DarkGreen="#388E3C", Green="#4CAF50", LightGreen="#8BC34A", Lime="#DCE775", Blue="#2196F3", Grey="#9E9E9E", White="#FFFFFF")
+Theme= enum(Background=Color.Green, Closed_Spot=Color.DarkGreen, Open_Spot=Color.Yellow, Occupied_Spot=Color.Red, Car_Done=Color.Blue, Car_Parking=Color.Orange)
 
 def signal_handler(signal,frame):
 	fp=open(logname,"w")
@@ -40,12 +50,14 @@ def signal_handler(signal,frame):
 	sys.exit(0)	
 
 def runGraphics():	
-	set_clear_color(1,1,1)
+	color = colors.hex2color(Color.White)
+	set_clear_color(color[0],color[1],color[2])
 	clear()
 
 	#Grass
 	disable_stroke()
-	set_fill_color(0,0.5,0) #Green
+	color = colors.hex2color(Theme.Background)
+	set_fill_color(color[0],color[1],color[2])
 	draw_rectangle(0,0,CANVAS_WIDTH,CANVAS_HEIGHT)
 
 	while not window_closed():
@@ -59,7 +71,6 @@ def runGraphics():
 				drawRoadSection(roadSection)
 		for car in carList:
 			drawCar(car)
-		# drawRoads(cityMap)
 		request_redraw()
 		sleep(STEP_LENGTH)
 
@@ -69,8 +80,9 @@ def runGraphics():
 					break;
 				sleep(0.1)
 
-		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+		print str(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))*100) + "% parked"
 		if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+			print("Finished Simulation!")
 			break
 
 	fp=open(logname,"w")
@@ -102,104 +114,136 @@ def drawRoadSection(roadSection):
 	if (roadSection.intersection==True):
 		enable_stroke()
 		set_stroke_width(2)
-		set_stroke_color(1,1,0) #Yellow
-		set_fill_color(0.5,0.5,0.5) #Gray
+		color = colors.hex2color(Color.White)
+		set_stroke_color(color[0],color[1],color[2])
+		color = colors.hex2color(Color.Grey)
+		set_fill_color(color[0],color[1],color[2])
 		draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH,ROAD_SECTION_WIDTH)
 		disable_stroke()
 	else:
 		if (roadSection.direction==Direction.North):
+
 			disable_stroke()
-			set_fill_color(0.5,0.5,0.5)
+			color = colors.hex2color(Color.Grey)
+			set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH,ROAD_SECTION_HEIGHT)
+
+			#dividing line
 			enable_stroke()
 			set_stroke_width(2)
 			if(roadSection.crossable == True):
-				set_stroke_color(1,1,1) #white
+				color = colors.hex2color(Color.White)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(1,1,0) #white
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			draw_line(x_coor+ROAD_SECTION_WIDTH/2,y_coor,x_coor+ROAD_SECTION_WIDTH/2,y_coor+ROAD_SECTION_HEIGHT)
 			disable_stroke()
 
 			
-			enable_stroke()
+			#left parking spot
+			# enable_stroke()
 			set_stroke_width(2)
 			if (roadSection.parkingLeft.isParkingSpot == True):
-				set_stroke_color(1,1,0) #Yellow
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(0,0.5,0) #Green
+				color = colors.hex2color(Theme.Closed_Spot)
+				set_stroke_color(color[0],color[1],color[2])
 			if (roadSection.parkingLeft.available==True):
-				set_fill_color(0,0.9,0)
+				color = colors.hex2color(Theme.Open_Spot)
+				set_fill_color(color[0],color[1],color[2])
 			else:
 				if (roadSection.parkingLeft.isParkingSpot == False):
-					set_fill_color(0,0.5,0) #Green
+					color = colors.hex2color(Theme.Closed_Spot)
+					set_fill_color(color[0],color[1],color[2])
 				else:
-					set_fill_color(0.9,0,0)
+					color = colors.hex2color(Theme.Occupied_Spot)
+					set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
 			disable_stroke()
 
 			
-			enable_stroke()
+			# enable_stroke()
 			set_stroke_width(2)
 			if (roadSection.parkingRight.isParkingSpot == True):
-				set_stroke_color(1,1,0) #Yellow
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(0,0.5,0) #Green
+				color = colors.hex2color(Theme.Closed_Spot)
+				set_stroke_color(color[0],color[1],color[2])
 			if (roadSection.parkingRight.available==True):
-				set_fill_color(0,0.9,0)
+				color = colors.hex2color(Theme.Open_Spot)
+				set_fill_color(color[0],color[1],color[2])
 			else:
 				if (roadSection.parkingRight.isParkingSpot == False):
-					set_fill_color(0,0.5,0) #Green
+					color = colors.hex2color(Theme.Closed_Spot)
+					set_fill_color(color[0],color[1],color[2])
 				else:
-					set_fill_color(0.9,0,0)
+					color = colors.hex2color(Theme.Occupied_Spot)
+					set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor+((3*(ROAD_SECTION_WIDTH))/4),y_coor,ROAD_SECTION_WIDTH/4,ROAD_SECTION_HEIGHT)
 			disable_stroke()
 
 
 		if (roadSection.direction==Direction.East):
-			
+
 			disable_stroke()
-			set_fill_color(0.5,0.5,0.5)
+			color = colors.hex2color(Color.Grey)
+			set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH)
 			enable_stroke()
 			set_stroke_width(2)
 			if(roadSection.crossable == True):
-				set_stroke_color(1,1,1) #white
+				color = colors.hex2color(Color.White)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(1,1,0) #white
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			draw_line(x_coor,y_coor+ROAD_SECTION_WIDTH/2,x_coor+ROAD_SECTION_HEIGHT,y_coor+ROAD_SECTION_WIDTH/2)
 			disable_stroke()
 
 			
-			enable_stroke()
-			set_stroke_width(1)
+			# enable_stroke()
+			set_stroke_width(2)
 			if (roadSection.parkingLeft.isParkingSpot == True):
-				set_stroke_color(1,1,0) #Yellow
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(0,0.5,0) #Green
+				color = colors.hex2color(Theme.Closed_Spot)
+				set_stroke_color(color[0],color[1],color[2])
 			if (roadSection.parkingLeft.available==True):
-				set_fill_color(0,0.9,0)
+				color = colors.hex2color(Theme.Open_Spot)
+				set_fill_color(color[0],color[1],color[2])
 			else:
 				if (roadSection.parkingLeft.isParkingSpot == False):
-					set_fill_color(0,0.5,0) #Green
+					color = colors.hex2color(Theme.Closed_Spot)
+					set_fill_color(color[0],color[1],color[2])
 				else:
-					set_fill_color(0.9,0,0)
+					color = colors.hex2color(Theme.Occupied_Spot)
+					set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor,y_coor+((3*(ROAD_SECTION_WIDTH))/4),ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
 			disable_stroke()
 
 			
-			enable_stroke()
+			# enable_stroke()
 			set_stroke_width(2)
 			if (roadSection.parkingRight.isParkingSpot == True):
-				set_stroke_color(1,1,0) #Yellow
+				color = colors.hex2color(Color.Yellow)
+				set_stroke_color(color[0],color[1],color[2])
 			else:
-				set_stroke_color(0,0.5,0) #Green
+				color = colors.hex2color(Theme.Closed_Spot)
+				set_fill_color(color[0],color[1],color[2])
 			if (roadSection.parkingRight.available==True):
-				set_fill_color(0,0.9,0)
+				color = colors.hex2color(Theme.Open_Spot)
+				set_fill_color(color[0],color[1],color[2])
 			else:
 				if (roadSection.parkingRight.isParkingSpot == False):
-					set_fill_color(0,0.5,0) #Green
+					color = colors.hex2color(Theme.Closed_Spot)
+					set_fill_color(color[0],color[1],color[2])
 				else:
-					set_fill_color(0.9,0,0)
+					color = colors.hex2color(Theme.Occupied_Spot)
+					set_fill_color(color[0],color[1],color[2])
 			draw_rectangle(x_coor,y_coor,ROAD_SECTION_HEIGHT,ROAD_SECTION_WIDTH/4)
 			disable_stroke()
 
@@ -213,11 +257,14 @@ def drawCar(car):
 
 	enable_stroke()
 	set_stroke_width(2)
-	set_stroke_color(1,0,0.7) #Yellow
 	if (car.wantsToPark):
-		set_fill_color(1,0,0.7) #Blue
+		color = colors.hex2color(Theme.Car_Parking)
+		set_fill_color(color[0],color[1],color[2])
+		set_stroke_color(color[0],color[1],color[2])
 	else:
-		set_fill_color(0,0,1)
+		color = colors.hex2color(Theme.Car_Done)
+		set_fill_color(color[0],color[1],color[2])
+		set_stroke_color(color[0],color[1],color[2])
 	if(car.direction == Direction.North):
 		x_coor = x_coor+(ROAD_SECTION_WIDTH/2)+(ROAD_SECTION_WIDTH/5)
 		y_coor = y_coor + (ROAD_SECTION_HEIGHT/2)
@@ -318,6 +365,7 @@ if __name__ == '__main__':
 			update_progress(float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)))
 			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 				sys.stdout.write("\n")
+				print("Finished Simulation!")
 				break
 
 
