@@ -62,13 +62,9 @@ def runGraphics():
 					break;
 				sleep(0.1)
 
-		# print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
-		# if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
-		# 	while True:
-		# 		for car in carList:
-		# 			print car.carID, car.destinations
-		# 		sleep(1)
-		# 	break
+		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+		if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+			break
 
 	fp=open(logname,"w")
 	fp.write("Parking Log\n")
@@ -245,8 +241,8 @@ if __name__ == '__main__':
 
 	logname = args["output"]
 	cityFile = args["map"]
-	CANVAS_HEIGHT = args["canvas_length"]
-	CANVAS_WIDTH = args["canvas_width"]
+	CANVAS_HEIGHT = int(args["canvas_length"])
+	CANVAS_WIDTH = int(args["canvas_width"])
 	ROAD_SECTION_WIDTH=int(args["zoom"])
 	ROAD_SECTION_HEIGHT=int(args["zoom"])
 	STEP_LENGTH=float(args["step_length"])
@@ -280,5 +276,23 @@ if __name__ == '__main__':
 			if numDriving == 0:
 				env.step()
 			sleep(STEP_LENGTH)
+
+			print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
+				break
+			
+		fp=open(logname,"w")
+		fp.write("Parking Log\n")
+		total=0
+		totalAverage = 0
+		for car in carList:
+			averageTime = (car.timeSpent / car.totalDestinations)
+			totalAverage += averageTime
+			total += car.timeSpent
+			fp.write("Car: "+str(car.getCarID())+" Total Time Spent Searching: "+str(car.timeSpent)+ " Average Time Spent Searching: " + str(averageTime) + "\n")
+		
+		fp.write("Total Time Spent Looking for Parking by All Cars: "+str(total)+ " Average Time Spent Looking: " + str(total/len(carList)) + "\n")
+		fp.close()
+		sys.exit(0)	
 
 

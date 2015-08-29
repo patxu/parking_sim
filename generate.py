@@ -98,13 +98,13 @@ if __name__ == '__main__':
 	args = vars(parser.parse_args())
 
 	if (args["map_size"] != None):
-		MAP_SIZE = args["map_size"]
+		MAP_SIZE = int(args["map_size"])
 	if (args["block_length"] != None):
-		BLOCK_SIZE_VERTICAL = args["block_length"]
+		BLOCK_SIZE_VERTICAL = int(args["block_length"])
 	if (args["block_width"] != None):
-		BLOCK_SIZE_HORIZONTAL = args["block_width"]
+		BLOCK_SIZE_HORIZONTAL = int(args["block_width"])
 	if (args["percent_open"] != None):
-		PERCENT_OPEN = args["percent_open"]
+		PERCENT_OPEN = int(args["percent_open"])
 	if (args["file"] != None):
 		FILENAME = args["file"]
 	
