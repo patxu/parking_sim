@@ -31,10 +31,10 @@ SMART40 = 40
 SMART20 = 20
 SMART0 = 0
 
-LOG_THREE = cars$(CARS)_dest$(DESTIONATIONS)_three.xml
-LOG_FIVE = cars$(CARS)_dest$(DESTIONATIONS)_five.xml
-LOG_TEN = cars$(CARS)_dest$(DESTIONATIONS)_ten.xml
-LOG_TWENTY = cars$(CARS)_dest$(DESTIONATIONS)_twenty.xml
+LOG_THREE = cars$(CARS)_dest$(DESTIONATIONS)_three.log
+LOG_FIVE = cars$(CARS)_dest$(DESTIONATIONS)_five.log
+LOG_TEN = cars$(CARS)_dest$(DESTIONATIONS)_ten.log
+LOG_TWENTY = cars$(CARS)_dest$(DESTIONATIONS)_twenty.log
 
 generate:
 	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT3) -f $(CITY_DIR)$(CITY_THREE)
