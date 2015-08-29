@@ -45,10 +45,10 @@ generate:
 #we don't loop through the smart-dumb ratios in a single command in order to be able to run the tests in parallel
 smart100:
 	for number in 100 500 1000 2500; do \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_THREE); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_FIVE); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_TEN); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_TWENTY); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars"$$number"_smart$(SMART100)_$(LOG_TWENTY); \
 	done
 
 smart80:
