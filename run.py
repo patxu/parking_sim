@@ -68,6 +68,7 @@ def runGraphics():
 				sleep(0.1)
 
 		print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+		# print [(str(car.coordinates), str(car.destinations[0])) for car in carList if len(car.destinations) != 0]
 		if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 			break
 
@@ -270,7 +271,7 @@ if __name__ == '__main__':
 		else:
 			car = Car(env,i,cityMap,"dumb")
 		car.randomlyPlaceCarOnRoads()
-		car.generateDestinations(args["destinations"])
+		car.generateDestinations(int(args["destinations"]))
 		carList.append(car)
 	#only done for graphic purposes
 	if(args["graphics"]):
@@ -284,6 +285,7 @@ if __name__ == '__main__':
 		start_graphics(runGraphics,"SmartParking",CANVAS_WIDTH,CANVAS_HEIGHT, True)
 	
 	else:
+		print("STARTING RUN: cars: %d destinations: %d map: %s" %(int(args["cars"]), int(args["destinations"]), cityFile))
 		while True:
 			numDriving = len([car for car in carList if car.parkingSpot == None])
 			for i in range(numDriving):
@@ -293,8 +295,10 @@ if __name__ == '__main__':
 			sleep(STEP_LENGTH)
 
 			print float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList))
+			print [(str(car.coordinates), str(car.destination[0])) for car in carList if len(car.destinations) != 0]
 			if float(len([car for car in carList if len(car.destinations) == 0]))/float(len(carList)) > .97:
 				break
+
 
 		fp=open(logname,"w")
 		fp.write("Parking Log\n")

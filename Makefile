@@ -22,7 +22,7 @@ CARS100 = 100
 CARS500 = 500
 CARS1000 = 1000
 CARS2500 = 2500
-DESTINATIONS = 3 
+DESTINATIONS = 2
 
 SMART100 = 100
 SMART80 = 80
@@ -43,12 +43,52 @@ generate:
 	python generate.py -s 100 -l 10 -w 10 -o $(PERCENT20) -f $(CITY_DIR)$(CITY_TWENTY)
 
 #we don't loop through the smart-dumb ratios in a single command in order to be able to run the tests in parallel
-run_smart100:
+smart100:
 	for number in 100 500 1000 2500; do \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_THREE -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_THREE); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_FIVE -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_FIVE); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_TEN -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_TEN); \
-		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m CITY_TWENTY -o $(LOG_DIR)"cars"$$number"_smart"$(SMART100)"_"$(LOG_TWENTY); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART100) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
+	done
+
+smart80:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART80) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
+	done
+
+smart60:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART60) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART60) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART60) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART60) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
+	done
+
+smart40:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART40) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART40) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART40) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART40) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
+	done
+
+smart20:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART20) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART20) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART20) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART20) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
+	done
+
+smart0:
+	for number in 100 500 1000 2500; do \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART0) -m $(CITY_DIR)$(CITY_THREE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_THREE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART0) -m $(CITY_DIR)$(CITY_FIVE) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_FIVE); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART0) -m $(CITY_DIR)$(CITY_TEN) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TEN); \
+		python run.py -t 0 -d $(DESTINATIONS) -c $$number -s $(SMART0) -m $(CITY_DIR)$(CITY_TWENTY) -o $(LOG_DIR)cars$$number_smart$(SMART100)_$(LOG_TWENTY); \
 	done
 
 sphinxhtml:
