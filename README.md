@@ -1,3 +1,6 @@
+![Parking Sim]
+(http://i.imgur.com/wgx7VFz.png)
+
 # Parking Simulation  
 
 
