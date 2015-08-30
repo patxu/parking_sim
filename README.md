@@ -1,6 +1,3 @@
-![Parking Sim]
-(http://i.imgur.com/wgx7VFz.png)
-
 # Parking Simulation  
 
 
@@ -25,3 +22,6 @@
   - Dark Green = always unavailable
   - Yellow = open
   - Red = occupied
+
+![Parking Sim]
+(http://i.imgur.com/wgx7VFz.png)
