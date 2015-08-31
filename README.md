@@ -25,3 +25,6 @@
 
 ![Parking Sim]
 (http://i.imgur.com/wgx7VFz.png)
+
+## Sphinx Documentation
+The documentation using Sphinx is only partially working due to a library installation issue.

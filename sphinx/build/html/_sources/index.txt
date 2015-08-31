@@ -11,10 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   cars.rst
-   draw_city.rst
    generate.rst
    roadmap.rst
+   run.rst
    simulation.rst
 
 

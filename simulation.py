@@ -4,7 +4,6 @@ from roadmap import Coord,Direction,ParkingSpot,RoadSection,Road,RoadMap,loadCit
 import roadmap
 from threading import Thread
 from cs1lib import *
-from draw_city import *
 
 #DEBUGGING (must have ipdb and iPython set up)
 # import ipdb; ipdb.set_trace()

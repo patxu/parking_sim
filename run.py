@@ -1,10 +1,8 @@
-
 import argparse
 import signal
 import simpy
 from roadmap import *
 from simulation import *
-from draw_city import *
 from cs1lib import *
 import time
 import sys

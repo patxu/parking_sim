@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Parking_Simulation 1.0 documentation" href="index.html" />
-    <link rel="prev" title="roadmap module" href="roadmap.html" />
+    <link rel="prev" title="run module" href="run.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -37,104 +37,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-simulation">
-<span id="simulation-module"></span><h1>simulation module<a class="headerlink" href="#module-simulation" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="simulation.Car">
-<em class="property">class </em><code class="descclassname">simulation.</code><code class="descname">Car</code><span class="sig-paren">(</span><em>env</em>, <em>carID</em>, <em>cityMap</em>, <em>moveFunction='random'</em>, <em>wantsToPark=False</em>, <em>coordinates=None</em>, <em>direction=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="simulation.Car.circling">
-<code class="descname">circling</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.circling" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.clockCounter">
-<code class="descname">clockCounter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.clockCounter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.dumbMove">
-<code class="descname">dumbMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.dumbMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.executeMovementBehavior">
-<code class="descname">executeMovementBehavior</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.executeMovementBehavior" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.generateDestinations">
-<code class="descname">generateDestinations</code><span class="sig-paren">(</span><em>numOfDestination</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.generateDestinations" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.generateValidCoordinate">
-<code class="descname">generateValidCoordinate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.generateValidCoordinate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getCarID">
-<code class="descname">getCarID</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getCarID" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getClosestRoadSectionToDestination">
-<code class="descname">getClosestRoadSectionToDestination</code><span class="sig-paren">(</span><em>parking_destination</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getClosestRoadSectionToDestination" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getNextMove">
-<code class="descname">getNextMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getNextMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getRight">
-<code class="descname">getRight</code><span class="sig-paren">(</span><em>currentDirection</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getRight" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getTime">
-<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getTime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.getValidDirections">
-<code class="descname">getValidDirections</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.getValidDirections" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.goToCoordinate">
-<code class="descname">goToCoordinate</code><span class="sig-paren">(</span><em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.goToCoordinate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.moveTowardsCurrentDirection">
-<code class="descname">moveTowardsCurrentDirection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.moveTowardsCurrentDirection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.randomMove">
-<code class="descname">randomMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.randomMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.randomlyPlaceCarOnRoads">
-<code class="descname">randomlyPlaceCarOnRoads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.randomlyPlaceCarOnRoads" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.run">
-<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simulation.Car.smartMove">
-<code class="descname">smartMove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulation.Car.smartMove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="simulation-module">
+<h1>simulation module<a class="headerlink" href="#simulation-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -146,7 +50,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="roadmap.html" title="previous chapter">roadmap module</a></li>
+      <li>Previous: <a href="run.html" title="previous chapter">run module</a></li>
   </ul></li>
 </ul>
 </div>
