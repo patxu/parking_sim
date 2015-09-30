@@ -2,10 +2,11 @@
 
 
 ## Getting Started:  
-- Enter Virtual Environment: `source venv/bin/activate`
-- Generate a Map: `python generate.py -m <map size> -l <block length> -w <block width> -o <percent open> -f <file to write to>`
-- Run Simulation: `python run.py -h` for full options
-- Exit venv: `deactivate`
+1. Enter Virtual Environment: `source venv/bin/activate`
+2. Generate a Map: `python generate.py -m <map size> -l <block length> -w <block width> -o <percent open> -f <file to write to>`
+3. Run Simulation: `python run.py -h` for full options
+4.  Exit venv: `deactivate`
+
 
 - Quick Run: `python run.py -g -c 40 -t 0.1 -m cities/smallCity.xml -o temp.log`
 
